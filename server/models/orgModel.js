@@ -17,6 +17,8 @@ orgSchema.statics.signup = async function (name) {
     };
 
     const org = await this.create({ name });
+
+    return org;
 };
 
 const Organization = mongoose.model("Organization", orgSchema);

@@ -1,7 +1,11 @@
 import express from "express";
-const router = express.router();
-import { orgSignup } from "../controller/orgController";
+const router = express.Router();
 
-router.post("/signup", orgSignup);
+import { orgSignup } from "../controller/orgController.js";
+
+import bodyParser from "body-parser";
+const jsonParser = bodyParser.json();
+
+router.post("/signup", jsonParser, orgSignup);
 
 export default router;

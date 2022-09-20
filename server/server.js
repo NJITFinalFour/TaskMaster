@@ -1,9 +1,11 @@
 // Package depencies
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
-import orgRoutes from "./routes/org";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import orgRoutes from "./routes/org.js";
+
+dotenv.config();
 
 // Server setup
 const PORT = process.env.PORT | 5000;
