@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const organizationSchema = new Schema(
+const orgSchema = new Schema(
     {
         name: {
             type: String,
@@ -11,14 +11,14 @@ const organizationSchema = new Schema(
     }
 );
 
-organizationSchema.statics.signup = async function (name) {
+orgSchema.statics.signup = async function (name) {
     if (!name) {
         throw Error("We need an organization name.");
     };
 
-    const organization = await this.create({ name });
+    const org = await this.create({ name });
 };
 
-const Organization = mongoose.model("Organization", organizationSchema);
+const Organization = mongoose.model("Organization", orgSchema);
 
 export default Organization;
