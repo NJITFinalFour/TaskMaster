@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import Timer from "./Timer";
 import logo from '../images/Taskmaster.png'
 
 const Container = styled.div`
@@ -60,7 +61,7 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          {new Date().toLocaleDateString()}
+          <Timer/>
         </Left>
         <Center>
           <Logo src={logo}/>
