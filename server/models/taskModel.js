@@ -7,10 +7,6 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    task_id: {
-      type: String,
-      required: true,
-    },
     organization_id: {
       type: String,
       required: true,
