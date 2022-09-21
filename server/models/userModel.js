@@ -27,7 +27,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    iAdmin: {
+    isAdmin: {
       type: Boolean,
       required: true,
       default: false,
