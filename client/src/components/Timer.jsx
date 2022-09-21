@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 
 const Timer = () => {
-    const [date, setDate] = useState(new Date().toLocaleString());
+    const dateNoComma = () => {
+        const date = new Date;
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+    }
+
+    const [date, setDate] = useState(dateNoComma());
 
     const timer = {
       interval: null,
       start: function() {
         this.interval = setInterval(() => {
-          setDate(new Date().toLocaleString());
+          setDate(dateNoComma);
         }, 1000);
       },
       stop: function() {
