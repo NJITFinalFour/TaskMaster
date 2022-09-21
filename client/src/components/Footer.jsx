@@ -11,10 +11,16 @@ import { mobile } from "../responsive";
 import FooterSignature from "./FooterSignature";
 
 const Container = styled.div`
-  display: flex;
   background-color: #88bb44;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  padding: 0px 20%;
+
   ${mobile({ flexDirection: "column" })}
 `;
+
 const Left = styled.div`
   flex: 1;
   display: flex;
@@ -77,47 +83,49 @@ const Footer = () => {
   return (
     <>
       <Container>
-        <Left>
-          <Logo>TaskMaster</Logo>
-          <Desc>Take control of your workflow</Desc>
-          <SocialContainer>
-            <SocialIcon color="3B5999">
-              <Facebook />
-            </SocialIcon>
-            <SocialIcon color="E4405F">
-              <Instagram />
-            </SocialIcon>
-            <SocialIcon color="55ACEE">
-              <Twitter />
-            </SocialIcon>
-          </SocialContainer>
-        </Left>
-        <Center>
-          <Title>Useful Links</Title>
-          <List>
-            <ListItem>Home</ListItem>
-            <ListItem>My Account</ListItem>
-            <ListItem>About Us</ListItem>
-            <ListItem>Legal</ListItem>
-            <ListItem>Privacy Policy</ListItem>
-            <ListItem>Terms of Service</ListItem>
-            <ListItem>Work Here</ListItem>
-            <ListItem>Cookie Settings</ListItem>
-          </List>
-        </Center>
-        <Right>
-          <Title>Contact</Title>
-          <ContactItem>
-            <Place style={{ marginRight: "10px" }} /> 323 Dr Martin Luther King
-            Jr Blvd, Newark, NJ 07102
-          </ContactItem>
-          <ContactItem>
-            <Phone style={{ marginRight: "10px" }} /> (234) 456-7890
-          </ContactItem>
-          <ContactItem>
-            <Email style={{ marginRight: "10px" }} /> contact@taskmaster.com
-          </ContactItem>
-        </Right>
+        <Wrapper>
+          <Left>
+            <Logo>TaskMaster</Logo>
+            <Desc>Take control of your workflow</Desc>
+            <SocialContainer>
+              <SocialIcon color="3B5999">
+                <Facebook />
+              </SocialIcon>
+              <SocialIcon color="E4405F">
+                <Instagram />
+              </SocialIcon>
+              <SocialIcon color="55ACEE">
+                <Twitter />
+              </SocialIcon>
+            </SocialContainer>
+          </Left>
+          <Center>
+            <Title>Useful Links</Title>
+            <List>
+              <ListItem>Home</ListItem>
+              <ListItem>My Account</ListItem>
+              <ListItem>About Us</ListItem>
+              <ListItem>Legal</ListItem>
+              <ListItem>Privacy Policy</ListItem>
+              <ListItem>Terms of Service</ListItem>
+              <ListItem>Work Here</ListItem>
+              <ListItem>Cookie Settings</ListItem>
+            </List>
+          </Center>
+          <Right>
+            <Title>Contact</Title>
+            <ContactItem>
+              <Place style={{ marginRight: "10px" }} /> 323 Dr Martin Luther
+              King Jr Blvd, Newark, NJ 07102
+            </ContactItem>
+            <ContactItem>
+              <Phone style={{ marginRight: "10px" }} /> (234) 456-7890
+            </ContactItem>
+            <ContactItem>
+              <Email style={{ marginRight: "10px" }} /> contact@taskmaster.com
+            </ContactItem>
+          </Right>
+        </Wrapper>
       </Container>
       <FooterSignature />
     </>
