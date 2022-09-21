@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import orgRoutes from "./routes/org.js";
+import taskRoutes from "./routes/task.js";
+import userRoutes from "./routes/user.js";
 
 dotenv.config();
 
@@ -17,6 +19,8 @@ app.get("/", (req, res) => {
   res.send("TaskMaster");
 });
 
+app.use("/user", userRoutes);
+app.use("/tasks", taskRoutes);
 app.use("/organizations", orgRoutes);
 
 // DB Connect
