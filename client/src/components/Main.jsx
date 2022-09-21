@@ -41,12 +41,12 @@ const About = styled.div`
 const Button = styled.button`
   margin-top: 20px;
   border: 1px solid #88bb44;
-  padding: 10px;
+  padding: 20px;
   background-color: #88bb44;
   color: white;
   cursor: pointer;
   font-weight: 600;
-  font-size: 2em;
+  font-size: 1.8em;
   border-radius: 10px;
 
   &:hover {
