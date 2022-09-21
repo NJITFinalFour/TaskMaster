@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//task Schema
 const taskSchema = mongoose.Schema(
   {
     taskName: {
