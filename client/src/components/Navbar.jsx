@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Timer from "./Timer";
+import logo from '../images/Taskmaster.png'
 
 const Container = styled.div`
-  height: 60px;
+  height: 90px;
   ${mobile({ height: "50px" })};
 `;
 
@@ -30,8 +31,8 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.h1`
-  font-weight: bold;
+const Logo = styled.img`
+  /* font-weight: bold; */
   ${mobile({ fontSize: "24px", textAlign: "center" })}
 `;
 
@@ -44,7 +45,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14;
+  font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
 
@@ -63,7 +64,7 @@ const Navbar = () => {
           <Timer/>
         </Left>
         <Center>
-          <Logo>TaskMaster</Logo>
+          <Logo src={logo}/>
         </Center>
         <Right>
           <MenuItem>Sign Up</MenuItem>
