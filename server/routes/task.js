@@ -3,12 +3,12 @@ import { getTask, createTask, deleteTask, deleteAllTasks, updateTask, getOne } f
 import requireAuth from "../middleware/requireAuth.js";
 
 const router = express.Router();
-router.use(requireAuth);
+// router.use(requireAuth);
 router.get("/", getTask);
 router.get("/:id", getOne);
 router.post("/", createTask);
 router.delete("/:id", deleteTask);
-router.delete("/", deleteAllTasks);
+// router.delete("/", deleteAllTasks);
 router.patch("/:id", updateTask);
 router.put("/:id", updateTask);
 
