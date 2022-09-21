@@ -38,7 +38,7 @@ export const deleteTask = async (req, res) => {
     console.log(error);
   }
 };
-export const deleteAllTasks = async (req, res) => {
+/*export const deleteAllTasks = async (req, res) => {
   // const id = req.params.id;
   try {
     await taskData.deleteMany().exec();
@@ -46,7 +46,7 @@ export const deleteAllTasks = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
+};*/
 
 export const updateTask = async (req, res) => {
   const { id } = req.params;
