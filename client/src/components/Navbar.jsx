@@ -31,8 +31,11 @@ const Center = styled.div`
   text-align: center;
 `;
 
+const Link = styled.a`
+  
+`
+
 const Logo = styled.img`
-  /* font-weight: bold; */
   ${mobile({ fontSize: "24px", textAlign: "center" })}
 `;
 
@@ -44,10 +47,12 @@ const Right = styled.div`
   ${mobile({ flex: 1.1, marginRight: "10px" })}
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled.a`
   font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
+  text-decoration: none;
+  color: #7aa83d;
 
   &:hover {
     color: #4e5c3d;
@@ -61,14 +66,16 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Timer/>
+          <Timer />
         </Left>
         <Center>
-          <Logo src={logo}/>
+          <Link href="/">
+            <Logo src={logo}/>
+          </Link>
         </Center>
         <Right>
-          <MenuItem>Sign Up</MenuItem>
-          <MenuItem>Log In</MenuItem>
+          <MenuItem href="/signup">Sign Up</MenuItem>
+          <MenuItem href="/login">Log In</MenuItem>
         </Right>
       </Wrapper>
     </Container>

@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import Navbar from "../components/Navbar";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: #4e5c3d;
   display: flex;
@@ -16,6 +17,7 @@ const Wrapper = styled.div`
   padding: 20px;
   border-radius: 20px;
   background-color: white;
+  top: 35px;
 
   ${mobile({ width: "75%" })}
 `;
@@ -27,7 +29,7 @@ const LogoWrapper = styled.div`
 
 const Logo = styled.img`
   margin: auto;
-`
+`;
 
 const Title = styled.h1`
   font-size: 24px;
@@ -72,20 +74,23 @@ const Link = styled.a`
 
 const Login = () => {
   return (
-    <Container>
-      <Wrapper>
-        <LogoWrapper>
-          <Logo src={logo} />
-        </LogoWrapper>
-        <Title>LOG IN</Title>
-        <Form>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Button>SIGN IN</Button>
-          <Link>Forgot Password?</Link>
-        </Form>
-      </Wrapper>
-    </Container>
+    <>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <LogoWrapper>
+            <Logo src={logo} />
+          </LogoWrapper>
+          <Title>LOG IN</Title>
+          <Form>
+            <Input placeholder="Email" />
+            <Input placeholder="Password" />
+            <Button>SIGN IN</Button>
+            <Link>Forgot Password?</Link>
+          </Form>
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
