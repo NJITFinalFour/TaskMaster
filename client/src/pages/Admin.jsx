@@ -32,7 +32,7 @@ const Admin = () => {
   return (
     <Container>
       <TopWrapper>
-        <Top></Top>
+        <Top>Hello Admin</Top>
       </TopWrapper>
       <ToolbarWrapper>
         <Toolbar></Toolbar>

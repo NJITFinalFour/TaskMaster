@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
@@ -23,20 +26,18 @@ const Wrapper = styled.div`
 const LogoWrapper = styled.div`
   display: flex;
   margin-bottom: 20px;
-`
+`;
 
 const Logo = styled.img`
   margin: auto;
-`
+`;
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
 `;
 
-const Form = styled.form`
-
-`;
+const Form = styled.form``;
 
 const Top = styled.div`
   display: flex;
@@ -47,6 +48,14 @@ const Input = styled.input`
   flex: 1;
   min-width: 40%;
   margin: 20px 10px 0px 0px;
+  padding: 10px;
+`;
+
+const PasswordInput = styled.input`
+  flex: 1;
+  min-width: 40%;
+  max-width: 50%;
+  margin: 20px auto;
   padding: 10px;
 `;
 
@@ -81,9 +90,40 @@ const Button = styled.button`
   }
 `;
 
-
-
 const SignUp = () => {
+  const [data, setData] = useState({
+    organization: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const url = "http://localhost:5000/organizations/signup";
+        const { data: res } = await axios.post(url, data);
+        navigate("/Admin");
+        console.log(res.message);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data.message);
+        }
+      }
+    };
+
   return (
     <Container>
       <Wrapper>
@@ -91,21 +131,47 @@ const SignUp = () => {
           <Logo src={logo} />
         </LogoWrapper>
         <Title>CREATE AN ORGANIZATION</Title>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Top>
-            <Input placeholder="Organization" />
-            <Input placeholder="Admin First Name" />
-            <Input placeholder="Admin Last Name" />
-            <Input placeholder="Admin Email" />
-            <Input placeholder="Admin Password" />
-            <Input placeholder="Confirm Admin Password" />
+            <Input
+              type="text"
+              name="organization"
+              placeholder="Organization"
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              name="first_name"
+              placeholder="Admin First Name"
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              name="last_name"
+              placeholder="Admin Last Name"
+              onChange={handleChange}
+            />
+            <Input
+              type="email"
+              name="organization"
+              placeholder="Admin Email"
+              onChange={handleChange}
+            />
+            <PasswordInput
+              type="password"
+              name="password"
+              placeholder="Admin Password"
+              onChange={handleChange}
+            />
+            {/* <Input placeholder="Confirm Admin Password" /> */}
           </Top>
           <Bottom>
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the <b>PRIVACY POLICY</b>
             </Agreement>
-            <Button>REGISTER ORGANIZATION</Button>
+            {error && <div>{error}</div>}
+            <Button type="submit">REGISTER ORGANIZATION</Button>
           </Bottom>
         </Form>
       </Wrapper>
