@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+// import backgroundImg from "..images/background.jpg"
 
 const Container = styled.div`
   width: 100%;
@@ -38,7 +39,7 @@ const About = styled.div`
   text-align: center;
 `;
 
-const Button = styled.button`
+const Button = styled.a`
   margin-top: 20px;
   border: 1px solid #88bb44;
   padding: 20px;
@@ -48,6 +49,7 @@ const Button = styled.button`
   font-weight: 600;
   font-size: 1.8em;
   border-radius: 10px;
+  text-decoration: none;
 
   &:hover {
     background-color: white;
@@ -67,7 +69,7 @@ const Main = () => {
             get more done.
           </About>
         </AboutWrapper>
-        <Button>Sign up Now</Button>
+        <Button href="/signup">Sign up Now</Button>
       </Wrapper>
     </Container>
   );

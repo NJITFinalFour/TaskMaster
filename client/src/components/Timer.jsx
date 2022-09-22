@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const Component = styled.div`
+  color: #7aa83d;
+  font-size: 18px;
+`;
 
 const Timer = () => {
     const dateNoComma = () => {
@@ -29,9 +35,9 @@ const Timer = () => {
     }, []);
 
     return (
-        <div>
+        <Component>
             {date}
-        </div>
+        </Component>
     )
 };
 
