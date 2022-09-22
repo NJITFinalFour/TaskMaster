@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   text-align: center;
@@ -7,16 +8,19 @@ const Container = styled.div`
 
 const Signature = styled.span`
   font-weight: 400;
+
 `;
 
 const GitHub = styled.img`
   height: 20px;
   margin-left: 20px;
+
 `
 
 const Copyright = styled.span`
   font-weight: 400;
   margin-left: 20px;
+
 `
 
 const FooterSignature = () => {
