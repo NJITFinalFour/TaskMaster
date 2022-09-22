@@ -2,10 +2,10 @@ import Organization from "../models/orgModel.js";
 import User from "../models/userModel.js";
 
 export const orgSignup = async (req, res) => {
-    const { name, email, password, first_name, last_name } = req.body;
+    const { organization, email, password, first_name, last_name } = req.body;
 
     try {
-        const org = new Organization({name: name});
+        const org = new Organization({name: organization});
         try {
             const user = await User.signup(email, password, org._id, first_name, last_name, true);
             org.save();
