@@ -4,6 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
+import { signupAdminFetchPath } from "../api/fetchpaths";
 
 const Container = styled.div`
   width: 100vw;
@@ -109,9 +110,9 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const url = "http://localhost:5000/organizations/signup";
+        const url = signupAdminFetchPath;
         const { data: res } = await axios.post(url, data);
-        navigate("/Admin");
+        navigate("/admin");
         console.log(res.message);
       } catch (error) {
         if (
@@ -122,7 +123,8 @@ const SignUp = () => {
           setError(error.response.data.message);
         }
       }
-    };
+    }
+   
 
   return (
     <Container>
@@ -138,30 +140,40 @@ const SignUp = () => {
               name="organization"
               placeholder="Organization"
               onChange={handleChange}
+              value={data.organization}
+              required
             />
             <Input
               type="text"
               name="first_name"
               placeholder="Admin First Name"
               onChange={handleChange}
+              value={data.first_name}
+              required
             />
             <Input
               type="text"
               name="last_name"
               placeholder="Admin Last Name"
               onChange={handleChange}
+              value={data.last_name}
+              required
             />
             <Input
               type="email"
-              name="organization"
+              name="email"
               placeholder="Admin Email"
               onChange={handleChange}
+              value={data.email}
+              required
             />
             <PasswordInput
               type="password"
               name="password"
               placeholder="Admin Password"
               onChange={handleChange}
+              value={data.password}
+              required
             />
             {/* <Input placeholder="Confirm Admin Password" /> */}
           </Top>
