@@ -28,7 +28,7 @@ const Table = styled.div`
   
 `
 
-const Admin = () => {
+const AdminHome = () => {
   return (
     <Container>
       <TopWrapper>
@@ -44,4 +44,4 @@ const Admin = () => {
   );
 }
 
-export default Admin
+export default AdminHome

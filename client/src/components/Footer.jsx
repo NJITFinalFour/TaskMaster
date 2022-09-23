@@ -12,11 +12,19 @@ import FooterSignature from "./FooterSignature";
 
 const Container = styled.div`
   background-color: #88bb44;
+  /* position: fixed; */
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   padding: 0px 20%;
+  /* position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px; */
 
   ${mobile({ flexDirection: "column" })}
 `;
@@ -126,8 +134,8 @@ const Footer = () => {
             </ContactItem>
           </Right>
         </Wrapper>
+        <FooterSignature />
       </Container>
-      <FooterSignature />
     </>
   );
 };
