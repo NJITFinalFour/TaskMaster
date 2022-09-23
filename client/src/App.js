@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import AdminHome from './pages/AdminHome';
@@ -7,8 +7,12 @@ import Login from './pages/Login';
 import NotFound from "./pages/NotFound"
 import SignUp from './pages/SignUp';
 import UserHome from './pages/UserHome';
+import {useAuthContext} from "./hooks/useAuthContext"
 
 const App = () => {
+  const {user} = useAuthContext();
+ 
+  
   return (
     <>
       <BrowserRouter>
@@ -18,7 +22,8 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminHome />} />
-          <Route path="/user" element={<UserHome />} />
+          <Route path="/user" element={user ? <UserHome /> : <Navigate to="/login" />} />
+          {/* <Route path="/user" element={<UserHome />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer/>
