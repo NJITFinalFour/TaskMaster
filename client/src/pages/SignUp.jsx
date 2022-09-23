@@ -5,7 +5,6 @@ import styled from "styled-components";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 import { signupAdminFetchPath } from "../api/fetchpaths";
-import Navbar from "../components/Navbar";
 
 
 const Container = styled.div`
@@ -127,8 +126,6 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <Navbar />
       <Container>
         <Wrapper>
           <LogoWrapper>
@@ -190,7 +187,6 @@ const SignUp = () => {
           </Form>
         </Wrapper>
       </Container>
-    </>
   );
 };
 

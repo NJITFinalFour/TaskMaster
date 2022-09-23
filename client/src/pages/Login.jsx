@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 import { useLogin } from "../hooks/useLogin";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -78,15 +78,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login} = useLogin();
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     await login(email, password);
+    navigate("/user");
+
   };
 
   return (
-    <>
-      <Navbar />
       <Container>
         <Wrapper>
           <LogoWrapper>
@@ -101,7 +102,6 @@ const Login = () => {
           </Form>
         </Wrapper>
       </Container>
-    </>
   );
 };
 
