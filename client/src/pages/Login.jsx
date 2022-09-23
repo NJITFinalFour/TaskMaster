@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
+import { useLogin } from "../hooks/useLogin";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -73,6 +75,15 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login} = useLogin();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await login(email, password);
+  };
+
   return (
     <>
       <Navbar />
@@ -82,9 +93,9 @@ const Login = () => {
             <Logo src={logo} />
           </LogoWrapper>
           <Title>LOG IN</Title>
-          <Form>
-            <Input placeholder="Email" />
-            <Input placeholder="Password" />
+          <Form onSubmit={handleSubmit}>
+            <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
+            <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
             <Button>SIGN IN</Button>
             <Link>Forgot Password?</Link>
           </Form>
