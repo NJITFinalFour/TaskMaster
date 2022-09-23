@@ -19,7 +19,7 @@ const UserHome = () => {
   },[])
   return (
     <Container>
-      <h2>{`Hello ${user.userFirstName} ${user.userLastName}`}</h2>
+      <h2>{`Hello ${user.userFirstName} ${user.userLastName} from ${user.organization}`}</h2>
       <h5>{isUserAdmin}</h5>
   
     </Container>

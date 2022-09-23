@@ -7,7 +7,7 @@ export const orgSignup = async (req, res) => {
     try {
         const org = new Organization({name: organization});
         try {
-            const user = await User.signup(email, password, org._id, first_name, last_name, true);
+            const user = await User.signup(email, password, org.name, first_name, last_name, true);
             org.save();
             res.send(user);
         } catch(error) {
