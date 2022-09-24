@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { signupFetchPath } from "../api/fetchpaths";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-
 const Form = styled.form``;
 
 const Top = styled.div`
@@ -35,7 +34,6 @@ const Bottom = styled.div`
   justify-content: center;
 `;
 
-
 const Button = styled.button`
   flex: 1;
   margin: auto;
@@ -56,12 +54,8 @@ const Button = styled.button`
   }
 `;
 
-
-
 function AddNewUser(props) {
-
   const { user } = useAuthContext();
-
 
   const [data, setData] = useState({
     first_name: "",

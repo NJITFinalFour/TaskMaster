@@ -26,5 +26,9 @@ export const TaskContextProvider = ({ children }) => {
     task: null,
   });
 
-  return <TaskContext.Provider value={{ ...state, dispatch }}>{children}</TaskContext.Provider>;
+  return (
+    <TaskContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </TaskContext.Provider>
+  );
 };

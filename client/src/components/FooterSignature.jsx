@@ -8,22 +8,19 @@ const Container = styled.div`
 
 const Signature = styled.span`
   font-weight: 400;
-
 `;
 
-const Link = styled.a``
+const Link = styled.a``;
 
 const GitHub = styled.img`
   height: 20px;
   margin-left: 20px;
-
-`
+`;
 
 const Copyright = styled.span`
   font-weight: 400;
   margin-left: 20px;
-
-`
+`;
 
 const FooterSignature = () => {
   return (
