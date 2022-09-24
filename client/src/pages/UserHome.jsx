@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AddNewUser from "../components/AddNewUser";
 import AdminTabs from "../components/admin/AdminTabs";
 import AddNewAdmin from "../components/AddNewAdmin";
+import OrgName from "../components/OrgName";
 
 const Container = styled.div`
   height: 100vh;
@@ -61,7 +62,7 @@ const UserHome = () => {
   return (
     <Container>
       <Top>
-        <Greeting>{`Hello ${user.userFirstName} ${user.userLastName} from ${user.organization}`}</Greeting>
+        <Greeting>{`Hello ${user.userFirstName} ${user.userLastName} from `}<OrgName user={user}/></Greeting>
         <Verify>{isUserAdmin}</Verify>
       </Top>
       <ButtonContainer>

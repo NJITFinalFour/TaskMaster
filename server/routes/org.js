@@ -10,6 +10,6 @@ router.get("/", findAllOrgs);
 
 router.post("/signup", jsonParser, orgSignup);
 
-router.get("/find", jsonParser, findOrgName)
+router.get("/:organization", findOrgName)
 
 export default router;
