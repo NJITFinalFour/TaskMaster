@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import AdminHome from "./pages/AdminHome";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -20,7 +19,6 @@ const App = () => {
           <Route path="/" element={!user ? <Home /> : <Navigate to="/user"/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminHome />} />
           <Route
             path="/user"
             element={user ? <UserHome /> : <Navigate to="/login" />}

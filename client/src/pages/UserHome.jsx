@@ -7,7 +7,14 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Top = styled.div``;
+const Top = styled.div`
+
+`;
+
+const Greeting = styled.h1`
+  display: flex;
+  justify-content: ;
+`
 
 const ModalContainer = styled.div`
   margin-top: 50px;
@@ -40,7 +47,7 @@ const UserHome = () => {
   return (
     <Container>
       <Top>
-        <h2>{`Hello ${user.userFirstName} ${user.userLastName} from ${user.organization}`}</h2>
+        <Greeting>{`Hello ${user.userFirstName} ${user.userLastName} from ${user.organization}`}</Greeting>
         <h5>{isUserAdmin}</h5>
       </Top>
       <ModalContainer>

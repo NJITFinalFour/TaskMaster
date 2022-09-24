@@ -111,7 +111,7 @@ const SignUp = () => {
     try {
       const url = signupAdminFetchPath;
       const { data: res } = await axios.post(url, data);
-      navigate("/admin");
+      navigate("/user");
       console.log(res.message);
     } catch (error) {
       if (
