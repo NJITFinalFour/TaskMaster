@@ -57,3 +57,21 @@ export const updateTask = async (req, res) => {
   }
   res.status(200).json(task);
 };
+
+export const findTasksByUser = async (req, res) => {
+  try {
+    const tasks = await taskData.find({ user_id: req.body.user })
+    res.send(tasks)
+  } catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+export const findTasksByOrg = async (req, res) => {
+  try {
+    const tasks = await taskData.find({ organization_id: req.body.organization })
+    res.send(tasks)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
