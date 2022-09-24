@@ -55,10 +55,8 @@ const Button = styled.button`
   }
 `;
 
-function AddNewUser(props) {
+const AddNewUser = (props) => {
   const { user } = useAuthContext();
-
-  const [modalShow, setModalShow] = useState(true);
 
   const [data, setData] = useState({
     organization: user.organization,
@@ -80,7 +78,7 @@ function AddNewUser(props) {
     try {
       const url = signupFetchPath;
       const { data: res } = await axios.post(url, data);
-      navigate("/user");
+      // navigate("/user");
       console.log(res.message);
     } catch (error) {
       if (
