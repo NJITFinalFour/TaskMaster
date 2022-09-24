@@ -52,9 +52,10 @@ const Input = styled.input`
 
 const Button = styled.button`
   flex: 1;
-  /* width: 40%; */
-  margin-bottom: 10px;
+  width: 40%;
+  margin: 10px auto;
   border: 1px solid black;
+  border-radius: 15px;
   padding: 15px 20px;
   background-color: #c0e195;
   color: black;

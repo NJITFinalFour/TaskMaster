@@ -27,7 +27,6 @@ const PasswordInput = styled.input`
   padding: 10px;
 `;
 
-
 const Bottom = styled.div`
   display: flex;
   flex-direction: column;
@@ -55,7 +54,7 @@ const Button = styled.button`
   }
 `;
 
-function AddNewUser(props) {
+function AddNewAdmin(props) {
   const { user } = useAuthContext();
 
   const [modalShow, setModalShow] = useState(true);
@@ -66,7 +65,7 @@ function AddNewUser(props) {
     last_name: "",
     email: "",
     password: "",
-    isAdmin: false
+    isAdmin: true,
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -93,8 +92,6 @@ function AddNewUser(props) {
     }
   };
 
-
-
   return (
     <Modal
       {...props}
@@ -104,7 +101,7 @@ function AddNewUser(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          CREATE A NEW USER
+          CREATE A NEW ADMIN
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -157,7 +154,7 @@ function AddNewUser(props) {
           <Bottom>
             {error && <div>{error}</div>}
             <Button type="submit" onClick={props.onHide}>
-              ADD USER
+              ADD ADMIN
             </Button>
           </Bottom>
         </Form>
@@ -166,4 +163,4 @@ function AddNewUser(props) {
   );
 }
 
-export default AddNewUser;
+export default AddNewAdmin;
