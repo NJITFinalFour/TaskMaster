@@ -5,6 +5,7 @@ import AddNewUser from "../components/AddNewUser";
 import AdminTabs from "../components/admin/AdminTabs";
 import AddNewAdmin from "../components/AddNewAdmin";
 import OrgName from "../components/OrgName";
+import AddNewTask from "../components/admin/AddNewTask";
 
 const Container = styled.div`
   height: 100vh;
@@ -57,24 +58,42 @@ const UserHome = () => {
 
   const [userModalShow, setUserModalShow] = useState(false);
   const [adminModalShow, setAdminModalShow] = useState(false);
+  const [taskModalShow, setTaskModalShow] = useState(false)
     
 
   return (
     <Container>
       <Top>
-        <Greeting>{`Hello ${user.userFirstName} ${user.userLastName} from `}<OrgName user={user}/></Greeting>
+        <Greeting>
+          {`Hello ${user.userFirstName} ${user.userLastName} from `}
+          <OrgName user={user} />
+        </Greeting>
         <Verify>{isUserAdmin}</Verify>
       </Top>
       <ButtonContainer>
-        <Button>New Task</Button>
+        <Button variant="primary" onClick={() => setTaskModalShow(true)}>
+          New Task
+        </Button>
+        <AddNewTask
+          show={taskModalShow}
+          onHide={() => setTaskModalShow(false)}
+        />
+
         <Button variant="primary" onClick={() => setUserModalShow(true)}>
           New User
         </Button>
-        <AddNewUser show={userModalShow} onHide={() => setUserModalShow(false)} />
+        <AddNewUser
+          show={userModalShow}
+          onHide={() => setUserModalShow(false)}
+        />
+
         <Button variant="primary" onClick={() => setAdminModalShow(true)}>
           New Admin
         </Button>
-        <AddNewAdmin show={adminModalShow} onHide={() => setAdminModalShow(false)} />
+        <AddNewAdmin
+          show={adminModalShow}
+          onHide={() => setAdminModalShow(false)}
+        />
       </ButtonContainer>
       <AdminTabs />
     </Container>
