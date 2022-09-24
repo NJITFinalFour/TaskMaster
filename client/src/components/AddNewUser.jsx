@@ -58,6 +58,7 @@ function AddNewUser(props) {
   const { user } = useAuthContext();
 
   const [data, setData] = useState({
+    organization: user.organization,
     first_name: "",
     last_name: "",
     email: "",
