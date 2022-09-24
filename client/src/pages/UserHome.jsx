@@ -8,13 +8,18 @@ const Container = styled.div`
 `;
 
 const Top = styled.div`
-
+  
 `;
 
 const Greeting = styled.h1`
   display: flex;
-  justify-content: ;
+  justify-content: center;
 `
+
+const Verify = styled.h4`
+  display: flex;
+  justify-content: center;
+`;
 
 const ModalContainer = styled.div`
   margin-top: 50px;
@@ -48,7 +53,7 @@ const UserHome = () => {
     <Container>
       <Top>
         <Greeting>{`Hello ${user.userFirstName} ${user.userLastName} from ${user.organization}`}</Greeting>
-        <h5>{isUserAdmin}</h5>
+        <Verify>{isUserAdmin}</Verify>
       </Top>
       <ModalContainer>
         <Button variant="primary" onClick={() => setModalShow(true)}>
