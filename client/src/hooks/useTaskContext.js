@@ -1,11 +1,11 @@
-import { ApperalContext } from "../context/ApperalContext";
+import { TaskContext } from "../context/TaskContext";
 import { useContext } from "react";
 
-export const useApperalContext = () => {
-  const context = useContext(ApperalContext);
+export const useTaskContext = () => {
+  const context = useContext(TaskContext);
 
   if (!context) {
-    throw Error("ApparelContext must be used inside an WorkoutsContextProvider");
+    throw Error("TaskContext must be used inside a TaskContextProvider");
   }
 
   return context;

@@ -23,7 +23,6 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/user" element={user ? <UserHome /> : <Navigate to="/login" />} />
-          {/* <Route path="/user" element={<UserHome />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer/>

@@ -7,7 +7,7 @@ import {
   Twitter,
 } from "@mui/icons-material";
 import styled from "styled-components";
-import { mobile, tablet } from "../responsive";
+import { mobile } from "../responsive";
 import FooterSignature from "./FooterSignature";
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 0px 20%;
+  padding: 0px 15%;
   /* position: fixed;
   left: 0px;
   right: 0px;
