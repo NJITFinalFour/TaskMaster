@@ -8,6 +8,6 @@ router.post("/login", loginUser);
 //Sign Up Route
 router.post("/signup", signupUser);
 // Find by org
-router.get("/find", findUsersByOrg);
+router.get("/", findUsersByOrg);
 
 export default router;
