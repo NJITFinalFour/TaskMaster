@@ -60,7 +60,7 @@ export const updateTask = async (req, res) => {
 
 export const findTasksByUser = async (req, res) => {
   try {
-    const tasks = await taskData.find({ user_id: req.body.user })
+    const tasks = await taskData.find({ user_id: req.params.user })
     res.send(tasks)
   } catch(error) {
     res.status(400).json({ error: error.message })
@@ -69,7 +69,7 @@ export const findTasksByUser = async (req, res) => {
 
 export const findTasksByOrg = async (req, res) => {
   try {
-    const tasks = await taskData.find({ organization_id: req.body.organization })
+    const tasks = await taskData.find({ organization_id: req.params.organization })
     res.send(tasks)
   } catch (error) {
     res.status(400).json({ error: error.message })
