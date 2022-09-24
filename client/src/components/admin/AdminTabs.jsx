@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import AdminUsersTable from "./AdminUsersTable";
+import AdminTasksTable from "./AdminTasksTable";
 
 const Container = styled.div`
   margin: auto;
@@ -21,7 +22,7 @@ const AdminTabs = () => {
           <AdminUsersTable />
         </Tab>
         <Tab eventKey="tasks" title="Tasks">
-          <AdminUsersTable />
+          <AdminTasksTable />
         </Tab>
       </Tabs>
     </Container>
