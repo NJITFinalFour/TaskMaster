@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components"
 import { taskFetchPath } from "../../api/fetchpaths"
@@ -64,6 +64,7 @@ const AddNewTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
   const [userID, setUserID] = useState ("")
+  const [ users, setUsers ] = useState([])
 
 
 
@@ -79,6 +80,7 @@ const AddNewTask = (props) => {
 
     const handleChange = ({ currentTarget: input }) => {
       setNewTask({ ...newTask, [input.name]: input.value });
+      console.log(newTask)
     };
 
     const handleSubmit = async (e) => {
@@ -98,6 +100,20 @@ const AddNewTask = (props) => {
         }
       }
     };
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const res = await fetch(`http://localhost:5000/user/${user.organization}`, {
+                method: "GET",
+                mode: "cors"
+            })
+            let data = await res.json()
+            console.log(data)
+            setUsers(data)
+        }
+
+        fetchTasks()
+    }, [user.organization])
 
   return (
     <Container>
@@ -124,7 +140,7 @@ const AddNewTask = (props) => {
                 required
               />
               <Select
-                name="firstName"
+                name="user_id"
                 placeholder="User Name"
                 onChange={handleChange}
                 value={newTask.user_id}
@@ -133,6 +149,11 @@ const AddNewTask = (props) => {
                 {/* {user.user_id.map((firstName, lastName) => (
                   <Option value={firstName + lastName}></Option>
                 ))} */}
+                {users.map(worker => {
+                  return (
+                    <option key={worker._id} value={worker._id}>{worker.first_name + " " + worker.last_name}</option>
+                  )
+                })}
               </Select>
 
               <Input
@@ -160,7 +181,6 @@ const AddNewTask = (props) => {
                 placeholder="Notes"
                 onChange={handleChange}
                 value={newTask.password}
-                required
               />
             </Top>
             <Bottom>

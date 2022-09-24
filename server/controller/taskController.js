@@ -20,11 +20,15 @@ export const getOne = async (req, res) => {
 };
 // m
 export const createTask = async (req, res) => {
-  const task = req.body;
-  const newTask = new taskData(task);
   try {
-    await newTask.save();
-    res.status(201).json(newTask);
+    const task = req.body;
+    const newTask = new taskData(task);
+    try {
+      await newTask.save();
+      res.status(201).json(newTask);
+    } catch (error) {
+      res.status(409).json({ message: error.message });
+    }
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
