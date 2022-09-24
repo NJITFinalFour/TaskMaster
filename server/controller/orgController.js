@@ -26,3 +26,12 @@ export const findAllOrgs = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
+
+export const findOrgName = async (req, res) => {
+    try {
+        const org = await Organization.findById(req.body.organization)
+        res.send(org.name)
+    } catch(error) {
+        res.status(400).json({ error: error.message })
+    }
+}
