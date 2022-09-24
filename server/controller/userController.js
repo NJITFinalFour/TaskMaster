@@ -41,3 +41,12 @@ export const getUsers = async (req, res) => {
   const users = await User.find().sort({ createdAt: -1 });
   res.status(200).json(users);
 };
+
+export const findUsersByOrg = async (req, res) => {
+  try {
+    const users = await User.find({ organization: req.body.organization })
+    res.send(users)
+  } catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+}
