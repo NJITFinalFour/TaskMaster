@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Timer from "./Timer";
-import logo from '../images/Taskmaster.png'
+import logo from "../images/Taskmaster.png";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 
@@ -33,9 +33,7 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Link = styled.a`
-  
-`
+const Link = styled.a``;
 
 const Logo = styled.img`
   ${mobile({ fontSize: "24px", textAlign: "center" })}
@@ -85,12 +83,12 @@ const LogOutButton = styled.a`
 `;
 
 const Navbar = () => {
-const { user } = useAuthContext();
-const { logout } = useLogout();
+  const { user } = useAuthContext();
+  const { logout } = useLogout();
 
-const handleLogout = () => {
-  logout();
-}
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Container>
@@ -104,7 +102,11 @@ const handleLogout = () => {
         <Right>
           {!user && <NavLink href="/signup">Sign Up</NavLink>}
           {!user && <NavLink href="/login">Log In</NavLink>}
-          {user && <NavItem>{user.userFirstName} {user.userLastName}</NavItem>}
+          {user && (
+            <NavItem>
+              {user.userFirstName} {user.userLastName}
+            </NavItem>
+          )}
           {user && <LogOutButton onClick={handleLogout}>Log out</LogOutButton>}
         </Right>
       </Wrapper>

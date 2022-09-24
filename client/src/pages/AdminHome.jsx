@@ -1,32 +1,26 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const TopWrapper = styled.div`
   display: flex;
-`
+`;
 
-const Top = styled.div`
-  
-`
+const Top = styled.div``;
 const ToolbarWrapper = styled.div`
   display: flex;
-`
+`;
 
-const Toolbar = styled.div`
-  
-`
+const Toolbar = styled.div``;
 
 const TableWrapper = styled.div`
   display: flex;
-`
+`;
 
-const Table = styled.div`
-  
-`
+const Table = styled.div``;
 
 const AdminHome = () => {
   return (
@@ -42,6 +36,6 @@ const AdminHome = () => {
       </TableWrapper>
     </Container>
   );
-}
+};
 
-export default AdminHome
+export default AdminHome;
