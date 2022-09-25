@@ -15,10 +15,6 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    assigned_date: {
-      type: String,
-      required: true,
-    },
     due_date: {
       type: String,
       required: true,
@@ -27,14 +23,13 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    notes: {
-      type: String,
-      required: true,
-    },
     isComplete: {
       type: String,
       default: "NO",
       required: false,
+    },
+    notes: {
+      type: String
     },
   },
   { timestamps: true }

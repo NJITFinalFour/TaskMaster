@@ -52,9 +52,10 @@ const Input = styled.input`
 
 const Button = styled.button`
   flex: 1;
-  /* width: 40%; */
-  margin-bottom: 10px;
+  width: 40%;
+  margin: 10px auto;
   border: 1px solid black;
+  border-radius: 15px;
   padding: 15px 20px;
   background-color: #c0e195;
   color: black;
@@ -77,31 +78,40 @@ const Link = styled.a`
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login} = useLogin();
+  const { login } = useLogin();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
     navigate("/user");
-
   };
 
   return (
-      <Container>
-        <Wrapper>
-          <LogoWrapper>
-            <Logo src={logo} />
-          </LogoWrapper>
-          <Title>LOG IN</Title>
-          <Form onSubmit={handleSubmit}>
-            <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
-            <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
-            <Button>SIGN IN</Button>
-            <Link>Forgot Password?</Link>
-          </Form>
-        </Wrapper>
-      </Container>
+    <Container>
+      <Wrapper>
+        <LogoWrapper>
+          <Logo src={logo} />
+        </LogoWrapper>
+        <Title>LOG IN</Title>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder="Email"
+          />
+          <Input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="Password"
+          />
+          <Button>SIGN IN</Button>
+          <Link>Forgot Password?</Link>
+        </Form>
+      </Wrapper>
+    </Container>
   );
 };
 

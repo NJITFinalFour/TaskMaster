@@ -20,11 +20,15 @@ export const getOne = async (req, res) => {
 };
 // m
 export const createTask = async (req, res) => {
-  const task = req.body;
-  const newTask = new taskData(task);
   try {
-    await newTask.save();
-    res.status(201).json(newTask);
+    const task = req.body;
+    const newTask = new taskData(task);
+    try {
+      await newTask.save();
+      res.status(201).json(newTask);
+    } catch (error) {
+      res.status(409).json({ message: error.message });
+    }
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -57,3 +61,21 @@ export const updateTask = async (req, res) => {
   }
   res.status(200).json(task);
 };
+
+export const findTasksByUser = async (req, res) => {
+  try {
+    const tasks = await taskData.find({ user_id: req.params.user })
+    res.send(tasks)
+  } catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+export const findTasksByOrg = async (req, res) => {
+  try {
+    const tasks = await taskData.find({ organization_id: req.params.organization })
+    res.send(tasks)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}

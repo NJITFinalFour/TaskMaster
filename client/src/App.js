@@ -1,32 +1,31 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import AdminHome from './pages/AdminHome';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Login from './pages/Login';
-import NotFound from "./pages/NotFound"
-import SignUp from './pages/SignUp';
-import UserHome from './pages/UserHome';
-import {useAuthContext} from "./hooks/useAuthContext"
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import SignUp from "./pages/SignUp";
+import UserHome from "./pages/UserHome";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 const App = () => {
-  const {user} = useAuthContext();
- 
-  
+  const { user } = useAuthContext();
+
   return (
     <>
       <BrowserRouter>
-      <Navbar/>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={!user ? <Home /> : <Navigate to="/user"/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminHome />} />
-          <Route path="/user" element={user ? <UserHome /> : <Navigate to="/login" />} />
-          {/* <Route path="/user" element={<UserHome />} /> */}
+          {user &&<Route
+            path="/user"
+            element={<UserHome />}
+          />}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </>
   );

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Timer from "./Timer";
-import logo from '../images/Taskmaster.png'
+import logo from "../images/Taskmaster.png";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 
 const Container = styled.div`
   height: 90px;
@@ -9,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 25%;
+  padding: 10px 20%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,9 +33,7 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Link = styled.a`
-  
-`
+const Link = styled.a``;
 
 const Logo = styled.img`
   ${mobile({ fontSize: "24px", textAlign: "center" })}
@@ -47,8 +47,8 @@ const Right = styled.div`
   ${mobile({ flex: 1.1, marginRight: "10px" })}
 `;
 
-const MenuItem = styled.a`
-  font-size: 18px;
+const NavLink = styled.a`
+  font-size: 20px;
   cursor: pointer;
   margin-left: 25px;
   text-decoration: none;
@@ -61,21 +61,53 @@ const MenuItem = styled.a`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const NavItem = styled.p`
+  color: black;
+  margin-bottom: 0px;
+`;
+
+const LogOutButton = styled.a`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 25px;
+  text-decoration: none;
+  color: white;
+  /* border: 1px solid #7aa83d; */
+  background-color: #707070;
+  border-radius: 14px;
+  padding: 6px 14px;
+
+  &:hover {
+    color: #9edb4f;
+  }
+`;
+
 const Navbar = () => {
+  const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <Container>
       <Wrapper>
-        <Left>
-          <Timer />
-        </Left>
+        <Left>{user && <Timer />}</Left>
         <Center>
           <Link href="/">
-            <Logo src={logo}/>
+            <Logo src={logo} />
           </Link>
         </Center>
         <Right>
-          <MenuItem href="/signup">Sign Up</MenuItem>
-          <MenuItem href="/login">Log In</MenuItem>
+          {!user && <NavLink href="/signup">Sign Up</NavLink>}
+          {!user && <NavLink href="/login">Log In</NavLink>}
+          {user && (
+            <NavItem>
+              {user.userFirstName} {user.userLastName}
+            </NavItem>
+          )}
+          {user && <LogOutButton onClick={handleLogout}>Log out</LogOutButton>}
         </Right>
       </Wrapper>
     </Container>

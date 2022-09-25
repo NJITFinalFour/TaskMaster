@@ -6,7 +6,6 @@ import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 import { signupAdminFetchPath } from "../api/fetchpaths";
 
-
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -79,6 +78,7 @@ const Button = styled.button`
   margin: auto;
   width: 40%;
   border: 1px solid black;
+  border-radius: 15px;
   padding: 15px 20px;
   background-color: #c0e195;
   color: black;
@@ -112,7 +112,7 @@ const SignUp = () => {
     try {
       const url = signupAdminFetchPath;
       const { data: res } = await axios.post(url, data);
-      navigate("/admin");
+      navigate("/user");
       console.log(res.message);
     } catch (error) {
       if (
@@ -126,67 +126,67 @@ const SignUp = () => {
   };
 
   return (
-      <Container>
-        <Wrapper>
-          <LogoWrapper>
-            <Logo src={logo} />
-          </LogoWrapper>
-          <Title>CREATE AN ORGANIZATION</Title>
-          <Form onSubmit={handleSubmit}>
-            <Top>
-              <Input
-                type="text"
-                name="organization"
-                placeholder="Organization"
-                onChange={handleChange}
-                value={data.organization}
-                required
-              />
-              <Input
-                type="text"
-                name="first_name"
-                placeholder="Admin First Name"
-                onChange={handleChange}
-                value={data.first_name}
-                required
-              />
-              <Input
-                type="text"
-                name="last_name"
-                placeholder="Admin Last Name"
-                onChange={handleChange}
-                value={data.last_name}
-                required
-              />
-              <Input
-                type="email"
-                name="email"
-                placeholder="Admin Email"
-                onChange={handleChange}
-                value={data.email}
-                required
-              />
-              <PasswordInput
-                type="password"
-                name="password"
-                placeholder="Admin Password"
-                onChange={handleChange}
-                value={data.password}
-                required
-              />
-              {/* <Input placeholder="Confirm Admin Password" /> */}
-            </Top>
-            <Bottom>
-              <Agreement>
-                By creating an account, I consent to the processing of my
-                personal data in accordance with the <b> PRIVACY POLICY </b>
-              </Agreement>
-              {error && <div>{error}</div>}
-              <Button type="submit">REGISTER ORGANIZATION</Button>
-            </Bottom>
-          </Form>
-        </Wrapper>
-      </Container>
+    <Container>
+      <Wrapper>
+        <LogoWrapper>
+          <Logo src={logo} />
+        </LogoWrapper>
+        <Title>CREATE AN ORGANIZATION</Title>
+        <Form onSubmit={handleSubmit}>
+          <Top>
+            <Input
+              type="text"
+              name="organization"
+              placeholder="Organization"
+              onChange={handleChange}
+              value={data.organization}
+              required
+            />
+            <Input
+              type="text"
+              name="first_name"
+              placeholder="Admin First Name"
+              onChange={handleChange}
+              value={data.first_name}
+              required
+            />
+            <Input
+              type="text"
+              name="last_name"
+              placeholder="Admin Last Name"
+              onChange={handleChange}
+              value={data.last_name}
+              required
+            />
+            <Input
+              type="email"
+              name="email"
+              placeholder="Admin Email"
+              onChange={handleChange}
+              value={data.email}
+              required
+            />
+            <PasswordInput
+              type="password"
+              name="password"
+              placeholder="Admin Password"
+              onChange={handleChange}
+              value={data.password}
+              required
+            />
+            {/* <Input placeholder="Confirm Admin Password" /> */}
+          </Top>
+          <Bottom>
+            <Agreement>
+              By creating an account, I consent to the processing of my personal
+              data in accordance with the <b> PRIVACY POLICY </b>
+            </Agreement>
+            {error && <div>{error}</div>}
+            <Button type="submit">REGISTER ORGANIZATION</Button>
+          </Bottom>
+        </Form>
+      </Wrapper>
+    </Container>
   );
 };
 
