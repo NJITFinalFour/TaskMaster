@@ -75,6 +75,7 @@ const AddNewTask = (props) => {
     user_id: "",
     due_date: "",
     priority: "",
+    isComplete: "",
     notes: ""
   });
 
@@ -83,6 +84,8 @@ const AddNewTask = (props) => {
       console.log(newTask)
     };
 
+
+   
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -90,6 +93,7 @@ const AddNewTask = (props) => {
         const { data: res } = await axios.post(url, newTask);
         // navigate("/user");
         console.log(res.message);
+        // console.log(`task ${newTask}`)
       } catch (error) {
         if (
           error.response &&
@@ -186,7 +190,7 @@ const AddNewTask = (props) => {
             <Bottom>
               {error && <div>{error}</div>}
               <Button type="submit" onClick={props.onHide}>
-                ADD USER
+                ADD TASK
               </Button>
             </Bottom>
           </Form>
