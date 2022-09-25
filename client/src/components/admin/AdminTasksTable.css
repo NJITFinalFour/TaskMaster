@@ -1,0 +1,23 @@
+.deleteButton{
+color: rgb(236, 10, 10);
+font-size: 18px;
+
+
+}
+.deleteButton:hover{
+color: rgb(88, 37, 37);
+font-size: 22px;
+
+}
+
+.editButton{
+  color: rgb(107, 108, 110);
+  font-size: 20px;
+  
+  
+  }
+  .editButton:hover{
+  color: rgb(88, 37, 37);
+  font-size: 24px;
+  
+  }

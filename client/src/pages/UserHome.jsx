@@ -5,7 +5,7 @@ import AddNewUser from "../components/AddNewUser";
 import AdminTabs from "../components/admin/AdminTabs";
 import AddNewAdmin from "../components/AddNewAdmin";
 import OrgName from "../components/OrgName";
-import AddNewTask from "../components/admin/AddNewTask";
+import AddNewTask from "../components/admin/AdminAddNewTask";
 
 const Container = styled.div`
   height: 100vh;
