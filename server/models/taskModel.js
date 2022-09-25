@@ -21,12 +21,12 @@ const taskSchema = mongoose.Schema(
     },
     priority: {
       type: String,
-      required: true,
+      required: false,
     },
     isComplete: {
       type: String,
       default: "NO",
-      required: false,
+      required: true,
     },
     notes: {
       type: String

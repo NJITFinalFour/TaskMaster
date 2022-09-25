@@ -1,4 +1,4 @@
-import axios from "axios"
+
 import { useState, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components"
@@ -60,7 +60,7 @@ const Button = styled.button`
 `;
 
 
-const AddNewTask = (props) => {
+const AdminAddNewTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
   const [userID, setUserID] = useState ("")
@@ -75,31 +75,42 @@ const AddNewTask = (props) => {
     user_id: "",
     due_date: "",
     priority: "",
+    isComplete: "NO",
     notes: ""
   });
 
-    const handleChange = ({ currentTarget: input }) => {
-      setNewTask({ ...newTask, [input.name]: input.value });
-      console.log(newTask)
-    };
+ 
 
-    const handleSubmit = async (e) => {
+
+    const handleSubmit= async (e) => {
+      
       e.preventDefault();
-      try {
-        const url = taskFetchPath;
-        const { data: res } = await axios.post(url, newTask);
-        // navigate("/user");
-        console.log(res.message);
-      } catch (error) {
-        if (
-          error.response &&
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
-          setError(error.response.data.message);
-        }
+      // setUserID(user._id)
+      const response = await fetch(taskFetchPath, {
+        method: "POST",
+        body: JSON.stringify(newTask),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
+      
+  
+      if (response.ok) {
+        setNewTask({
+          taskName: "",
+          organization_id: user.organization,
+          user_id: "",
+          due_date: "",
+          priority: "",
+          isComplete: "NO",
+          notes: ""
+        });
+        window.location.reload(false);
       }
-    };
+    }; 
+
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -135,22 +146,28 @@ const AddNewTask = (props) => {
                 type="text"
                 name="taskName"
                 placeholder="Task Name"
-                onChange={handleChange}
+                onChange={(event) => {
+                  setNewTask({ ...newTask, taskName: event.target.value });
+                }}
                 value={newTask.taskName}
                 required
               />
               <Select
                 name="user_id"
                 placeholder="User Name"
-                onChange={handleChange}
+                onChange={(event) => {
+                  setNewTask({ ...newTask, user_id: event.target.value });
+                }}
                 value={newTask.user_id}
                 required
               >
                 {/* {user.user_id.map((firstName, lastName) => (
                   <Option value={firstName + lastName}></Option>
                 ))} */}
+                <option></option>
                 {users.map(worker => {
                   return (
+                    
                     <option key={worker._id} value={worker._id}>{worker.first_name + " " + worker.last_name}</option>
                   )
                 })}
@@ -160,17 +177,23 @@ const AddNewTask = (props) => {
                 type="date"
                 name="due_date"
                 placeholder="Due Date"
-                onChange={handleChange}
+                onChange={(event) => {
+                  setNewTask({ ...newTask, due_date: event.target.value });
+                }}
                 value={newTask.due_date}
                 required
               />
               <Select
                 name="priority"
                 placeholder="Priority Level"
-                onChange={handleChange}
+                label="Priority"
+                onChange={(event) => {
+                  setNewTask({ ...newTask, priority: event.target.value });
+                }}
                 value={newTask.priority}
                 required
               >
+                <option></option>
                 <Option value="high">High</Option>
                 <Option value="medium">Medium</Option>
                 <Option value="low">Low</Option>
@@ -179,14 +202,16 @@ const AddNewTask = (props) => {
                 type="text"
                 name="notes"
                 placeholder="Notes"
-                onChange={handleChange}
-                value={newTask.password}
+                onChange={(event) => {
+                  setNewTask({ ...newTask, notes: event.target.value });
+                }}
+                value={newTask.notes}
               />
             </Top>
             <Bottom>
               {error && <div>{error}</div>}
               <Button type="submit" onClick={props.onHide}>
-                ADD USER
+                ADD TASK
               </Button>
             </Bottom>
           </Form>
@@ -196,4 +221,4 @@ const AddNewTask = (props) => {
   );
 }
 
-export default AddNewTask
+export default AdminAddNewTask
