@@ -5,6 +5,7 @@ import styled from "styled-components"
 import { taskFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
 
+
 const Container = styled.div`
   
 `
@@ -60,16 +61,18 @@ const Button = styled.button`
 `;
 
 
-const AdminAddNewTask = (props) => {
+const EditTask = (props) => {
   const { user } = useAuthContext();
+ 
   const [error, setError] = useState("");
   const [userID, setUserID] = useState ("")
   const [ users, setUsers ] = useState([])
 
 
-
+console.log(props.task._id)
 
   const [newTask, setNewTask] = useState ({
+    
     taskName: "",
     organization_id: user.organization,
     user_id: "",
@@ -79,7 +82,7 @@ const AdminAddNewTask = (props) => {
     notes: ""
   });
 
- 
+  
 
 
     const handleSubmit= async (e) => {
@@ -87,7 +90,7 @@ const AdminAddNewTask = (props) => {
       e.preventDefault();
       // setUserID(user._id)
       const response = await fetch(taskFetchPath, {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify(newTask),
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +98,7 @@ const AdminAddNewTask = (props) => {
         },
       });
       const json = await response.json();
-      
+      console.log(json)
   
       if (response.ok) {
         setNewTask({
@@ -112,19 +115,27 @@ const AdminAddNewTask = (props) => {
     }; 
 
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const res = await fetch(`http://localhost:5000/user/${user.organization}`, {
-                method: "GET",
-                mode: "cors"
-            })
-            let data = await res.json()
-            console.log(data)
-            setUsers(data)
-        }
+    // useEffect(() => {
+    //     const fetchTask = async () => {
+    //         const res = await fetch(`${taskFetchPath}${props.id}`, {
+    //           headers: { Authorization: `Bearer ${user.token}` },
+    //         });
+    //         let data = await res.json()
+    //         console.log(`fetch data ${[data]}`)
+          
+    //         // setNewTask({
+    //         //   taskName: data.taskName,
+    //         //   organization_id: user.organization,
+    //         //   user_id: "",
+    //         //   due_date: "",
+    //         //   priority: "",
+    //         //   isComplete: "NO",
+    //         //   notes: ""
+    //         // });
+    //     }
 
-        fetchTasks()
-    }, [user.organization])
+    //     fetchTask()
+    // }, [])
 
   return (
     <Container>
@@ -136,7 +147,7 @@ const AdminAddNewTask = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            CREATE A NEW TASK
+            Edit Task
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -211,7 +222,7 @@ const AdminAddNewTask = (props) => {
             <Bottom>
               {error && <div>{error}</div>}
               <Button type="submit" onClick={props.onHide}>
-                ADD TASK
+                Submit Change
               </Button>
             </Bottom>
           </Form>
@@ -221,4 +232,4 @@ const AdminAddNewTask = (props) => {
   );
 }
 
-export default AdminAddNewTask
+export default EditTask

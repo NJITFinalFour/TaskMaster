@@ -47,6 +47,7 @@ const Button = styled.button`
 
 const UserHome = () => {
   const { user } = useAuthContext();
+
   const [isUserAdmin, setIsUserAdmin] = useState("");
   useEffect(() => {
     if (user.isAdmin) {

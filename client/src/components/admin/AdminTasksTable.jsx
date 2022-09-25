@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import {BiEdit} from "react-icons/bi"
 import {RiDeleteBinLine} from "react-icons/ri"
 import "./AdminTasksTable.css"
+import EditTask from "./EditTask"
 
 const Container = styled.div`
   margin: auto;
@@ -14,11 +15,11 @@ const Container = styled.div`
 
 const AdminTasksTable = () => {
     const { user } = useAuthContext();
-
     const [ tasks, setTasks ] = useState([]);
+    const [editModalShow, setEditModalShow] = useState(false)
 
     
-//on page load fetch all tasks to display
+// page load fetch all tasks to display
     useEffect(() => {
         const fetchTasks = async () => {
             const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
@@ -50,11 +51,9 @@ const handleDelete = async (id) => {
     }
   };
 
-//Edit a task
-    const handleEdit = () => {
-            console.log("edit")
 
-    }
+
+
     return (
         <Container>
             <Table striped>
@@ -85,11 +84,16 @@ const handleDelete = async (id) => {
                                 <td>
                                     {task.notes}
                                 </td>
+                                
                                 <td>
-                                    {task.isComplete}
+                                    {task.isComplete} 
                                 </td>
                                 <td>
-                                    <BiEdit className="editButton" onClick={() => { handleEdit(task._id)}}/>
+                                    <BiEdit   className="editButton" onClick={(e) => setEditModalShow(true)} />
+                                    <EditTask task={task}
+                                     show={editModalShow}
+                                    onHide={() => setEditModalShow(false)}
+        />
                                 </td>
                                 <td>
                                     <RiDeleteBinLine className="deleteButton"  onClick={() => { handleDelete(task._id)}}/>
