@@ -1,7 +1,7 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { taskFetchPath } from "../../api/fetchpaths";
+import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -19,7 +19,7 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 3%;
+    width: 4.8%;
   }
   &:nth-child(2) {
     width: 1%;
@@ -72,6 +72,24 @@ const AdminTasksTable = () => {
     const [ tasks, setTasks ] = useState([]);
     const [editModalShow, setEditModalShow] = useState(false)
     const [taskID, setTaskID] = useState("")
+    const [ users, setUsers ] = useState([])
+    
+    
+
+// Get Users
+useEffect(() => {
+    const fetchTasks = async () => {
+        const res = await fetch(`${userFetchPath}${user.organization}`, {
+            method: "GET",
+            mode: "cors"
+        })
+        let alldata = await res.json()
+        setUsers(alldata)
+        
+    }
+    
+    fetchTasks()
+}, [user.organization])
 
 
   // page load fetch all tasks to display
@@ -123,9 +141,23 @@ const AdminTasksTable = () => {
         </thead>
         <Tbody>
           {tasks.map((task) => {
+            
             return (
               <Tr key={task._id}>
-                <Td>{task.user_id}</Td>
+                <Td> {users.map((worker) => {
+                   if (task.user_id == worker._id) {
+                    return (
+                        <Td key={worker._id} value={worker._id}>
+                          {worker.first_name + " " + worker.last_name}
+                        </Td>
+                      );
+                   }
+                        
+                    
+
+
+                    
+                  })}</Td>
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.due_date}</Td>
