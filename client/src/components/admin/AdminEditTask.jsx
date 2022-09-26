@@ -95,17 +95,17 @@ const EditTask = (props) => {
   const [ users, setUsers ] = useState([])
 
 
-
+  // console.log(props.task)
 
   const [newTask, setNewTask] = useState ({
     
-    taskName: "",
+    taskName: props.taskName,
     organization_id: user.organization,
-    user_id: "",
-    due_date: "",
-    priority: "",
-    isComplete: "NO",
-    notes: ""
+    user_id: props.user_id,
+    due_date: props.due_date,
+    priority: props.priority,
+    isComplete: props.isComplete,
+    notes: props.notes
   });
 
   
@@ -128,15 +128,16 @@ const EditTask = (props) => {
   
       if (response.ok) {
         setNewTask({
-          taskName: "",
+          taskName: json.taskName,
           organization_id: user.organization,
-          user_id: "",
-          due_date: "",
-          priority: "",
-          isComplete: "NO",
-          notes: ""
+          user_id: json._id,
+          due_date: json.due_date,
+          priority: json.priority,
+          isComplete: json.isComplete,
+          notes: json.notes
         });
         window.location.reload(false);
+        
       }
     }; 
 // Get all usrs to populate drop down
@@ -172,6 +173,7 @@ const EditTask = (props) => {
               isComplete: data.isComplete,
               notes: data.notes,
             });
+            
         }
 
         fetchTask()
@@ -201,7 +203,7 @@ const EditTask = (props) => {
                   onChange={(event) => {
                     setNewTask({ ...newTask, taskName: event.target.value });
                   }}
-                  value={newTask.taskName}
+                  defaultValue={newTask.taskName}
                   required
                 />
                 <Label>Assign to:</Label>
@@ -211,18 +213,18 @@ const EditTask = (props) => {
                   onChange={(event) => {
                     setNewTask({ ...newTask, user_id: event.target.value });
                   }}
-                  value={newTask.user_id}
+                  defaultValue={newTask.user_id}
                   required
                 >
                   {/* {user.user_id.map((firstName, lastName) => (
                     <Option value={firstName + lastName}></Option>
                   ))} */}
-                  <Option value="" disabled>
+                  <Option>
                     Select a user
                   </Option>
                   {users.map((worker) => {
                     return (
-                      <option key={worker._id} value={worker._id}>
+                      <option key={worker._id} defaultValue={worker._id}>
                         {worker.first_name + " " + worker.last_name}
                       </option>
                     );
@@ -236,7 +238,7 @@ const EditTask = (props) => {
                   onChange={(event) => {
                     setNewTask({ ...newTask, due_date: event.target.value });
                   }}
-                  value={newTask.due_date}
+                  defaultValue={newTask.due_date}
                   required
                 />
                 <Label>Priority level:</Label>
@@ -250,7 +252,7 @@ const EditTask = (props) => {
                   value={newTask.priority}
                   required
                 >
-                  <Option value="" disabled>
+                  <Option>
                     Select a level
                   </Option>
                   <Option value="high">High</Option>
@@ -261,11 +263,11 @@ const EditTask = (props) => {
                 <NotesInput
                   type="text"
                   name="notes"
-                  // placeholder="Notes"
+              
                   onChange={(event) => {
                     setNewTask({ ...newTask, notes: event.target.value });
                   }}
-                  value={newTask.notes}
+                  defaultValue={newTask.notes}
                 />
                 <Label>Set as complete or NOT complete:</Label>
                 <Select
@@ -278,7 +280,7 @@ const EditTask = (props) => {
                   value={newTask.isComplete}
                   required
                 >
-                  <Option value="" disabled>
+                  <Option>
                     Select a level
                   </Option>
                   <Option value="NO">NOT COMPLETE</Option>
