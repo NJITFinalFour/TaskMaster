@@ -63,6 +63,7 @@ const DeleteWrapper = styled.div`
 const AdminTasksTable = () => {
   const { user } = useAuthContext();
   const [tasks, setTasks] = useState([]);
+    const [taskID, setTaskID] = useState("")
 
   const [editModalShow, setEditModalShow] = useState(false);
 
@@ -93,8 +94,7 @@ const AdminTasksTable = () => {
     });
 
     if (response.ok) {
-      //   window.location.reload(false);
-      setTasks(tasks.filter((task) => task._id !== id));
+        setTasks(tasks.filter((task) => task._id !== id));
     }
   };
 
