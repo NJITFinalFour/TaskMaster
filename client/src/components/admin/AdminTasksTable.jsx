@@ -66,23 +66,9 @@ const AdminTasksTable = () => {
     const [editModalShow, setEditModalShow] = useState(false)
     const [taskID, setTaskID] = useState("")
 
-    
-// page load fetch all tasks to display
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
-                method: "GET",
-                mode: "cors"
-            })
-            let data = await res.json()
-            setTasks(data)
-           
-            
-        }
-
 
   // page load fetch all tasks to display
-  useEffect(() => {
+    useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
         `${taskFetchPath}/organization/${user.organization}`,
@@ -134,6 +120,7 @@ const AdminTasksTable = () => {
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.notes}</Td>
+
                 <Td>{task.isComplete}</Td>
                 <Td>
                   <EditWrapper>
