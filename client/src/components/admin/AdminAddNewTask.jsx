@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components"
 import { taskFetchPath } from "../../api/fetchpaths"
+import { userFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
 
 const Container = styled.div`
@@ -141,7 +142,7 @@ const AdminAddNewTask = (props) => {
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const res = await fetch(`http://localhost:5000/user/${user.organization}`, {
+            const res = await fetch(`${userFetchPath}${user.organization}`, {
                 method: "GET",
                 mode: "cors"
             })
@@ -193,7 +194,7 @@ const AdminAddNewTask = (props) => {
                 {/* {user.user_id.map((firstName, lastName) => (
                   <Option value={firstName + lastName}></Option>
                 ))} */}
-                <Option value="" disabled selected>
+                <Option value="" disabled>
                   Select a user
                 </Option>
                 {users.map((worker) => {
@@ -226,7 +227,7 @@ const AdminAddNewTask = (props) => {
                 value={newTask.priority}
                 required
               >
-                <Option value="" disabled selected>
+                <Option value="" disabled>
                   Select a level
                 </Option>
                 <Option value="high">High</Option>
