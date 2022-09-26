@@ -17,6 +17,7 @@ const AdminTasksTable = () => {
     const { user } = useAuthContext();
     const [ tasks, setTasks ] = useState([]);
     const [editModalShow, setEditModalShow] = useState(false)
+    const [taskID, setTaskID] = useState("")
 
     
 // page load fetch all tasks to display
@@ -47,7 +48,7 @@ const handleDelete = async (id) => {
     });
 
     if (response.ok) {
-        window.location.reload(false);
+        setTasks(tasks.filter((task) => task._id !== id));
     }
   };
 
@@ -89,7 +90,7 @@ const handleDelete = async (id) => {
                                     {task.isComplete} 
                                 </td>
                                 <td>
-                                    <BiEdit   className="editButton" onClick={(e) => setEditModalShow(true)} />
+                                    <BiEdit   className="editButton" onClick={() => {setEditModalShow(true); console.log(`here ${task._id}`)}} />
                                     <EditTask task={task}
                                      show={editModalShow}
                                     onHide={() => setEditModalShow(false)}
