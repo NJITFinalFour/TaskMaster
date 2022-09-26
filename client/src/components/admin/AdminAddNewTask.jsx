@@ -9,27 +9,54 @@ const Container = styled.div`
   
 `
 
-const Form = styled.form``;
+const Form = styled.form`
+  /* align-items: center;
+  justify-content: center; */
+  margin: auto;
+`;
 
 const Top = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Input = styled.input`
   flex: 1;
-  min-width: 40%;
+  /* min-width: 40%; */
   margin: 20px 10px;
   padding: 10px;
 `;
 
-const Select = styled.select`
-  
+const Label = styled.label`
+  margin: auto;
 `
 
+const Select = styled.select`
+  flex: 1;
+  min-width: 40%;
+  max-width: fit-content;
+  margin: 20px 10px;
+  padding: 10px;
+`;
+
 const Option = styled.option`
-  
-`
+  flex: 1;
+  min-width: 40%;
+  max-width: fit-content;
+
+  margin: 20px 10px;
+  padding: 10px;
+`;
+ const NotesInput = styled.textarea`
+   flex: 1;
+   min-width: 40%;
+   margin: 20px 10px;
+   padding: 10px;
+   height: 200px;
+ `;
 
 
 const Bottom = styled.div`
@@ -63,7 +90,7 @@ const Button = styled.button`
 const AdminAddNewTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
-  const [userID, setUserID] = useState ("")
+  // const [userID, setUserID] = useState ("")
   const [ users, setUsers ] = useState([])
 
 
@@ -142,16 +169,18 @@ const AdminAddNewTask = (props) => {
         <Modal.Body>
           <Form autocomplete="off" onSubmit={handleSubmit}>
             <Top>
+              <Label>Task name:</Label>
               <Input
                 type="text"
                 name="taskName"
-                placeholder="Task Name"
+                // placeholder="Task Name"
                 onChange={(event) => {
                   setNewTask({ ...newTask, taskName: event.target.value });
                 }}
                 value={newTask.taskName}
                 required
               />
+              <Label>Assign to:</Label>
               <Select
                 name="user_id"
                 placeholder="User Name"
@@ -164,25 +193,29 @@ const AdminAddNewTask = (props) => {
                 {/* {user.user_id.map((firstName, lastName) => (
                   <Option value={firstName + lastName}></Option>
                 ))} */}
-                <option></option>
-                {users.map(worker => {
+                <Option value="" disabled selected>
+                  Select a user
+                </Option>
+                {users.map((worker) => {
                   return (
-                    
-                    <option key={worker._id} value={worker._id}>{worker.first_name + " " + worker.last_name}</option>
-                  )
+                    <option key={worker._id} value={worker._id}>
+                      {worker.first_name + " " + worker.last_name}
+                    </option>
+                  );
                 })}
               </Select>
-
+              <Label>Due date:</Label>
               <Input
                 type="date"
                 name="due_date"
-                placeholder="Due Date"
+                // placeholder="Due Date"
                 onChange={(event) => {
                   setNewTask({ ...newTask, due_date: event.target.value });
                 }}
                 value={newTask.due_date}
                 required
               />
+              <Label>Priority level:</Label>
               <Select
                 name="priority"
                 placeholder="Priority Level"
@@ -193,15 +226,18 @@ const AdminAddNewTask = (props) => {
                 value={newTask.priority}
                 required
               >
-                <option></option>
+                <Option value="" disabled selected>
+                  Select a level
+                </Option>
                 <Option value="high">High</Option>
                 <Option value="medium">Medium</Option>
                 <Option value="low">Low</Option>
               </Select>
-              <Input
+              <Label>Notes:</Label>
+              <NotesInput
                 type="text"
                 name="notes"
-                placeholder="Notes"
+                // placeholder="Notes"
                 onChange={(event) => {
                   setNewTask({ ...newTask, notes: event.target.value });
                 }}
