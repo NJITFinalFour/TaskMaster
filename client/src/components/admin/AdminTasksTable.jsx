@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import EditTask from "./AdminEditTask";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const Container = styled.div``;
 
@@ -18,25 +19,31 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 10%;
+    width: 1%;
   }
   &:nth-child(2) {
-    width: 8%;
+    width: 1%;
   }
   &:nth-child(3) {
-    width: 20%;
+    width: 5%;
   }
   &:nth-child(4) {
-    width: 42%;
+    width: 4%;
   }
   &:nth-child(5) {
-    width: 10%;
+    width: 6%;
   }
   &:nth-child(6) {
-    width: 5%;
+    width: 10%;
+  }
+  &:nth-child(7) {
+    width: 1%;
+  }
+  &:nth-child(8) {
+    width: 3%;
   }
   &:last-child {
-    width: 5%;
+    width: 3%;
   }
 `;
 
@@ -106,6 +113,8 @@ const AdminTasksTable = () => {
             <th>Assigned To</th>
             <th>Priority</th>
             <th>Task name</th>
+            <th>Due Date</th>
+            <th>Created</th>
             <th>Notes</th>
             <th>Completed?</th>
             <th>Edit Task</th>
@@ -119,6 +128,8 @@ const AdminTasksTable = () => {
                 <Td>{task.user_id}</Td>
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
+                <Td>{task.due_date}</Td>
+                <Td>{formatDistanceToNow(new Date(task.createdAt), { addSuffix: true })}</Td>
                 <Td>{task.notes}</Td>
 
                 <Td>{task.isComplete}</Td>
@@ -126,11 +137,11 @@ const AdminTasksTable = () => {
                   <EditWrapper>
                     <BiEdit
                       className="editButton"
-                      onClick={(e) => setEditModalShow(true)}
+                      onClick={() => {setEditModalShow(true); setTaskID(task._id);  }}
                     />
                   </EditWrapper>
                   <EditTask
-                    task={task}
+                    taskid={taskID}
                     show={editModalShow}
                     onHide={() => setEditModalShow(false)}
                   />
