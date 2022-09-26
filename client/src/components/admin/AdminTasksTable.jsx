@@ -19,7 +19,7 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 1%;
+    width: 3%;
   }
   &:nth-child(2) {
     width: 1%;
