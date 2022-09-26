@@ -61,10 +61,25 @@ const DeleteWrapper = styled.div`
 `;
 
 const AdminTasksTable = () => {
-  const { user } = useAuthContext();
-  const [tasks, setTasks] = useState([]);
+    const { user } = useAuthContext();
+    const [ tasks, setTasks ] = useState([]);
+    const [editModalShow, setEditModalShow] = useState(false)
+    const [taskID, setTaskID] = useState("")
 
-  const [editModalShow, setEditModalShow] = useState(false);
+    
+// page load fetch all tasks to display
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
+                method: "GET",
+                mode: "cors"
+            })
+            let data = await res.json()
+            setTasks(data)
+           
+            
+        }
+
 
   // page load fetch all tasks to display
   useEffect(() => {
@@ -93,8 +108,7 @@ const AdminTasksTable = () => {
     });
 
     if (response.ok) {
-      //   window.location.reload(false);
-      setTasks(tasks.filter((task) => task._id !== id));
+        setTasks(tasks.filter((task) => task._id !== id));
     }
   };
 
@@ -120,7 +134,6 @@ const AdminTasksTable = () => {
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.notes}</Td>
-
                 <Td>{task.isComplete}</Td>
                 <Td>
                   <EditWrapper>

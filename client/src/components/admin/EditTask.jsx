@@ -69,7 +69,7 @@ const EditTask = (props) => {
   const [ users, setUsers ] = useState([])
 
 
-console.log(props.task._id)
+// console.log(props.task.taskName)
 
   const [newTask, setNewTask] = useState ({
     
@@ -98,7 +98,7 @@ console.log(props.task._id)
         },
       });
       const json = await response.json();
-      console.log(json)
+      // console.log(json)
   
       if (response.ok) {
         setNewTask({
@@ -160,7 +160,7 @@ console.log(props.task._id)
                 onChange={(event) => {
                   setNewTask({ ...newTask, taskName: event.target.value });
                 }}
-                value={newTask.taskName}
+                value={props.task.taskName}
                 required
               />
               <Select
