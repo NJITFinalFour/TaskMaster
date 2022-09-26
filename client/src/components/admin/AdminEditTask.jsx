@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
+import { useRouteLoaderData } from "react-router-dom";
 import styled from "styled-components"
-import { taskFetchPath } from "../../api/fetchpaths"
+import { taskFetchPath, userFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
 
 
@@ -90,13 +91,11 @@ const Button = styled.button`
 
 const EditTask = (props) => {
   const { user } = useAuthContext();
- 
   const [error, setError] = useState("");
-  const [userID, setUserID] = useState ("")
   const [ users, setUsers ] = useState([])
 
 
-// console.log(props.task.taskName)
+
 
   const [newTask, setNewTask] = useState ({
     
@@ -111,12 +110,11 @@ const EditTask = (props) => {
 
   
 
-
+//Submit changes
     const handleSubmit= async (e) => {
       
       e.preventDefault();
-      // setUserID(user._id)
-      const response = await fetch(taskFetchPath, {
+      const response = await fetch(`${taskFetchPath}${props.taskid}`, {
         method: "PUT",
         body: JSON.stringify(newTask),
         headers: {
@@ -125,7 +123,8 @@ const EditTask = (props) => {
         },
       });
       const json = await response.json();
-      // console.log(json)
+      console.log(json)
+      
   
       if (response.ok) {
         setNewTask({
@@ -140,29 +139,43 @@ const EditTask = (props) => {
         window.location.reload(false);
       }
     }; 
+// Get all usrs to populate drop down
+    useEffect(() => {
+      const fetchTasks = async () => {
+          const res = await fetch(`${userFetchPath}${user.organization}`, {
+              method: "GET",
+              mode: "cors"
+          })
+          let alldata = await res.json()
+          console.log(alldata)
+          setUsers(alldata)
+      }
 
+      fetchTasks()
+  }, [user.organization])
 
-    // useEffect(() => {
-    //     const fetchTask = async () => {
-    //         const res = await fetch(`${taskFetchPath}${props.id}`, {
-    //           headers: { Authorization: `Bearer ${user.token}` },
-    //         });
-    //         let data = await res.json()
-    //         console.log(`fetch data ${[data]}`)
+// Get task being edited
+    useEffect(() => {
+        const fetchTask = async () => {
+            const res = await fetch(`${taskFetchPath}${props.taskid}`, {
+              headers: { Authorization: `Bearer ${user.token}` },
+            });
+            let data = await res.json()
+            
           
-    //         // setNewTask({
-    //         //   taskName: data.taskName,
-    //         //   organization_id: user.organization,
-    //         //   user_id: "",
-    //         //   due_date: "",
-    //         //   priority: "",
-    //         //   isComplete: "NO",
-    //         //   notes: ""
-    //         // });
-    //     }
+            setNewTask({
+              taskName: data.taskName,
+              organization_id: user.organization,
+              user_id: data.user_id,
+              due_date: data.due_date,
+              priority: data.priority,
+              isComplete: data.isComplete,
+              notes: data.notes,
+            });
+        }
 
-    //     fetchTask()
-    // }, [])
+        fetchTask()
+    }, [props.taskid])
 
     return (
       <Container>

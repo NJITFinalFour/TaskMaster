@@ -13,7 +13,7 @@ const AdminTabs = () => {
   return (
     <Container>
       <Tabs
-        defaultActiveKey="users"
+        defaultActiveKey="tasks"
         id="fill-tab-example"
         className="mb-3"
         fill
