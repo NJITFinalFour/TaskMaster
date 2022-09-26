@@ -92,7 +92,7 @@ const AddNewTask = (props) => {
         const url = taskFetchPath;
         const { data: res } = await axios.post(url, newTask);
         // navigate("/user");
-        console.log(res.message);
+        // console.log(res.message);
         // console.log(`task ${newTask}`)
       } catch (error) {
         if (
@@ -112,7 +112,7 @@ const AddNewTask = (props) => {
                 mode: "cors"
             })
             let data = await res.json()
-            console.log(data)
+            // console.log(data)
             setUsers(data)
         }
 
