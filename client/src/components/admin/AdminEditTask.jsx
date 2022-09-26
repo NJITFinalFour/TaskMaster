@@ -213,7 +213,7 @@ const EditTask = (props) => {
                   onChange={(event) => {
                     setNewTask({ ...newTask, user_id: event.target.value });
                   }}
-                  defaultValue={newTask.user_id}
+                  value={newTask.user_id}
                   required
                 >
                   {/* {user.user_id.map((firstName, lastName) => (
@@ -224,7 +224,7 @@ const EditTask = (props) => {
                   </Option>
                   {users.map((worker) => {
                     return (
-                      <option key={worker._id} defaultValue={worker._id}>
+                      <option key={worker._id} value={worker._id}>
                         {worker.first_name + " " + worker.last_name}
                       </option>
                     );
