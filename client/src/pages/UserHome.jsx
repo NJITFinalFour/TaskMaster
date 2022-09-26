@@ -6,6 +6,7 @@ import AdminTabs from "../components/admin/AdminTabs";
 import AddNewAdmin from "../components/AddNewAdmin";
 import OrgName from "../components/OrgName";
 import AddNewTask from "../components/admin/AdminAddNewTask";
+import AdminAddNewTask from "../components/admin/AdminAddNewTask";
 
 const Container = styled.div`
   height: 100vh;
@@ -27,9 +28,22 @@ const Verify = styled.h4`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: end;
+  /* justify-content: end; */
   margin: 50px 20%;
 `;
+
+const Left = styled.div`
+  display: flex;
+  justify-content: start;
+
+`
+
+const Right = styled.div`
+display: flex;
+flex: 1;
+justify-content: flex-end;
+`;
+
 
 const Button = styled.button`
   font-size: 20px;
@@ -72,29 +86,33 @@ const UserHome = () => {
         <Verify>{isUserAdmin}</Verify>
       </Top>
       <ButtonContainer>
-        <Button variant="primary" onClick={() => setTaskModalShow(true)}>
-          New Task
-        </Button>
-        <AddNewTask
-          show={taskModalShow}
-          onHide={() => setTaskModalShow(false)}
-        />
+        <Left>
+          <AdminAddNewTask
+            show={taskModalShow}
+            onHide={() => setTaskModalShow(false)}
+          />
 
-        <Button variant="primary" onClick={() => setUserModalShow(true)}>
-          New User
-        </Button>
-        <AddNewUser
-          show={userModalShow}
-          onHide={() => setUserModalShow(false)}
-        />
+          <Button variant="primary" onClick={() => setUserModalShow(true)}>
+            New User
+          </Button>
+          <AddNewUser
+            show={userModalShow}
+            onHide={() => setUserModalShow(false)}
+          />
 
-        <Button variant="primary" onClick={() => setAdminModalShow(true)}>
-          New Admin
-        </Button>
-        <AddNewAdmin
-          show={adminModalShow}
-          onHide={() => setAdminModalShow(false)}
-        />
+          <Button variant="primary" onClick={() => setAdminModalShow(true)}>
+            New Admin
+          </Button>
+          <AddNewAdmin
+            show={adminModalShow}
+            onHide={() => setAdminModalShow(false)}
+          />
+        </Left>
+        <Right>
+          <Button variant="primary" onClick={() => setTaskModalShow(true)}>
+            New Task
+          </Button>
+        </Right>
       </ButtonContainer>
       <AdminTabs />
     </Container>
