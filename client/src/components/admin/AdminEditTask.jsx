@@ -267,6 +267,23 @@ const EditTask = (props) => {
                   }}
                   value={newTask.notes}
                 />
+                <Label>Set as complete or NOT complete:</Label>
+                <Select
+                  name="priority"
+                  placeholder="Priority Level"
+                  label="Priority"
+                  onChange={(event) => {
+                    setNewTask({ ...newTask, isComplete: event.target.value });
+                  }}
+                  value={newTask.isComplete}
+                  required
+                >
+                  <Option value="" disabled>
+                    Select a level
+                  </Option>
+                  <Option value="NO">NOT COMPLETE</Option>
+                  <Option value="YES">COMPLETE</Option>
+                </Select>
               </Top>
               <Bottom>
                 {error && <div>{error}</div>}
