@@ -61,14 +61,14 @@ const DeleteWrapper = styled.div`
 `;
 
 const AdminTasksTable = () => {
-  const { user } = useAuthContext();
-  const [tasks, setTasks] = useState([]);
+    const { user } = useAuthContext();
+    const [ tasks, setTasks ] = useState([]);
+    const [editModalShow, setEditModalShow] = useState(false)
     const [taskID, setTaskID] = useState("")
 
-  const [editModalShow, setEditModalShow] = useState(false);
 
   // page load fetch all tasks to display
-  useEffect(() => {
+    useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
         `${taskFetchPath}/organization/${user.organization}`,
