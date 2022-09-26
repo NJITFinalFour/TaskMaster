@@ -8,7 +8,10 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import EditTask from "./AdminEditTask";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-const Container = styled.div``;
+const Container = styled.div`
+overflow: scroll;
+`;
+
 
 const Tbody = styled.tbody``;
 
@@ -149,15 +152,7 @@ useEffect(() => {
                     return (
                         <Td key={worker._id} value={worker._id}>
                           {worker.first_name + " " + worker.last_name}
-                        </Td>
-                      );
-                   }
-                        
-                    
-
-
-                    
-                  })}</Td>
+                        </Td>);}})}</Td>
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.due_date}</Td>
