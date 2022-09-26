@@ -142,6 +142,7 @@ const AdminTasksTable = () => {
                   </EditWrapper>
                   <EditTask
                     taskid={taskID}
+                    task={task}
                     show={editModalShow}
                     onHide={() => setEditModalShow(false)}
                   />
