@@ -5,7 +5,7 @@ import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
-import EditTask from "./EditTask";
+import EditTask from "./AdminEditTask";
 
 const Container = styled.div``;
 
