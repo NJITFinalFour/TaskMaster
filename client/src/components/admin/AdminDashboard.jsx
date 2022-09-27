@@ -2,13 +2,26 @@ import { formatDistanceToNow, format } from "date-fns";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Table from "react-bootstrap/Table";
+import AdminUsersTable from "./AdminUsersTable";
 import EditTask from "./AdminEditTask";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Container = styled.div`
+  margin: auto;
+  width: 80%;
+`;
+
+const StyledTabs = styled(Tabs)`
+  color: #88bb44;
+  font-size: 1.5em;
+`;
+
+const Wrapper = styled.div`
   height: 50vh;
   overflow-y: auto;
   border-width: 0px 1px 1px 1px;
@@ -80,22 +93,18 @@ const Heading = styled.h3`
   color: #88bb44;
 `;
 
-const TaskWrapper = styled.div`
-  /* height: 40vh;
-  overflow-y: auto;
-  padding: 20px 50px;
-  margin: 0px 10%;
-  border: 1px solid black;
-  border-radius: 10px; */
-`;
 
-const AdminOverdueTasksTable = () => {
+const AdminDashboard = () => {
   const { user } = useAuthContext();
   const [users, setUsers] = useState([]);
-  const [overdueTasks, setOverdueTasks] = useState([]);
-  const [editModalShow, setEditModalShow] = useState(false);
   const [taskID, setTaskID] = useState("");
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [allTasks, setAllTasks] = useState([]);
+  const [overdueTasks, setOverdueTasks] = useState([]);
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
+  // Get Users
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(`${userFetchPath}${user.organization}`, {
@@ -109,6 +118,7 @@ const AdminOverdueTasksTable = () => {
     fetchTasks();
   }, [user.organization]);
 
+  // Get Tasks
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
@@ -119,9 +129,13 @@ const AdminOverdueTasksTable = () => {
         }
       );
       let data = await res.json();
-      setOverdueTasks(data);
+      setAllTasks(data);
 
-      let overdue = [];
+      // let alltasks = [];
+      let overdueTasks = [];
+      let inProgressTasks = [];
+      let completedTasks = [];
+      
 
       for (const task of data) {
         const dueDate = new Date(task.due_date);
@@ -130,9 +144,20 @@ const AdminOverdueTasksTable = () => {
         const todayFormatted = format(today, "MM/dd/yyyy");
 
         if (dueDateFormatted < todayFormatted) {
-          overdue.push(task);
-          setOverdueTasks(overdue);
-          // console.log(overdue);
+          overdueTasks.push(task);
+          setOverdueTasks(overdueTasks);
+        } else if (
+          dueDateFormatted >= todayFormatted &&
+          task.isComplete === "NO"
+        ) {
+          inProgressTasks.push(task);
+          setInProgressTasks(inProgressTasks);
+        } else if (task.isComplete === "YES") {
+          completedTasks.push(task);
+          setCompletedTasks(completedTasks);
+        } else {
+          allTasks.push(task);
+          setAllTasks(allTasks);
         }
       }
     };
@@ -149,7 +174,7 @@ const AdminOverdueTasksTable = () => {
     });
 
     if (response.ok) {
-      setOverdueTasks(overdueTasks.filter((task) => task._id !== id));
+      setAllTasks(allTasks.filter((task) => task._id !== id));
     }
   };
 
@@ -234,10 +259,45 @@ const AdminOverdueTasksTable = () => {
 
   return (
     <Container>
-      <Heading>Overdue Tasks</Heading>
-      <TaskWrapper>{displayTable(overdueTasks)}</TaskWrapper>
+      <StyledTabs
+        defaultActiveKey="users"
+        id="fill-tab-example"
+        className="mb-3"
+        fill
+      >
+        <Tab eventKey="users" title="Users">
+          <Wrapper>
+            <Heading>All Users</Heading>
+            <AdminUsersTable />
+          </Wrapper>
+        </Tab>
+        <Tab eventKey="allTasks" title="All Tasks">
+          <Wrapper>
+            <Heading>All Tasks</Heading>
+            {displayTable(allTasks)}
+          </Wrapper>
+        </Tab>
+        <Tab eventKey="overdueTasks" title="Overdue">
+          <Wrapper>
+            <Heading>Overdue Tasks</Heading>
+            {displayTable(overdueTasks)}
+          </Wrapper>
+        </Tab>
+        <Tab eventKey="inProgressTasks" title="In Progress">
+          <Wrapper>
+            <Heading>In Progress Tasks</Heading>
+            {displayTable(inProgressTasks)}
+          </Wrapper>
+        </Tab>
+        <Tab eventKey="completedTasks" title="Completed">
+          <Wrapper>
+            <Heading>Completed Tasks</Heading>
+            {displayTable(completedTasks)}
+          </Wrapper>
+        </Tab>
+      </StyledTabs>
     </Container>
   );
 };
 
-export default AdminOverdueTasksTable;
+export default AdminDashboard;
