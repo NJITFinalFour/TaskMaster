@@ -74,7 +74,8 @@ const UserTasksTable = () => {
 
      // START OF LOGIC FOR Mark as Complete or NOT complete //
 
-  const handleChange = async () => {
+  useEffect(() => {
+    const handleChange = async () => {
     console.log(taskID)
     const response = await fetch(`${taskFetchPath}${taskID}`, {
       method: "Get",
@@ -143,6 +144,9 @@ const UserTasksTable = () => {
       }
     }
   };
+  handleChange();
+  }, [taskID])
+  
 // END of COMPLETE TOGGLE LOGIC ??
 
   // page load fetch all tasks to display
@@ -206,13 +210,11 @@ const UserTasksTable = () => {
                 {row.isComplete === "NO" &&
                     <Td onClick={() => {
                       setTaskID(row._id);
-                      handleChange(); 
                     }} ><GrCheckbox /></Td>
                   }
                 {row.isComplete === "YES" &&
                     <Td onClick={() => {
                       setTaskID(row._id);
-                      handleChange();
                     }} ><GrCheckboxSelected /></Td>
                   }
               </Tr>
