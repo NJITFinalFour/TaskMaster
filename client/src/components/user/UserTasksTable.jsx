@@ -57,7 +57,8 @@ const TaskWrapperTwo = styled.div`
 
 const Heading = styled.h3`
   font-weight: 600;
-  margin: 15px 0px;
+  margin: 15px 13%;
+  color: #88bb44;
 `;
 
 
@@ -133,12 +134,12 @@ const UserTasksTable = () => {
 
   return (
     <Container>
-        <TaskWrapper>
           <Heading>Needs to be completed</Heading>
+        <TaskWrapper>
           {displayTable(unCompletedTasks)}
         </TaskWrapper>
-        <TaskWrapperTwo>
           <Heading>Completed</Heading>
+        <TaskWrapperTwo>
           {displayTable(completedTasks)}
         </TaskWrapperTwo>
     </Container>

@@ -11,6 +11,10 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const Container = styled.div`
   height: 50vh;
   overflow-y: auto;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: #9c9c9ca6;
+  border-radius: 10px;
 `;
 
 const Tbody = styled.tbody``;
