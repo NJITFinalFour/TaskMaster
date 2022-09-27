@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
 import {GrCheckbox} from "react-icons/gr"
 import {GrCheckboxSelected} from "react-icons/gr"
-import { ContentCutOutlined } from "@mui/icons-material";
 
 const Container = styled.div`
   height: 80vh;
