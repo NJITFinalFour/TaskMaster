@@ -4,6 +4,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
+import {GrCheckbox} from "react-icons/gr"
+import {GrCheckboxSelected} from "react-icons/gr"
+import { ContentCutOutlined } from "@mui/icons-material";
 
 const Container = styled.div`
   height: 80vh;
@@ -69,6 +72,80 @@ const UserTasksTable = () => {
 
     const [ completedTasks, setCompletedTasks ] = useState([])
     const [ unCompletedTasks, setUnCompletedTasks ] = useState([])
+    const [taskID, setTaskID] = useState("")
+
+     // START OF LOGIC FOR Mark as Complete or NOT complete //
+
+  const handleChange = async () => {
+    console.log(taskID)
+    const response = await fetch(`${taskFetchPath}${taskID}`, {
+      method: "Get",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      console.log(json.error);
+    }
+    console.log(`get ${json.isComplete}`);
+
+    if (json.isComplete === "NO") {
+      console.log("NO was not Completed  change to completed");
+
+      const isComplete = "YES";
+      const change = { isComplete };
+      console.log(change);
+
+      ////////////////////////// NOT Patch completed change
+      const res = await fetch(taskFetchPath + taskID, {
+        method: "PUT",
+        body: JSON.stringify(change),
+        headers: {
+          "content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const results = await res.json();
+      console.log(results);
+
+      if (!response.ok) {
+        console.log(json.error);
+      }
+      if (response.ok) {
+        console.log("change made");
+        window.location.reload(false);
+      }
+    }
+    if (json.isComplete === "YES") {
+      console.log("YES is completed change to NOT");
+
+      const isComplete = "NO";
+      const change = { isComplete };
+      console.log(change);
+
+      ///////////////////////////////////// IS Patch paid change
+      const res = await fetch(taskFetchPath + taskID, {
+        method: "PUT",
+        body: JSON.stringify(change),
+        headers: {
+          "content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const results = await res.json();
+      console.log(results);
+
+      if (!response.ok) {
+        console.log(json.error);
+      }
+      if (response.ok) {
+        console.log("change made");
+        window.location.reload(false);
+      }
+    }
+  };
+// END of COMPLETE TOGGLE LOGIC ??
 
   // page load fetch all tasks to display
     useEffect(() => {
@@ -114,7 +191,7 @@ const UserTasksTable = () => {
             <th>Created</th>
             <th>Task name</th>
             <th>Notes</th>
-            <th>Completed?</th>
+            <th>Complete Status</th>
           </tr>
         </thead>
         <Tbody>
@@ -128,7 +205,18 @@ const UserTasksTable = () => {
                 <Td>{formatDistanceToNow(new Date(row.createdAt), { addSuffix: true })}</Td>
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
-                <Td>{row.isComplete}</Td>
+                {row.isComplete === "NO" &&
+                    <Td onClick={() => {
+                      setTaskID(row._id);
+                      handleChange(); 
+                    }} ><GrCheckbox /></Td>
+                  }
+                {row.isComplete === "YES" &&
+                    <Td onClick={() => {
+                      setTaskID(row._id);
+                      handleChange();
+                    }} ><GrCheckboxSelected /></Td>
+                  }
               </Tr>
             );
           })}
