@@ -7,18 +7,17 @@ import AdminTasksTable from "./AdminTasksTable";
 const Container = styled.div`
   margin: auto;
   width: 80%;
+`
+
+const StyledTabs = styled(Tabs)`
   color: #88bb44;
+  font-size: 2em;
 `;
-
-// const TabContainer = styled.div`
-//   color: #88bb44;
-
-// `;
 
 const AdminTabs = () => {
   return (
     <Container>
-      <Tabs
+      <StyledTabs
         defaultActiveKey="tasks"
         id="fill-tab-example"
         className="mb-3"
@@ -30,7 +29,7 @@ const AdminTabs = () => {
           <Tab eventKey="tasks" title="Tasks">
             <AdminTasksTable />
           </Tab>
-      </Tabs>
+      </StyledTabs>
     </Container>
   );
 };

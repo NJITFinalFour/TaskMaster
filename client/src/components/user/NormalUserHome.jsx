@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const Top = styled.div`
   margin-top: 1%;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
 `;
 
 const Greeting = styled.h1`
