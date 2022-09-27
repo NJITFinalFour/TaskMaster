@@ -49,8 +49,10 @@ const TaskWrapper = styled.div`
 `;
 
 const TaskWrapperTwo = styled.div`
+  height: 40vh;
+  overflow-y: auto;
   padding: 20px 50px;
-  margin: 20px 10%;
+  margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
 `;

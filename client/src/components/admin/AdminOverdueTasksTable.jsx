@@ -1,12 +1,12 @@
-import Table from "react-bootstrap/Table";
+import { formatDistanceToNow, format } from "date-fns";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
-import { useState, useEffect } from "react";
+import Table from "react-bootstrap/Table";
+import EditTask from "./AdminEditTask";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
-import EditTask from "./AdminEditTask";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Container = styled.div`
   height: 50vh;
@@ -32,13 +32,13 @@ const Td = styled.td`
     width: 10%;
   }
   &:nth-child(3) {
-    width: 20%;
+    width: 10%;
   }
   &:nth-child(4) {
     width: 10%;
   }
   &:nth-child(5) {
-    width: 10%;
+    width: 20%;
   }
   &:nth-child(6) {
     width: 40%;
@@ -74,14 +74,28 @@ const DeleteWrapper = styled.div`
   }
 `;
 
-const AdminTasksTable = () => {
+const Heading = styled.h3`
+  font-weight: 600;
+  margin: 15px 5%;
+  color: #88bb44;
+`;
+
+const TaskWrapper = styled.div`
+  /* height: 40vh;
+  overflow-y: auto;
+  padding: 20px 50px;
+  margin: 0px 10%;
+  border: 1px solid black;
+  border-radius: 10px; */
+`;
+
+const AdminOverdueTasksTable = () => {
   const { user } = useAuthContext();
-  const [tasks, setTasks] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [overdueTasks, setOverdueTasks] = useState([]);
   const [editModalShow, setEditModalShow] = useState(false);
   const [taskID, setTaskID] = useState("");
-  const [users, setUsers] = useState([]);
 
-  // Get Users
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(`${userFetchPath}${user.organization}`, {
@@ -95,7 +109,6 @@ const AdminTasksTable = () => {
     fetchTasks();
   }, [user.organization]);
 
-  // page load fetch all tasks to display
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
@@ -106,13 +119,27 @@ const AdminTasksTable = () => {
         }
       );
       let data = await res.json();
-      setTasks(data);
+      setOverdueTasks(data);
+
+      let overdue = [];
+
+      for (const task of data) {
+        const dueDate = new Date(task.due_date);
+        const dueDateFormatted = format(dueDate, "MM/dd/yyyy");
+        const today = Date.now();
+        const todayFormatted = format(today, "MM/dd/yyyy");
+
+        if (dueDateFormatted < todayFormatted) {
+          overdue.push(task);
+          setOverdueTasks(overdue);
+          // console.log(overdue);
+        }
+      }
     };
 
     fetchTasks();
   }, [user.organization]);
 
-  // Delete a task
   const handleDelete = async (id) => {
     const response = await fetch(`${taskFetchPath}${id}`, {
       method: "DELETE",
@@ -122,20 +149,20 @@ const AdminTasksTable = () => {
     });
 
     if (response.ok) {
-      setTasks(tasks.filter((task) => task._id !== id));
+      setOverdueTasks(overdueTasks.filter((task) => task._id !== id));
     }
   };
 
-  return (
-    <Container>
+  const displayTable = (rowData) => {
+    return (
       <Table striped responsive>
         <thead>
           <tr>
-            <th>Assigned To</th>
-            <th>Priority</th>
-            <th>Task name</th>
             <th>Due Date</th>
             <th>Created</th>
+            <th>Priority</th>
+            <th>Assigned To</th>
+            <th>Task name</th>
             <th>Notes</th>
             <th>Completed?</th>
             <th>Edit Task</th>
@@ -143,9 +170,20 @@ const AdminTasksTable = () => {
           </tr>
         </thead>
         <Tbody>
-          {tasks.map((task) => {
+          {rowData.map((task) => {
+            const date = new Date(task.due_date);
+            const dueDateFormatted = format(date, "MM/dd/yyyy");
             return (
               <Tr key={task._id}>
+                <Td>
+                  <b>{dueDateFormatted}</b>
+                </Td>
+                <Td>
+                  {formatDistanceToNow(new Date(task.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Td>
+                <Td>{task.priority}</Td>
                 {users.map((worker) => {
                   if (task.user_id === worker._id) {
                     return (
@@ -155,14 +193,7 @@ const AdminTasksTable = () => {
                     );
                   }
                 })}
-                <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
-                <Td>{task.due_date}</Td>
-                <Td>
-                  {formatDistanceToNow(new Date(task.createdAt), {
-                    addSuffix: true,
-                  })}
-                </Td>
                 <Td>{task.notes}</Td>
 
                 <Td>{task.isComplete}</Td>
@@ -198,8 +229,15 @@ const AdminTasksTable = () => {
           })}
         </Tbody>
       </Table>
+    );
+  };
+
+  return (
+    <Container>
+      <Heading>Overdue Tasks</Heading>
+      <TaskWrapper>{displayTable(overdueTasks)}</TaskWrapper>
     </Container>
   );
 };
 
-export default AdminTasksTable;
+export default AdminOverdueTasksTable;
