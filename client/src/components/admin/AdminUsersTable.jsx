@@ -117,10 +117,10 @@ const AdminUsersTable = () => {
             return (
               <Tr key={worker._id}>
                 <Td>
-                  {worker.first_name}
+                  {worker.last_name}
                 </Td>
                 <Td>
-                  {worker.last_name}
+                  {worker.first_name}
                 </Td>
                 <Td>
                   {worker.email}
