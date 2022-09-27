@@ -88,7 +88,7 @@ const UserTasksTable = () => {
       let unCompleted = []
 
       for (const task of data) {
-        if (task.isCompleted === "YES") {
+        if (task.isComplete === "YES") {
             completed.push(task)
             setCompletedTasks(completed)
         } else {
