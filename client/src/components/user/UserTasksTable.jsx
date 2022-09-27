@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
 import {GrCheckbox} from "react-icons/gr"
 import {GrCheckboxSelected} from "react-icons/gr"
-import { ContentCutOutlined } from "@mui/icons-material";
+
 
 const Container = styled.div`
   height: 80vh;
@@ -35,10 +35,10 @@ const Td = styled.td`
     width: 20%;
   }
   &:nth-child(5) {
-    width: 40%;
+    width: 35%;
   }
   &:last-child {
-    width: 5%;
+    width: 10%;
   }
 `;
 
@@ -73,6 +73,7 @@ const UserTasksTable = () => {
     const [ completedTasks, setCompletedTasks ] = useState([])
     const [ unCompletedTasks, setUnCompletedTasks ] = useState([])
     const [taskID, setTaskID] = useState("")
+    
 
      // START OF LOGIC FOR Mark as Complete or NOT complete //
 
@@ -185,7 +186,8 @@ const UserTasksTable = () => {
   }, [user]);
 
 
-  const displayTable = (rowData) => {
+  const displayTable = (rowData, complete) => {
+    
     return (
         <Table striped responsive>
         <thead>
@@ -195,7 +197,9 @@ const UserTasksTable = () => {
             <th>Created</th>
             <th>Task name</th>
             <th>Notes</th>
-            <th>Complete Status</th>
+            {complete === true && <th>Mark Complete</th>}
+            {complete === false && <th>Mark NOT Complete</th>}
+            
           </tr>
         </thead>
         <Tbody>
@@ -210,12 +214,12 @@ const UserTasksTable = () => {
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
                 {row.isComplete === "NO" &&
-                    <Td onClick={() => {
+                    <Td   onClick={() =>  {
                       setTaskID(row._id);
                     }} ><GrCheckbox /></Td>
                   }
                 {row.isComplete === "YES" &&
-                    <Td onClick={() => {
+                    <Td  onClick={() => {
                       setTaskID(row._id);
                     }} ><GrCheckboxSelected /></Td>
                   }
@@ -231,11 +235,11 @@ const UserTasksTable = () => {
     <Container>
           <Heading>Needs to be completed</Heading>
         <TaskWrapper>
-          {displayTable(unCompletedTasks)}
+          {displayTable(unCompletedTasks, true)}
         </TaskWrapper>
           <Heading>Completed</Heading>
         <TaskWrapperTwo>
-          {displayTable(completedTasks)}
+          {displayTable(completedTasks, false)}
         </TaskWrapperTwo>
     </Container>
   );
