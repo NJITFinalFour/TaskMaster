@@ -7,7 +7,7 @@ import { useLogout } from "../hooks/useLogout";
 
 const Container = styled.div`
   height: 90px;
-  ${mobile({ height: "50px" })};
+  ${mobile({ height: "20%" })};
 `;
 
 const Wrapper = styled.div`
@@ -44,7 +44,7 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 1.1, marginRight: "10px" })}
+  ${mobile({ flex: 1.1, marginRight: "5%" })}
 `;
 
 const NavLink = styled.a`

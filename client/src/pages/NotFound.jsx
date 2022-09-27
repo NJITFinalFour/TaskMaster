@@ -3,11 +3,12 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 300px;
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 10%;
+  margin-bottom: 10%;
 `;
 
 const Title = styled.div`
-  font-size: 80px;
+  font-size: 100px;
   font-weight: 800;
   text-align: center;
 `;
@@ -15,7 +16,7 @@ const Title = styled.div`
 const Subtitle = styled.div`
   font-size: 25px;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const Par = styled.div`

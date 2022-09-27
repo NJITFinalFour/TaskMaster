@@ -31,12 +31,15 @@ const AboutWrapper = styled.div`
   font-size: 2rem;
   background-color: white;
   border-radius: 10px;
+  ${mobile({})}
 `;
 
 const About = styled.div`
   color: #88bb44;
   padding: 40px 100px;
   text-align: center;
+  font-size: 30px;
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Button = styled.a`

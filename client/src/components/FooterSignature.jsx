@@ -8,6 +8,7 @@ const Container = styled.div`
 
 const Signature = styled.span`
   font-weight: 400;
+  ${mobile({ fontSize: "65%" })};
 `;
 
 const Link = styled.a``;
