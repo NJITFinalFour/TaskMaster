@@ -1,12 +1,13 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
+import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const Container = styled.div`
-overflow: scroll;
+  height: 50vh;
+  overflow-y: auto;
 `;
 
 
@@ -47,31 +48,24 @@ const Td = styled.td`
   }
 `;
 
-const EditWrapper = styled.div`
-  color: rgb(107, 108, 110);
-  font-size: 20px;
-
-  &:hover {
-    color: #9edb4f;
-    font-size: 22px;
-  }
+const TaskWrapper = styled.div`
+  padding: 20px 50px;
+  margin: 0px 10%;
+  border: 1px solid black;
+  border-radius: 30px;
 `;
 
-const DeleteWrapper = styled.div`
-  color: rgb(236, 10, 10);
-  font-size: 20px;
-
-  &:hover {
-    color: rgb(88, 37, 37);
-    font-size: 22px;
-  }
+const Heading = styled.h3`
+  font-weight: 600;
+  margin: 15px 0px;
 `;
+
 
 const UserTasksTable = () => {
     const { user } = useAuthContext();
-    const [editModalShow, setEditModalShow] = useState(false)
-    const [taskID, setTaskID] = useState("")
-    const [ users, setUsers ] = useState([])
+    // const [editModalShow, setEditModalShow] = useState(false)
+    // const [taskID, setTaskID] = useState("")
+    // const [ users, setUsers ] = useState([])
     const [ completedTasks, setCompletedTasks ] = useState([])
     const [ unCompletedTasks, setUnCompletedTasks ] = useState([])
 
@@ -106,9 +100,9 @@ const UserTasksTable = () => {
     };
 
     fetchTasks();
-  }, [user]);
+  }, [completedTasks, user]);
 
-  const DisplayTable = (props) => {
+  const displayTable = (props) => {
     return (
         <Table striped responsive>
         <thead>
@@ -141,8 +135,14 @@ const UserTasksTable = () => {
 
   return (
     <Container>
-      <DisplayTable rowData={unCompletedTasks}/>
-      <DisplayTable rowData={completedTasks}/>
+      <TaskWrapper>
+        <Heading>Needs to be completed</Heading>
+        {displayTable(unCompletedTasks)}
+      </TaskWrapper>
+      <TaskWrapper>
+        <Heading>Completed</Heading>
+        {displayTable(completedTasks)}
+      </TaskWrapper>
     </Container>
   );
 };
