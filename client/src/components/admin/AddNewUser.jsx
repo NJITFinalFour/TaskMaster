@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signupFetchPath } from "../api/fetchpaths";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { signupFetchPath } from "../../api/fetchpaths";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Form = styled.form``;
 
@@ -26,6 +25,7 @@ const PasswordInput = styled.input`
   margin: 20px 10px;
   padding: 10px;
 `;
+
 
 const Bottom = styled.div`
   display: flex;
@@ -54,10 +54,8 @@ const Button = styled.button`
   }
 `;
 
-function AddNewAdmin(props) {
+const AddNewUser = (props) => {
   const { user } = useAuthContext();
-
-  const [modalShow, setModalShow] = useState(true);
 
   const [data, setData] = useState({
     organization: user.organization,
@@ -65,10 +63,9 @@ function AddNewAdmin(props) {
     last_name: "",
     email: "",
     password: "",
-    isAdmin: true,
+    isAdmin: false
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -79,7 +76,7 @@ function AddNewAdmin(props) {
     try {
       const url = signupFetchPath;
       const { data: res } = await axios.post(url, data);
-      navigate("/user");
+      // navigate("/user");
       console.log(res.message);
     } catch (error) {
       if (
@@ -92,6 +89,8 @@ function AddNewAdmin(props) {
     }
   };
 
+
+
   return (
     <Modal
       {...props}
@@ -101,7 +100,7 @@ function AddNewAdmin(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          CREATE A NEW ADMIN
+          CREATE A NEW USER
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -154,7 +153,7 @@ function AddNewAdmin(props) {
           <Bottom>
             {error && <div>{error}</div>}
             <Button type="submit" onClick={props.onHide}>
-              ADD ADMIN
+              ADD USER
             </Button>
           </Bottom>
         </Form>
@@ -163,4 +162,4 @@ function AddNewAdmin(props) {
   );
 }
 
-export default AddNewAdmin;
+export default AddNewUser;

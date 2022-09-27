@@ -9,9 +9,9 @@ import EditTask from "./AdminEditTask";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const Container = styled.div`
-overflow: scroll;
+  height: 50vh;
+  overflow-y: auto;
 `;
-
 
 const Tbody = styled.tbody``;
 
@@ -22,25 +22,25 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 4.8%;
-  }
-  &:nth-child(2) {
-    width: 1%;
-  }
-  &:nth-child(3) {
-    width: 5%;
-  }
-  &:nth-child(4) {
-    width: 4%;
-  }
-  &:nth-child(5) {
-    width: 6%;
-  }
-  &:nth-child(6) {
     width: 10%;
   }
+  &:nth-child(2) {
+    width: 10%;
+  }
+  &:nth-child(3) {
+    width: 20%;
+  }
+  &:nth-child(4) {
+    width: 10%;
+  }
+  &:nth-child(5) {
+    width: 10%;
+  }
+  &:nth-child(6) {
+    width: 40%;
+  }
   &:nth-child(7) {
-    width: 1%;
+    width: 4%;
   }
   &:nth-child(8) {
     width: 3%;
@@ -61,11 +61,11 @@ const EditWrapper = styled.div`
 `;
 
 const DeleteWrapper = styled.div`
-  color: rgb(236, 10, 10);
+  color: rgb(107, 108, 110);
   font-size: 20px;
 
   &:hover {
-    color: rgb(88, 37, 37);
+    color: rgb(243, 36, 36);
     font-size: 22px;
   }
 `;
@@ -73,27 +73,23 @@ const DeleteWrapper = styled.div`
 const AdminTasksTable = () => {
   const { user } = useAuthContext();
   const [tasks, setTasks] = useState([]);
-  const [editModalShow, setEditModalShow] = useState(false)
-  const [taskID, setTaskID] = useState("")
-  const [users, setUsers] = useState([])
-
-
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [taskID, setTaskID] = useState("");
+  const [users, setUsers] = useState([]);
 
   // Get Users
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(`${userFetchPath}${user.organization}`, {
         method: "GET",
-        mode: "cors"
-      })
-      let alldata = await res.json()
-      setUsers(alldata)
+        mode: "cors",
+      });
+      let alldata = await res.json();
+      setUsers(alldata);
+    };
 
-    }
-
-    fetchTasks()
-  }, [user.organization])
-
+    fetchTasks();
+  }, [user.organization]);
 
   // page load fetch all tasks to display
   useEffect(() => {
@@ -144,23 +140,25 @@ const AdminTasksTable = () => {
         </thead>
         <Tbody>
           {tasks.map((task) => {
-
             return (
               <Tr key={task._id}>
-                <Td> {users.map((worker) => {
-                  if (task.user_id == worker._id) {
+                {users.map((worker) => {
+                  if (task.user_id === worker._id) {
                     return (
                       <Td key={worker._id} value={worker._id}>
                         {worker.first_name + " " + worker.last_name}
                       </Td>
-                    )
+                    );
                   }
                 })}
-                </Td>
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.due_date}</Td>
-                <Td>{formatDistanceToNow(new Date(task.createdAt), { addSuffix: true })}</Td>
+                <Td>
+                  {formatDistanceToNow(new Date(task.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Td>
                 <Td>{task.notes}</Td>
 
                 <Td>{task.isComplete}</Td>
@@ -168,7 +166,10 @@ const AdminTasksTable = () => {
                   <EditWrapper>
                     <BiEdit
                       className="editButton"
-                      onClick={() => { setEditModalShow(true); setTaskID(task._id); }}
+                      onClick={() => {
+                        setEditModalShow(true);
+                        setTaskID(task._id);
+                      }}
                     />
                   </EditWrapper>
                   <EditTask

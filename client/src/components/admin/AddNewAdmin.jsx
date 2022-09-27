@@ -3,8 +3,8 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signupFetchPath } from "../api/fetchpaths";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { signupFetchPath } from "../../api/fetchpaths";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Form = styled.form``;
 
@@ -26,7 +26,6 @@ const PasswordInput = styled.input`
   margin: 20px 10px;
   padding: 10px;
 `;
-
 
 const Bottom = styled.div`
   display: flex;
@@ -55,7 +54,7 @@ const Button = styled.button`
   }
 `;
 
-const AddNewUser = (props) => {
+function AddNewAdmin(props) {
   const { user } = useAuthContext();
 
   const [data, setData] = useState({
@@ -64,7 +63,7 @@ const AddNewUser = (props) => {
     last_name: "",
     email: "",
     password: "",
-    isAdmin: false
+    isAdmin: true,
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -78,7 +77,7 @@ const AddNewUser = (props) => {
     try {
       const url = signupFetchPath;
       const { data: res } = await axios.post(url, data);
-      // navigate("/user");
+      navigate("/user");
       console.log(res.message);
     } catch (error) {
       if (
@@ -91,8 +90,6 @@ const AddNewUser = (props) => {
     }
   };
 
-
-
   return (
     <Modal
       {...props}
@@ -102,7 +99,7 @@ const AddNewUser = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          CREATE A NEW USER
+          CREATE A NEW ADMIN
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -142,20 +139,11 @@ const AddNewUser = (props) => {
               value={data.password}
               required
             />
-            {/* <Input
-              type="checkbox"
-              name="isAdmin"
-              label="Admin"
-              onChange={e => setData(e.target.checked)}
-              value={data.isAdmin}
-              required
-            /> */}
-            {/* <Input placeholder="Confirm Admin Password" /> */}
           </Top>
           <Bottom>
             {error && <div>{error}</div>}
             <Button type="submit" onClick={props.onHide}>
-              ADD USER
+              ADD ADMIN
             </Button>
           </Bottom>
         </Form>
@@ -164,4 +152,4 @@ const AddNewUser = (props) => {
   );
 }
 
-export default AddNewUser;
+export default AddNewAdmin;
