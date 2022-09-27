@@ -138,6 +138,7 @@ const AdminUsersTable = () => {
                     />
                   </EditWrapper>
                   <EditUser
+                    setWorkers={setWorkers}
                     first_name={worker.first_name}
                     last_name={worker.last_name}
                     email={worker.email}

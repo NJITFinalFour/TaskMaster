@@ -92,8 +92,8 @@ const Button = styled.button`
 const EditUser = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
-  const [ users, setUsers ] = useState([])
 
+  const setWorkers = props.setWorkers
 
   // console.log(props.task)
 
@@ -132,6 +132,16 @@ const EditUser = (props) => {
       });
       const json = await response.json();
       console.log(json)
+      
+      
+        const res = await fetch(`${userFetchPath}${user.organization}`, {
+            method: "GET",
+            mode: "cors"
+        })
+        let alldata = await res.json()
+        setWorkers(alldata)
+      
+  
     };
 
     return (
@@ -144,7 +154,7 @@ const EditUser = (props) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Modify Task
+              Modify User
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
