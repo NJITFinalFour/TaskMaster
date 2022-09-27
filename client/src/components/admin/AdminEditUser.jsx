@@ -1,9 +1,8 @@
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Modal from "react-bootstrap/Modal";
-import { useRouteLoaderData } from "react-router-dom";
 import styled from "styled-components"
-import { taskFetchPath, userFetchPath } from "../../api/fetchpaths"
+import { userFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
 
 
@@ -52,13 +51,13 @@ const Option = styled.option`
   margin: 20px 10px;
   padding: 10px;
 `;
- const NotesInput = styled.textarea`
+ /*const NotesInput = styled.textarea`
    flex: 1;
    min-width: 40%;
    margin: 20px 10px;
    padding: 10px;
    height: 200px;
- `;
+ `;*/
 
 
 const Bottom = styled.div`
@@ -91,9 +90,8 @@ const Button = styled.button`
 
 const EditUser = (props) => {
   const { user } = useAuthContext();
-  const [error, setError] = useState("");
-  const [ users, setUsers ] = useState([])
 
+  const setWorkers = props.setWorkers
 
   // console.log(props.task)
 
@@ -132,6 +130,16 @@ const EditUser = (props) => {
       });
       const json = await response.json();
       console.log(json)
+      
+      
+        const res = await fetch(`${userFetchPath}${user.organization}`, {
+            method: "GET",
+            mode: "cors"
+        })
+        let alldata = await res.json()
+        setWorkers(alldata)
+      
+  
     };
 
     return (
@@ -144,7 +152,7 @@ const EditUser = (props) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Modify Task
+              Modify User
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -197,7 +205,6 @@ const EditUser = (props) => {
                 </Select>
               </Top>
               <Bottom>
-                {error && <div>{error}</div>}
                 <Button type="submit" onClick={props.onHide}>
                   Submit Change
                 </Button>
