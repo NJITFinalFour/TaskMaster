@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { signupFetchPath } from "../../api/fetchpaths";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -67,7 +66,6 @@ const AddNewUser = (props) => {
     isAdmin: false
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });

@@ -13,7 +13,6 @@ const Container = styled.div`
   overflow-y: auto;
 `;
 
-
 const Tbody = styled.tbody``;
 
 const Tr = styled.tr``;
@@ -72,32 +71,28 @@ const DeleteWrapper = styled.div`
 `;
 
 const AdminTasksTable = () => {
-    const { user } = useAuthContext();
-    const [ tasks, setTasks ] = useState([]);
-    const [editModalShow, setEditModalShow] = useState(false)
-    const [taskID, setTaskID] = useState("")
-    const [ users, setUsers ] = useState([])
-    
-    
+  const { user } = useAuthContext();
+  const [tasks, setTasks] = useState([]);
+  const [editModalShow, setEditModalShow] = useState(false);
+  const [taskID, setTaskID] = useState("");
+  const [users, setUsers] = useState([]);
 
-// Get Users
-useEffect(() => {
+  // Get Users
+  useEffect(() => {
     const fetchTasks = async () => {
-        const res = await fetch(`${userFetchPath}${user.organization}`, {
-            method: "GET",
-            mode: "cors"
-        })
-        let alldata = await res.json()
-        setUsers(alldata)
-        
-    }
-    
-    fetchTasks()
-}, [user.organization])
+      const res = await fetch(`${userFetchPath}${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
+      let alldata = await res.json();
+      setUsers(alldata);
+    };
 
+    fetchTasks();
+  }, [user.organization]);
 
   // page load fetch all tasks to display
-    useEffect(() => {
+  useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
         `${taskFetchPath}/organization/${user.organization}`,
@@ -123,7 +118,7 @@ useEffect(() => {
     });
 
     if (response.ok) {
-        setTasks(tasks.filter((task) => task._id !== id));
+      setTasks(tasks.filter((task) => task._id !== id));
     }
   };
 
@@ -145,19 +140,25 @@ useEffect(() => {
         </thead>
         <Tbody>
           {tasks.map((task) => {
-            
             return (
               <Tr key={task._id}>
-                <Td> {users.map((worker) => {
-                   if (task.user_id == worker._id) {
+                {users.map((worker) => {
+                  if (task.user_id === worker._id) {
                     return (
-                        <Td key={worker._id} value={worker._id}>
-                          {worker.first_name + " " + worker.last_name}
-                        </Td>);}})}</Td>
+                      <Td key={worker._id} value={worker._id}>
+                        {worker.first_name + " " + worker.last_name}
+                      </Td>
+                    );
+                  }
+                })}
                 <Td>{task.priority}</Td>
                 <Td>{task.taskName}</Td>
                 <Td>{task.due_date}</Td>
-                <Td>{formatDistanceToNow(new Date(task.createdAt), { addSuffix: true })}</Td>
+                <Td>
+                  {formatDistanceToNow(new Date(task.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Td>
                 <Td>{task.notes}</Td>
 
                 <Td>{task.isComplete}</Td>
@@ -165,7 +166,10 @@ useEffect(() => {
                   <EditWrapper>
                     <BiEdit
                       className="editButton"
-                      onClick={() => {setEditModalShow(true); setTaskID(task._id);  }}
+                      onClick={() => {
+                        setEditModalShow(true);
+                        setTaskID(task._id);
+                      }}
                     />
                   </EditWrapper>
                   <EditTask

@@ -57,8 +57,6 @@ const Button = styled.button`
 function AddNewAdmin(props) {
   const { user } = useAuthContext();
 
-  const [modalShow, setModalShow] = useState(true);
-
   const [data, setData] = useState({
     organization: user.organization,
     first_name: "",
@@ -141,15 +139,6 @@ function AddNewAdmin(props) {
               value={data.password}
               required
             />
-            {/* <Input
-              type="checkbox"
-              name="isAdmin"
-              label="Admin"
-              onChange={e => setData(e.target.checked)}
-              value={data.isAdmin}
-              required
-            /> */}
-            {/* <Input placeholder="Confirm Admin Password" /> */}
           </Top>
           <Bottom>
             {error && <div>{error}</div>}
