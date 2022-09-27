@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useState } from "react";
 import AddNewUser from "./AddNewUser";
-import AdminTabs from "./AdminTabs";
 import AddNewAdmin from "./AddNewAdmin";
 import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
+import AdminDashboard from "./AdminDashboard";
 
 
 
@@ -98,7 +98,7 @@ const AdminHome = () => {
           </Button>
         </Right>
       </ButtonContainer>
-      <AdminTabs />
+      <AdminDashboard />
     </Container>
   );
 };
