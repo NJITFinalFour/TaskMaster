@@ -50,3 +50,13 @@ export const findUsersByOrg = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 }
+
+export const deleteUserById = async (req, res) => {
+  const id = req.params.id
+  try {
+    await User.findByIdAndRemove(id).exec();
+    res.send("User has been deleted");
+  } catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+}
