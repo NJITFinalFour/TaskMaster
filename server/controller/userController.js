@@ -60,3 +60,13 @@ export const deleteUserById = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 }
+
+export const updateUser = async (req, res) => {
+  const _id = req.body._id
+  try {
+    const user = await User.findByIdAndUpdate({ _id: _id }, { ...req.body });
+    await res.status(200).json(user)
+  } catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+};
