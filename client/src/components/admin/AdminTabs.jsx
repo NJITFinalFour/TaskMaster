@@ -2,7 +2,10 @@ import styled from "styled-components";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import AdminUsersTable from "./AdminUsersTable";
-import AdminTasksTable from "./AdminTasksTable";
+import AdminAllTasksTable from "./AdminAllTasksTable";
+import AdminOverdueTasksTable from "./AdminOverdueTasksTable";
+import AdminInProgressTasksTable from "./AdminInProgressTasksTable";
+import AdminCompletedTasksTable from "./AdminCompletedTasksTable";
 
 const Container = styled.div`
   margin: auto;
@@ -11,24 +14,34 @@ const Container = styled.div`
 
 const StyledTabs = styled(Tabs)`
   color: #88bb44;
-  font-size: 2em;
+  font-size: 1.5em;
 `;
 
 const AdminTabs = () => {
   return (
     <Container>
       <StyledTabs
-        defaultActiveKey="tasks"
+        defaultActiveKey="users"
         id="fill-tab-example"
         className="mb-3"
         fill
+        // variant="pill"
       >
-          <Tab eventKey="users" title="Users">
-            <AdminUsersTable />
-          </Tab>
-          <Tab eventKey="tasks" title="Tasks">
-            <AdminTasksTable />
-          </Tab>
+        <Tab eventKey="users" title="Users">
+          <AdminUsersTable />
+        </Tab>
+        <Tab eventKey="allTasks" title="All Tasks">
+          <AdminAllTasksTable />
+        </Tab>
+        <Tab eventKey="overdueTasks" title="Overdue">
+          <AdminOverdueTasksTable/>
+        </Tab>
+        <Tab eventKey="inProgressTasks" title="In Progress">
+          <AdminInProgressTasksTable />
+        </Tab>
+        <Tab eventKey="completedTasks" title="Completed">
+          <AdminCompletedTasksTable />
+        </Tab>
       </StyledTabs>
     </Container>
   );
