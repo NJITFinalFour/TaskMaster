@@ -1,122 +1,23 @@
-import styled from "styled-components";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useEffect, useState } from "react";
-import AddNewUser from "../components/AddNewUser";
-import AdminTabs from "../components/admin/AdminTabs";
-import AddNewAdmin from "../components/AddNewAdmin";
-import OrgName from "../components/OrgName";
-import AddNewTask from "../components/admin/AdminAddNewTask";
-import AdminAddNewTask from "../components/admin/AdminAddNewTask";
+import AdminHome from "../components/admin/AdminHome";
+import NormalUserHome from "../components/user/NormalUserHome";
 
-const Container = styled.div`
-  height: 100vh;
-`;
-
-const Top = styled.div`
-  margin-top: 1%;
-`;
-
-const Greeting = styled.h1`
-  display: flex;
-  justify-content: center;
-`;
-
-const Verify = styled.h4`
-  display: flex;
-  justify-content: center;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  /* justify-content: end; */
-  margin: 50px 20%;
-`;
-
-const Left = styled.div`
-  display: flex;
-  justify-content: start;
-
-`
-
-const Right = styled.div`
-display: flex;
-flex: 1;
-justify-content: flex-end;
-`;
-
-
-const Button = styled.button`
-  font-size: 20px;
-  cursor: pointer;
-  text-decoration: none;
-  border: 1px solid black;
-  border-radius: 12px;
-  color: #7aa83d;
-  margin: 15px;
-
-  &:hover {
-    color: #4e5c3d;
-  }
-`;
 
 const UserHome = () => {
   const { user } = useAuthContext();
-
-  const [isUserAdmin, setIsUserAdmin] = useState("");
-  useEffect(() => {
-    if (user.isAdmin) {
-      setIsUserAdmin("You are a system ADMIN, Welcome to TaskMaster USA");
-    } else {
-      setIsUserAdmin("Welcome to TaskMasterUSA");
-    }
-  }, []);
-
-  const [userModalShow, setUserModalShow] = useState(false);
-  const [adminModalShow, setAdminModalShow] = useState(false);
-  const [taskModalShow, setTaskModalShow] = useState(false)
     
-
+  if (user.isAdmin) {
   return (
-    <Container>
-      <Top>
-        <Greeting>
-          {`Hello ${user.userFirstName} ${user.userLastName} from `}
-          <OrgName user={user} />
-        </Greeting>
-        <Verify>{isUserAdmin}</Verify>
-      </Top>
-      <ButtonContainer>
-        <Left>
-          <AdminAddNewTask
-            show={taskModalShow}
-            onHide={() => setTaskModalShow(false)}
-          />
-
-          <Button variant="primary" onClick={() => setUserModalShow(true)}>
-            New User
-          </Button>
-          <AddNewUser
-            show={userModalShow}
-            onHide={() => setUserModalShow(false)}
-          />
-
-          <Button variant="primary" onClick={() => setAdminModalShow(true)}>
-            New Admin
-          </Button>
-          <AddNewAdmin
-            show={adminModalShow}
-            onHide={() => setAdminModalShow(false)}
-          />
-        </Left>
-        <Right>
-          <Button variant="primary" onClick={() => setTaskModalShow(true)}>
-            New Task
-          </Button>
-        </Right>
-      </ButtonContainer>
-      <AdminTabs />
-    </Container>
-  );
+    <>
+      <AdminHome/>
+    </>
+    )
+  } else {
+    return(
+      <>
+        <NormalUserHome/>
+      </>
+  )}
 };
 
 export default UserHome;
