@@ -9,7 +9,8 @@ import EditTask from "./AdminEditTask";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const Container = styled.div`
-overflow: scroll;
+  height: 50vh;
+  overflow-y: auto;
 `;
 
 
@@ -22,25 +23,25 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 4.8%;
-  }
-  &:nth-child(2) {
-    width: 1%;
-  }
-  &:nth-child(3) {
-    width: 5%;
-  }
-  &:nth-child(4) {
-    width: 4%;
-  }
-  &:nth-child(5) {
-    width: 6%;
-  }
-  &:nth-child(6) {
     width: 10%;
   }
+  &:nth-child(2) {
+    width: 10%;
+  }
+  &:nth-child(3) {
+    width: 20%;
+  }
+  &:nth-child(4) {
+    width: 10%;
+  }
+  &:nth-child(5) {
+    width: 10%;
+  }
+  &:nth-child(6) {
+    width: 40%;
+  }
   &:nth-child(7) {
-    width: 1%;
+    width: 4%;
   }
   &:nth-child(8) {
     width: 3%;
@@ -61,11 +62,11 @@ const EditWrapper = styled.div`
 `;
 
 const DeleteWrapper = styled.div`
-  color: rgb(236, 10, 10);
+  color: rgb(107, 108, 110);
   font-size: 20px;
 
   &:hover {
-    color: rgb(88, 37, 37);
+    color: rgb(243, 36, 36);
     font-size: 22px;
   }
 `;

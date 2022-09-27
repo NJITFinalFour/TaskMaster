@@ -7,7 +7,13 @@ import AdminTasksTable from "./AdminTasksTable";
 const Container = styled.div`
   margin: auto;
   width: 80%;
+  color: #88bb44;
 `;
+
+// const TabContainer = styled.div`
+//   color: #88bb44;
+
+// `;
 
 const AdminTabs = () => {
   return (
@@ -18,12 +24,12 @@ const AdminTabs = () => {
         className="mb-3"
         fill
       >
-        <Tab eventKey="users" title="Users">
-          <AdminUsersTable />
-        </Tab>
-        <Tab eventKey="tasks" title="Tasks">
-          <AdminTasksTable />
-        </Tab>
+          <Tab eventKey="users" title="Users">
+            <AdminUsersTable />
+          </Tab>
+          <Tab eventKey="tasks" title="Tasks">
+            <AdminTasksTable />
+          </Tab>
       </Tabs>
     </Container>
   );
