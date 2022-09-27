@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { formatDistanceToNow, format } from "date-fns";
 
 const Container = styled.div`
   height: 80vh;
@@ -101,6 +101,7 @@ const UserTasksTable = () => {
     fetchTasks();
   }, [user]);
 
+
   const displayTable = (rowData) => {
     return (
         <Table striped responsive>
@@ -116,9 +117,11 @@ const UserTasksTable = () => {
         </thead>
         <Tbody>
           {rowData.map((row) => {
+            const date = new Date(row.due_date);
+            const dueDateFormatted = format(date, "MM/dd/yyyy")
             return (
               <Tr key={row._id}>
-                <Td>{row.due_date}</Td>
+                <Td>{dueDateFormatted}</Td>
                 <Td>{row.priority}</Td>
                 <Td>{formatDistanceToNow(new Date(row.createdAt), { addSuffix: true })}</Td>
                 <Td>{row.taskName}</Td>
