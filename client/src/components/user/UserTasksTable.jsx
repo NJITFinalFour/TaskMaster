@@ -102,7 +102,7 @@ const UserTasksTable = () => {
     fetchTasks();
   }, [completedTasks, user]);
 
-  const displayTable = (props) => {
+  const displayTable = (rowData) => {
     return (
         <Table striped responsive>
         <thead>
@@ -116,7 +116,7 @@ const UserTasksTable = () => {
           </tr>
         </thead>
         <Tbody>
-          {props.rowData.map((row) => {
+          {rowData.map((row) => {
             return (
               <Tr key={row._id}>
                 <Td>{row.priority}</Td>
