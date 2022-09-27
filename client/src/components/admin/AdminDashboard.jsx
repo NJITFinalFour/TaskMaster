@@ -146,7 +146,7 @@ const AdminDashboard = () => {
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
-        if (dueDateFormatted < todayFormatted) {
+        if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
         } else if (

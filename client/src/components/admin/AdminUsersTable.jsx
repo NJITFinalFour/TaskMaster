@@ -97,6 +97,8 @@ const AdminUsersTable = () => {
     if (response.ok) {
       setWorkers(workers.filter((task) => task._id !== id));
     }
+      console.log(response);
+
   };
 
   return (
