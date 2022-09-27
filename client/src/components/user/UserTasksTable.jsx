@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
 import {GrCheckbox} from "react-icons/gr"
 import {GrCheckboxSelected} from "react-icons/gr"
-import { ContentCutOutlined } from "@mui/icons-material";
+
 
 const Container = styled.div`
   height: 80vh;
@@ -204,16 +204,16 @@ const UserTasksTable = () => {
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
                 {row.isComplete === "NO" &&
-                    <Td onClick={() => {
+                    <Td  ><GrCheckbox onClick={() =>  {
                       setTaskID(row._id);
                       handleChange(); 
-                    }} ><GrCheckbox /></Td>
+                    }}/></Td>
                   }
                 {row.isComplete === "YES" &&
-                    <Td onClick={() => {
+                    <Td ><GrCheckboxSelected onClick={() => {
                       setTaskID(row._id);
                       handleChange();
-                    }} ><GrCheckboxSelected /></Td>
+                    }}  /></Td>
                   }
               </Tr>
             );
