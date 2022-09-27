@@ -123,7 +123,7 @@ const EditTask = (props) => {
         },
       });
       const json = await response.json();
-      console.log(json)
+      // console.log(json)
       
   
       if (response.ok) {
@@ -148,7 +148,7 @@ const EditTask = (props) => {
               mode: "cors"
           })
           let alldata = await res.json()
-          console.log(alldata)
+          // console.log(alldata)
           setUsers(alldata)
       }
 

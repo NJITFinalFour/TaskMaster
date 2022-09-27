@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "https://usataskmaster.margottiworld.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -45,5 +46,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "v16.15.0",
+    "npm": "8.5.5"
   }
+  
+  
+
 }

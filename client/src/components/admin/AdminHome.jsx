@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useState } from "react";
 import AddNewUser from "./AddNewUser";
-import AdminTabs from "./AdminTabs";
 import AddNewAdmin from "./AddNewAdmin";
 import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
+import AdminDashboard from "./AdminDashboard";
 
 
 
@@ -44,7 +44,7 @@ const Button = styled.button`
   font-size: 20px;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid black;
+  border: 1px solid rgba(0,0,0,0.5);
   border-radius: 12px;
   color: #7aa83d;
   margin: 15px;
@@ -98,7 +98,7 @@ const AdminHome = () => {
           </Button>
         </Right>
       </ButtonContainer>
-      <AdminTabs />
+      <AdminDashboard />
     </Container>
   );
 };
