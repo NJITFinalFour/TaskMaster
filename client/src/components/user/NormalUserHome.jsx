@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import UserTasksTable from './UserTasksTable';
 
 const Container = styled.div`
   height: 100vh;
@@ -8,6 +9,7 @@ const Container = styled.div`
 
 const Top = styled.div`
   margin-top: 1%;
+  margin-bottom: 5%;
 `;
 
 const Greeting = styled.h1`
@@ -19,13 +21,7 @@ const Bottom = styled.div`
   
 `
 
-const TaskWrapper = styled.div`
-  padding: 20px 50px;
-`
 
-const Heading = styled.h3`
-  
-`
 
 const NormalUserHome = () => {
   const { user } = useAuthContext();
@@ -38,12 +34,7 @@ const NormalUserHome = () => {
         </Greeting>
       </Top>
       <Bottom>
-        <TaskWrapper>
-          <Heading>Needs to be completed</Heading>
-        </TaskWrapper>
-        <TaskWrapper>
-          <Heading>Completed</Heading>
-        </TaskWrapper>
+          <UserTasksTable/>
       </Bottom>
     </Container>
   );
