@@ -27,7 +27,6 @@ const StyledTabs = styled(Tabs)`
 `;
 
 const StyledTab = styled(Tab)`
-  /* background-color: #88bb44; */
 `;
 
 const Wrapper = styled.div`
