@@ -198,7 +198,7 @@ const UserTasksTable = () => {
             <th>Task name</th>
             <th>Notes</th>
             {complete === true && <th>Mark Complete</th>}
-            {complete === false && <th>Mark NOT Complete</th>}
+            {complete === false && <th>Mark NOT COmplete</th>}
             
           </tr>
         </thead>
