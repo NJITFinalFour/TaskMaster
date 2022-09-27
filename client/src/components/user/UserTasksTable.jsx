@@ -52,8 +52,10 @@ const TaskWrapper = styled.div`
 `;
 
 const TaskWrapperTwo = styled.div`
+  height: 40vh;
+  overflow-y: auto;
   padding: 20px 50px;
-  margin: 20px 10%;
+  margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
 `;
@@ -74,7 +76,8 @@ const UserTasksTable = () => {
 
      // START OF LOGIC FOR Mark as Complete or NOT complete //
 
-  const handleChange = async () => {
+  useEffect(() => {
+    const handleChange = async () => {
     console.log(taskID)
     const response = await fetch(`${taskFetchPath}${taskID}`, {
       method: "Get",
@@ -143,6 +146,9 @@ const UserTasksTable = () => {
       }
     }
   };
+  handleChange();
+  }, [taskID])
+  
 // END of COMPLETE TOGGLE LOGIC ??
 
   // page load fetch all tasks to display
@@ -204,16 +210,14 @@ const UserTasksTable = () => {
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
                 {row.isComplete === "NO" &&
-                    <Td  ><GrCheckbox onClick={() =>  {
+                    <Td   onClick={() =>  {
                       setTaskID(row._id);
-                      handleChange(); 
-                    }}/></Td>
+                    }} ><GrCheckbox /></Td>
                   }
                 {row.isComplete === "YES" &&
-                    <Td ><GrCheckboxSelected onClick={() => {
+                    <Td  onClick={() => {
                       setTaskID(row._id);
-                      handleChange();
-                    }}  /></Td>
+                    }} ><GrCheckboxSelected /></Td>
                   }
               </Tr>
             );
