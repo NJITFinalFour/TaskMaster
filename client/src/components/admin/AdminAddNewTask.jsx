@@ -147,7 +147,7 @@ const AdminAddNewTask = (props) => {
                 mode: "cors"
             })
             let data = await res.json()
-            console.log(data)
+            // console.log(data)
             setUsers(data)
         }
 
