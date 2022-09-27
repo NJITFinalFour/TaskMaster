@@ -30,7 +30,7 @@ app.use("/organizations", orgRoutes);
 // DB Connect
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Listening
+// Listening and using process .env
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server listening at", PORT);
 });
