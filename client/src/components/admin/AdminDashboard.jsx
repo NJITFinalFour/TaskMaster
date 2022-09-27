@@ -17,17 +17,21 @@ const Container = styled.div`
 `;
 
 const StyledTabs = styled(Tabs)`
-  color: #88bb44;
+  background-color: #f1f0f0;
   font-size: 1.5em;
+
+  & .nav-link {
+    color: #88bb44;
+    font-weight: 600;
+  }
+`;
+
+const StyledTab = styled(Tab)`
+  /* background-color: #88bb44; */
 `;
 
 const Wrapper = styled.div`
-  height: 50vh;
-  overflow-y: auto;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #9c9c9ca6;
-  border-radius: 10px;
+
 `;
 
 const Tbody = styled.tbody``;
@@ -120,7 +124,7 @@ const AdminDashboard = () => {
 
   // Get Tasks
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchTasks = async (id) => {
       const res = await fetch(
         `${taskFetchPath}/organization/${user.organization}`,
         {
@@ -160,6 +164,9 @@ const AdminDashboard = () => {
           setAllTasks(allTasks);
         }
       }
+          // if (res.ok) {
+          //   setAllTasks(allTasks.filter((task) => task._id !== id));
+          // }
     };
 
     fetchTasks();
@@ -265,36 +272,36 @@ const AdminDashboard = () => {
         className="mb-3"
         fill
       >
-        <Tab eventKey="users" title="Users">
+        <StyledTab eventKey="users" title="Users">
           <Wrapper>
             <Heading>All Users</Heading>
             <AdminUsersTable />
           </Wrapper>
-        </Tab>
-        <Tab eventKey="allTasks" title="All Tasks">
+        </StyledTab>
+        <StyledTab eventKey="allTasks" title="All Tasks">
           <Wrapper>
             <Heading>All Tasks</Heading>
             {displayTable(allTasks)}
           </Wrapper>
-        </Tab>
-        <Tab eventKey="overdueTasks" title="Overdue">
+        </StyledTab>
+        <StyledTab eventKey="overdueTasks" title="Overdue">
           <Wrapper>
             <Heading>Overdue Tasks</Heading>
             {displayTable(overdueTasks)}
           </Wrapper>
-        </Tab>
-        <Tab eventKey="inProgressTasks" title="In Progress">
+        </StyledTab>
+        <StyledTab eventKey="inProgressTasks" title="In Progress">
           <Wrapper>
             <Heading>In Progress Tasks</Heading>
             {displayTable(inProgressTasks)}
           </Wrapper>
-        </Tab>
-        <Tab eventKey="completedTasks" title="Completed">
+        </StyledTab>
+        <StyledTab eventKey="completedTasks" title="Completed">
           <Wrapper>
             <Heading>Completed Tasks</Heading>
             {displayTable(completedTasks)}
           </Wrapper>
-        </Tab>
+        </StyledTab>
       </StyledTabs>
     </Container>
   );
