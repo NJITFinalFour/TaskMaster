@@ -91,11 +91,16 @@ const UserTasksTable = () => {
       setCompletedTasks([])
       setUnCompletedTasks([])
 
+      let completed = []
+      let unCompleted = []
+
       for (const task of data) {
         if (task.isCompleted === "YES") {
-            setCompletedTasks([ ...completedTasks, task ])
+            completed.push(task)
+            setCompletedTasks(completed)
         } else {
-            setUnCompletedTasks([ ...completedTasks, task ])
+            unCompleted.push(task)
+            setUnCompletedTasks(unCompleted)
         }
       }
     };
@@ -103,7 +108,7 @@ const UserTasksTable = () => {
     fetchTasks();
   }, [user]);
 
-  const displayTable = (rowData) => {
+  const DisplayTable = (props) => {
     return (
         <Table striped responsive>
         <thead>
@@ -117,7 +122,7 @@ const UserTasksTable = () => {
           </tr>
         </thead>
         <Tbody>
-          {rowData.map((row) => {
+          {props.rowData.map((row) => {
             return (
               <Tr key={row._id}>
                 <Td>{row.priority}</Td>
@@ -136,8 +141,8 @@ const UserTasksTable = () => {
 
   return (
     <Container>
-      {displayTable(unCompletedTasks)}
-      {displayTable(completedTasks)}
+      <DisplayTable rowData={unCompletedTasks}/>
+      <DisplayTable rowData={completedTasks}/>
     </Container>
   );
 };
