@@ -7,7 +7,7 @@ import { useLogout } from "../hooks/useLogout";
 
 const Container = styled.div`
   height: 90px;
-  ${mobile({ height: "50px" })};
+  /* ${mobile({ height: "50px" })}; */
 `;
 
 const Wrapper = styled.div`
