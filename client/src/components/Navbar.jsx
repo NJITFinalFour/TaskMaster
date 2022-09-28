@@ -64,6 +64,8 @@ const NavLink = styled.a`
 const NavItem = styled.p`
   color: black;
   margin-bottom: 0px;
+
+  ${mobile({ paddingLeft: "1em" })}
 `;
 
 const LogOutButton = styled.a`

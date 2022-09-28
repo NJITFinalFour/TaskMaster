@@ -4,8 +4,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
-import {GrCheckbox} from "react-icons/gr"
-import {GrCheckboxSelected} from "react-icons/gr"
+import { GrCheckbox } from "react-icons/gr"
+import { GrCheckboxSelected } from "react-icons/gr"
+
 
 
 const Container = styled.div`
@@ -68,92 +69,92 @@ const Heading = styled.h3`
 
 
 const UserTasksTable = () => {
-    const { user } = useAuthContext();
+  const { user } = useAuthContext();
 
-    const [ completedTasks, setCompletedTasks ] = useState([])
-    const [ unCompletedTasks, setUnCompletedTasks ] = useState([])
-    const [taskID, setTaskID] = useState("")
-    
+  const [completedTasks, setCompletedTasks] = useState([])
+  const [unCompletedTasks, setUnCompletedTasks] = useState([])
+  const [taskID, setTaskID] = useState("")
 
-     // START OF LOGIC FOR Mark as Complete or NOT complete //
+
+  // START OF LOGIC FOR Mark as Complete or NOT complete //
 
   useEffect(() => {
     const handleChange = async () => {
-    console.log(taskID)
-    const response = await fetch(`${taskFetchPath}${taskID}`, {
-      method: "Get",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      console.log(json.error);
-    }
-    console.log(`get ${json.isComplete}`);
-
-    if (json.isComplete === "NO") {
-      console.log("NO was not Completed  change to completed");
-
-      const isComplete = "YES";
-      const change = { isComplete };
-      console.log(change);
-
-      ////////////////////////// NOT Patch completed change
-      const res = await fetch(taskFetchPath + taskID, {
-        method: "PUT",
-        body: JSON.stringify(change),
+      console.log(taskID)
+      const response = await fetch(`${taskFetchPath}${taskID}`, {
+        method: "Get",
         headers: {
-          "content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       });
-      const results = await res.json();
-      console.log(results);
-
+      const json = await response.json();
       if (!response.ok) {
         console.log(json.error);
       }
-      if (response.ok) {
-        console.log("change made");
-        window.location.reload(false);
-      }
-    }
-    if (json.isComplete === "YES") {
-      console.log("YES is completed change to NOT");
+      console.log(`get ${json.isComplete}`);
 
-      const isComplete = "NO";
-      const change = { isComplete };
-      console.log(change);
+      if (json.isComplete === "NO") {
+        console.log("NO was not Completed  change to completed");
 
-      ///////////////////////////////////// IS Patch paid change
-      const res = await fetch(taskFetchPath + taskID, {
-        method: "PUT",
-        body: JSON.stringify(change),
-        headers: {
-          "content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      const results = await res.json();
-      console.log(results);
+        const isComplete = "YES";
+        const change = { isComplete };
+        console.log(change);
 
-      if (!response.ok) {
-        console.log(json.error);
+        ////////////////////////// NOT Patch completed change
+        const res = await fetch(taskFetchPath + taskID, {
+          method: "PUT",
+          body: JSON.stringify(change),
+          headers: {
+            "content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const results = await res.json();
+        console.log(results);
+
+        if (!response.ok) {
+          console.log(json.error);
+        }
+        if (response.ok) {
+          console.log("change made");
+          window.location.reload(false);
+        }
       }
-      if (response.ok) {
-        console.log("change made");
-        window.location.reload(false);
+      if (json.isComplete === "YES") {
+        console.log("YES is completed change to NOT");
+
+        const isComplete = "NO";
+        const change = { isComplete };
+        console.log(change);
+
+        ///////////////////////////////////// IS Patch paid change
+        const res = await fetch(taskFetchPath + taskID, {
+          method: "PUT",
+          body: JSON.stringify(change),
+          headers: {
+            "content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        const results = await res.json();
+        console.log(results);
+
+        if (!response.ok) {
+          console.log(json.error);
+        }
+        if (response.ok) {
+          console.log("change made");
+          window.location.reload(false);
+        }
       }
-    }
-  };
-  handleChange();
+    };
+    handleChange();
   }, [taskID])
-  
-// END of COMPLETE TOGGLE LOGIC ??
+
+  // END of COMPLETE TOGGLE LOGIC ??
 
   // page load fetch all tasks to display
-    useEffect(() => {
+  useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(
         `${taskFetchPath}user/${user._id}`,
@@ -162,7 +163,7 @@ const UserTasksTable = () => {
           mode: "cors",
         }
       );
-      
+
       let data = await res.json();
 
       setCompletedTasks([])
@@ -173,11 +174,11 @@ const UserTasksTable = () => {
 
       for (const task of data) {
         if (task.isComplete === "YES") {
-            completed.push(task)
-            setCompletedTasks(completed)
+          completed.push(task)
+          setCompletedTasks(completed)
         } else {
-            unCompleted.push(task)
-            setUnCompletedTasks(unCompleted)
+          unCompleted.push(task)
+          setUnCompletedTasks(unCompleted)
         }
       }
     };
@@ -187,9 +188,9 @@ const UserTasksTable = () => {
 
 
   const displayTable = (rowData, complete) => {
-    
+
     return (
-        <Table striped responsive>
+      <Table striped responsive>
         <thead>
           <tr>
             <th>Due Date</th>
@@ -199,7 +200,7 @@ const UserTasksTable = () => {
             <th>Notes</th>
             {complete === true && <th>Mark Complete</th>}
             {complete === false && <th>Mark NOT COmplete</th>}
-            
+
           </tr>
         </thead>
         <Tbody>
@@ -214,15 +215,15 @@ const UserTasksTable = () => {
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
                 {row.isComplete === "NO" &&
-                    <Td   onClick={() =>  {
-                      setTaskID(row._id);
-                    }} ><GrCheckbox /></Td>
-                  }
+                  <Td onClick={() => {
+                    setTaskID(row._id);
+                  }} ><GrCheckbox /></Td>
+                }
                 {row.isComplete === "YES" &&
-                    <Td  onClick={() => {
-                      setTaskID(row._id);
-                    }} ><GrCheckboxSelected /></Td>
-                  }
+                  <Td onClick={() => {
+                    setTaskID(row._id);
+                  }} ><GrCheckboxSelected /></Td>
+                }
               </Tr>
             );
           })}
@@ -233,14 +234,14 @@ const UserTasksTable = () => {
 
   return (
     <Container>
-          <Heading>Needs to be completed</Heading>
-        <TaskWrapper>
-          {displayTable(unCompletedTasks, true)}
-        </TaskWrapper>
-          <Heading>Completed</Heading>
-        <TaskWrapperTwo>
-          {displayTable(completedTasks, false)}
-        </TaskWrapperTwo>
+      <Heading>Needs to be completed</Heading>
+      <TaskWrapper>
+        {displayTable(unCompletedTasks, true)}
+      </TaskWrapper>
+      <Heading>Completed</Heading>
+      <TaskWrapperTwo>
+        {displayTable(completedTasks, false)}
+      </TaskWrapperTwo>
     </Container>
   );
 };
