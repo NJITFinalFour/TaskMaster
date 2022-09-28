@@ -1,10 +1,10 @@
 # TaskMaster
 > A Full- Stack application for task managment using React, Node.js, Express, and MongoDB.
 
-![Home Page](client/images/HomePage.png)
-![Login Page](client/images/LoginPage.png)
-![Admin Page](client/images/AdminPage.png)
-![User Page](client/images/UserPage.png)
+![Home Page](client/src/images/HomePage.jpg)
+![Login Page](client/src/images/LoginPage.jpg)
+![Admin Page](client/src/images/AdminPage.jpg)
+![User Page](client/src/images/UserPage.jpg)
 
 ## Table of Contents
 * [Description](#description)
