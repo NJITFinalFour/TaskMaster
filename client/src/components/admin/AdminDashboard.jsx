@@ -125,13 +125,10 @@ const AdminDashboard = () => {
   // Get Tasks
   useEffect(() => {
     const fetchTasks = async (id) => {
-      const res = await fetch(
-        `${taskFetchPath}/organization/${user.organization}`,
-        {
-          method: "GET",
-          mode: "cors",
-        }
-      );
+      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
       let data = await res.json();
       setAllTasks(data);
       console.log(data);
@@ -153,10 +150,7 @@ const AdminDashboard = () => {
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
-        } else if (
-          dueDateFormatted >= todayFormatted &&
-          task.isComplete === "NO"
-        ) {
+        } else if (dueDateFormatted >= todayFormatted && task.isComplete === "NO") {
           inProgressTasks.push(task);
           setInProgressTasks(inProgressTasks);
         } else if (task.isComplete === "YES") {
@@ -167,7 +161,6 @@ const AdminDashboard = () => {
           setAllTasks(allTasks);
         }
       }
-
       // if (res.ok) {
       //   setAllTasks(allTasks.filter((task) => task._id !== id));
       // }
@@ -186,6 +179,7 @@ const AdminDashboard = () => {
 
     if (response.ok) {
       setAllTasks(allTasks.filter((task) => task._id !== id));
+      window.location.reload(false);
     }
   };
 
@@ -242,12 +236,7 @@ const AdminDashboard = () => {
                       }}
                     />
                   </EditWrapper>
-                  <EditTask
-                    taskid={taskID}
-                    task={task}
-                    show={editModalShow}
-                    onHide={() => setEditModalShow(false)}
-                  />
+                  <EditTask taskid={taskID} task={task} show={editModalShow} onHide={() => setEditModalShow(false)} />
                 </Td>
                 <Td>
                   <DeleteWrapper>
@@ -269,12 +258,7 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <StyledTabs
-        defaultActiveKey="users"
-        id="fill-tab-example"
-        className="mb-3"
-        fill
-      >
+      <StyledTabs defaultActiveKey="users" id="fill-tab-example" className="mb-3" fill>
         <StyledTab eventKey="users" title="Users">
           <Wrapper>
             <Heading>All Users</Heading>
