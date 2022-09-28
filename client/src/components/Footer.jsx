@@ -41,7 +41,7 @@ const Left = styled.div`
   flex-direction: column;
   padding: 2em;
 
-  ${mobile({padding: "1em 2em 0em 2em"})}
+  ${mobile({padding: "1em 2em 0em 2em", margin: "auto"})}
 `;
 
 const Logo = styled.h1`
@@ -92,6 +92,8 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+
+  ${mobile({ display: "none" })}
 `;
 
 const ContactItem = styled.div`

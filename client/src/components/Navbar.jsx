@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20%;
+  padding: 10px 15%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +36,7 @@ const Center = styled.div`
 const Link = styled.a``;
 
 const Logo = styled.img`
-  ${mobile({ fontSize: "24px", textAlign: "center" })}
+  ${mobile({textAlign: "center" })}
 `;
 
 const Right = styled.div`
@@ -44,21 +44,26 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 1.1, marginRight: "5%" })}
+  ${mobile({ flex: 1.1 })}
 `;
 
 const NavLink = styled.a`
-  font-size: 20px;
+  font-size: 1.5em;
   cursor: pointer;
-  margin-left: 25px;
+  margin: 0em 0.7em;
+  padding: 0.2em 0.7em;
   text-decoration: none;
   color: #7aa83d;
 
   &:hover {
-    color: #4e5c3d;
+    border: 1px solid #88bb44;
+    padding: 0.2em 0.7em;
+    background-color: #88bb44;
+    color: white;
+    border-radius: 5px;
   }
 
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  ${mobile({ fontSize: "0.9em", margin: "0em", padding: "0em 0.6em 0em 0em" })}
 `;
 
 const NavItem = styled.p`
