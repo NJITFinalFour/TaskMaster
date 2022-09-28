@@ -1,9 +1,9 @@
 # TaskMaster
-> A Full- Stack application for task managment 
+> A Full- Stack application for task managment using React, Node.js, Express, and MongoDB.
 
 ## Table of Contents
 * [Description](#description)
-* [Technologies](#technologies)
+* [Dependencies](#dependencies)
 * [Features](#features)
 * [Setup](#setup)
 * [Contributors](#contributors)
@@ -11,8 +11,10 @@
 ## Description
 This browser application allows employers to track and assign tasks within various organizations
 
-## Technologies
-This project was created with:
+## Dependencies
+This project was created with the following
+
+### Backend:
 * "bcrypt": "^5.0.1",
 * "body-parser": "^1.20.0",
 * "cors": "^2.8.5",
@@ -24,9 +26,30 @@ This project was created with:
 * "nodemon": "^2.0.19",
 * "validator": "^13.7.0"
 
+### Frontend:
+* "@emotion/react": "^11.10.4",
+* "@emotion/styled": "^11.10.4",
+* "@mui/icons-material": "^5.10.6",
+* "@mui/material": "^5.10.6",
+* "@testing-library/jest-dom": "^5.16.5",
+* "@testing-library/react": "^13.4.0",
+* "@testing-library/user-event": "^13.5.0",
+*  "axios": "^0.27.2",
+* "bootstrap": "^5.2.1",
+* "date-fns": "^2.29.3",
+* "react": "^18.2.0",
+* "react-bootstrap": "^2.5.0",
+* "react-dom": "^18.2.0",
+* "react-icons": "^4.4.0",
+* "react-router-dom": "^6.4.0",
+* "react-scripts": "5.0.1",
+* "styled-components": "^5.3.5",
+* "web-vitals": "^2.1.4",
+* "xlsx": "^0.18.5"
+
 ## Features
-* Styled components used for design
-* Login and sign up fully integrated
+* Login as a normal user, sign an organization up, or log in as an admin level user to control functionality across the application. Logins are protected with Bcrypt, JWT tokens, and validator
+* Styled components used for design in order to have custom React components and cut down on the Javascript build file 
 
 ## Setup
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
