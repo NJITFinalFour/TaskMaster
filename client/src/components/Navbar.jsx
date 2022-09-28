@@ -51,13 +51,11 @@ const NavLink = styled.a`
   font-size: 1.5em;
   cursor: pointer;
   margin: 0em 0.7em;
-  padding: 0.2em 0.7em;
+  padding: 0.2em 0.6em;
   text-decoration: none;
   color: #7aa83d;
 
   &:hover {
-    border: 1px solid #88bb44;
-    padding: 0.2em 0.7em;
     background-color: #88bb44;
     color: white;
     border-radius: 5px;
