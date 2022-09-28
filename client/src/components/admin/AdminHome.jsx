@@ -61,7 +61,7 @@ const AdminHome = () => {
   const [adminModalShow, setAdminModalShow] = useState(false);
   const [taskModalShow, setTaskModalShow] = useState(false);
 
-  //Get All Tasks on Page Load
+  //Get All Tasks on Page Load 
   useEffect(() => {
     const fetchTasks = async () => {
       const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
