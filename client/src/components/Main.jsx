@@ -8,14 +8,19 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   margin-bottom: 5em;
+
+  ${mobile({
+    marginBottom: "0.5em"
+  })}
 `;
 
 const Wrapper = styled.div`
-  width: 90vw;
+  width: 75vw;
   height: 100vh;
   background-image: url(${backgroundImg});
   /* center no-repeat; */
   background-size: cover;
+  background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,9 +31,9 @@ const Wrapper = styled.div`
   ${mobile({
     width: "100vw",
     height: "100vh",
+    borderRadius: "0px"
     // backgroundImage: { backgroundImgMobile },
   })};
-
 `;
 
 const AboutWrapper = styled.div`
@@ -40,15 +45,15 @@ const AboutWrapper = styled.div`
   background-color: white;
   border-radius: 10px;
   margin-top: 60vh;
-  ${mobile({width: "90%"})}
+  ${mobile({width: "90%", marginTop: "40vh"})}
 `;
 
 const About = styled.div`
-  color: #88bb44;
+  color: #7aa83d;
   padding: 1em 2em;
   text-align: center;
   font-size: 30px;
-  ${mobile({ fontSize: "20px", padding: "1em" })}
+  ${mobile({ fontSize: "20px", padding: "1em 0.5em" })}
 `;
 
 const Button = styled.a`

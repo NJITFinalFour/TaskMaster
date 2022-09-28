@@ -37,6 +37,8 @@ const Tr = styled.tr``;
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
+  color: #${(props) => props.highPriority === true && "f32424"};
+  color: ${(props) => props.highPriority ? "red" : "black"};
 
   &:first-child {
     width: 10%;
@@ -65,10 +67,8 @@ const Td = styled.td`
   &:last-child {
     width: 3%;
   }
-  &  {
-  color: #${(props) => (props.highPriority ==="true" && "f32424")};
-  font-weight: ${(props) => (props.highPriority ? 600 : 400)};
-  }
+
+  /* font-weight: ${(props) => (props.highPriority ? 600 : 400)}; */
 `;
 
 const EditWrapper = styled.div`
