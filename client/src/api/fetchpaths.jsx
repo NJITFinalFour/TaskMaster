@@ -11,19 +11,19 @@
 //+++++++++++++++++++Heroku PROD BACKEND PATHS ++++++++++++++++++++
 
 
-export const signupAdminFetchPath = "https://taskmasterusa.herokuapp.com/organizations/signup"
-export const signupFetchPath = "https://taskmasterusa.herokuapp.com/user/signup/";
-export const taskFetchPath = "https://taskmasterusa.herokuapp.com/tasks/";
-export const loginFetchPath = "https://taskmasterusa.herokuapp.com/user/login";
-export const orgFetchPath = "https://taskmasterusa.herokuapp.com/organizations";
-export const userFetchPath = "https://taskmasterusa.herokuapp.com/user/";
+// export const signupAdminFetchPath = "https://taskmasterusa.herokuapp.com/organizations/signup"
+// export const signupFetchPath = "https://taskmasterusa.herokuapp.com/user/signup/";
+// export const taskFetchPath = "https://taskmasterusa.herokuapp.com/tasks/";
+// export const loginFetchPath = "https://taskmasterusa.herokuapp.com/user/login";
+// export const orgFetchPath = "https://taskmasterusa.herokuapp.com/organizations";
+// export const userFetchPath = "https://taskmasterusa.herokuapp.com/user/";
 
 //+++++++++++++++++++AWS PROD BACKEND PATHS ++++++++++++++++++++
 
 
-// export const signupAdminFetchPath = "https://taskmasterusa.johnmargotti.com/organizations/signup"
-// export const signupFetchPath = "https://taskmasterusa.johnmargotti.com/user/signup/";
-// export const taskFetchPath = "https://taskmasterusa.johnmargotti.com/tasks/";
-// export const loginFetchPath = "https://taskmasterusa.johnmargotti.com/user/login";
-// export const orgFetchPath = "https://taskmasterusa.johnmargotti.com/organizations";
-// export const userFetchPath = "https://taskmasterusa.johnmargotti.com/user/";
+export const signupAdminFetchPath = "https://taskmasterusa.johnmargotti.com/organizations/signup"
+export const signupFetchPath = "https://taskmasterusa.johnmargotti.com/user/signup/";
+export const taskFetchPath = "https://taskmasterusa.johnmargotti.com/tasks/";
+export const loginFetchPath = "https://taskmasterusa.johnmargotti.com/user/login";
+export const orgFetchPath = "https://taskmasterusa.johnmargotti.com/organizations";
+export const userFetchPath = "https://taskmasterusa.johnmargotti.com/user/";
