@@ -1,6 +1,11 @@
 # TaskMaster
 > A Full- Stack application for task managment using React, Node.js, Express, and MongoDB.
 
+![Home Page](client/images/HomePage.png)
+![Login Page](client/images/LoginPage.png)
+![Admin Page](client/images/AdminPage.png)
+![User Page](client/images/UserPage.png)
+
 ## Table of Contents
 * [Description](#description)
 * [Dependencies](#dependencies)
@@ -9,10 +14,10 @@
 * [Contributors](#contributors)
 
 ## Description
-This browser application allows employers to track and assign tasks within various organizations
+This browser application allows employers to track and assign tasks within various organizations.
 
 ## Dependencies
-This project was created with the following
+This project was created with the following:
 
 ### Backend:
 * "bcrypt": "^5.0.1",
@@ -34,7 +39,7 @@ This project was created with the following
 * "@testing-library/jest-dom": "^5.16.5",
 * "@testing-library/react": "^13.4.0",
 * "@testing-library/user-event": "^13.5.0",
-*  "axios": "^0.27.2",
+* "axios": "^0.27.2",
 * "bootstrap": "^5.2.1",
 * "date-fns": "^2.29.3",
 * "react": "^18.2.0",
@@ -48,8 +53,10 @@ This project was created with the following
 * "xlsx": "^0.18.5"
 
 ## Features
-* Login as a normal user, sign an organization up, or log in as an admin level user to control functionality across the application. Logins are protected with Bcrypt, JWT tokens, and validator
-* Styled components used for design in order to have custom React components and cut down on the Javascript build file 
+* Login as a normal user, sign an organization up, or log in as an admin level user to control functionality across the application. Logins are protected with Bcrypt, JWT tokens, and validator.
+* Styled components used for design in order to have custom React components and cut down on the Javascript build file.
+* A button that has the functionality to export user data as an Excel file. 
+* Deployed onto the web using AWS.
 
 ## Setup
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
@@ -71,7 +78,7 @@ $ npm install
 # Run command in both folders to run app (start with server first)
 $ npm start
 
-Once the dependencies are installed, you will be ale to access it at localhost:3000
+Once the dependencies are installed, you will be ale to access it at localhost:3000.
 ```
 
 ## Contributors
