@@ -73,6 +73,8 @@ const Link = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   cursor: pointer;
+  text-decoration: none;
+  color: #4e5c3d;
 `;
 
 const Login = () => {

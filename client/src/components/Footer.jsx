@@ -11,34 +11,44 @@ import { mobile } from "../responsive";
 import FooterSignature from "./FooterSignature";
 
 const Container = styled.div`
+display: flex;
+flex-direction: column;
   background-color: #88bb44;
   /* position: fixed; */
   bottom: 0px;
   right: 0px;
   left: 0px;
+  z-index: 1;
+
+  ${mobile({})}
 `;
 
 const Wrapper = styled.div`
   display: flex;
   padding: 0px 15%;
+  /* height: 14em; */
   /* position: fixed;
   left: 0px;
   right: 0px;
   bottom: 0px; */
 
-  ${mobile({ flexDirection: "column" })}
+  ${mobile({ flexDirection: "column", fontSize: "75%", padding: "0em" })}
 `;
 
 const Left = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 2em;
+
+  ${mobile({padding: "1em 2em 0em 2em"})}
 `;
 
-const Logo = styled.h1``;
+const Logo = styled.h1`
+  /* ${mobile({fontSize: "80%"})} */
+`;
 const Desc = styled.p`
-  margin: 20px 0px;
+  margin: 1em 0em 2em 0em;
 `;
 const SocialContainer = styled.div`
   display: flex;
@@ -53,6 +63,7 @@ const SocialIcon = styled.h1`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  ${mobile({  })}
 `;
 
 const Center = styled.div`
@@ -63,6 +74,8 @@ const Center = styled.div`
 
 const Title = styled.h3`
   margin-bottom: 30px;
+
+  ${mobile({marginBottom: ".8em"})}
 `;
 const List = styled.ul`
   margin: 0;
@@ -85,6 +98,8 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+
+  ${mobile({margin: "0px"})}
 `;
 
 const Footer = () => {

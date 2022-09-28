@@ -26,12 +26,9 @@ const StyledTabs = styled(Tabs)`
   }
 `;
 
-const StyledTab = styled(Tab)`
-`;
+const StyledTab = styled(Tab)``;
 
-const Wrapper = styled.div`
-
-`;
+const Wrapper = styled.div``;
 
 const Tbody = styled.tbody``;
 
@@ -68,6 +65,10 @@ const Td = styled.td`
   &:last-child {
     width: 3%;
   }
+  &  {
+  color: #${(props) => (props.highPriority ==="true" && "f32424")};
+  font-weight: ${(props) => (props.highPriority ? 600 : 400)};
+  }
 `;
 
 const EditWrapper = styled.div`
@@ -81,11 +82,11 @@ const EditWrapper = styled.div`
 `;
 
 const DeleteWrapper = styled.div`
-  color: rgb(107, 108, 110);
+  color: #6b6c6e;
   font-size: 20px;
 
   &:hover {
-    color: rgb(243, 36, 36);
+    color: #f32424;
     font-size: 22px;
   }
 `;
@@ -96,7 +97,6 @@ const Heading = styled.h3`
   color: #88bb44;
 `;
 
-
 const AdminDashboard = () => {
   const { user } = useAuthContext();
   const [users, setUsers] = useState([]);
@@ -106,6 +106,7 @@ const AdminDashboard = () => {
   const [overdueTasks, setOverdueTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [highPriority, setHighPriority] = useState(false);
 
   // Get Users
   useEffect(() => {
@@ -133,12 +134,12 @@ const AdminDashboard = () => {
       );
       let data = await res.json();
       setAllTasks(data);
+      console.log(data);
 
       // let alltasks = [];
       let overdueTasks = [];
       let inProgressTasks = [];
       let completedTasks = [];
-      
 
       for (const task of data) {
         const dueDate = new Date(task.due_date);
@@ -146,6 +147,9 @@ const AdminDashboard = () => {
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
+        if (task.priority === "high") {
+          setHighPriority(true);
+        }
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
@@ -163,9 +167,10 @@ const AdminDashboard = () => {
           setAllTasks(allTasks);
         }
       }
-          // if (res.ok) {
-          //   setAllTasks(allTasks.filter((task) => task._id !== id));
-          // }
+
+      // if (res.ok) {
+      //   setAllTasks(allTasks.filter((task) => task._id !== id));
+      // }
     };
 
     fetchTasks();
@@ -214,7 +219,7 @@ const AdminDashboard = () => {
                     addSuffix: true,
                   })}
                 </Td>
-                <Td>{task.priority}</Td>
+                <Td props={highPriority}>{task.priority}</Td>
                 {users.map((worker) => {
                   if (task.user_id === worker._id) {
                     return (
@@ -226,7 +231,6 @@ const AdminDashboard = () => {
                 })}
                 <Td>{task.taskName}</Td>
                 <Td>{task.notes}</Td>
-
                 <Td>{task.isComplete}</Td>
                 <Td>
                   <EditWrapper>
