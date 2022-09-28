@@ -85,6 +85,8 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 500;
 
+  ${mobile({ fontSize: ".5em" })}
+
   &:hover {
     border: 1px solid white;
     background-color: #88bb44;
