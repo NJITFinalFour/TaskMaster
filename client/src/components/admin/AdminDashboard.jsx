@@ -37,6 +37,8 @@ const Tr = styled.tr``;
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
+  color: #${(props) => props.highPriority === true && "f32424"};
+  color: ${(props) => props.highPriority ? "red" : "black"};
 
   &:first-child {
     width: 10%;
@@ -65,6 +67,8 @@ const Td = styled.td`
   &:last-child {
     width: 3%;
   }
+
+  /* font-weight: ${(props) => (props.highPriority ? 600 : 400)}; */
 `;
 
 const EditWrapper = styled.div`
@@ -78,11 +82,11 @@ const EditWrapper = styled.div`
 `;
 
 const DeleteWrapper = styled.div`
-  color: rgb(107, 108, 110);
+  color: #6b6c6e;
   font-size: 20px;
 
   &:hover {
-    color: rgb(243, 36, 36);
+    color: #f32424;
     font-size: 22px;
   }
 `;
@@ -102,6 +106,7 @@ const AdminDashboard = () => {
   const [overdueTasks, setOverdueTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [highPriority, setHighPriority] = useState(false);
 
   // Get Users
   useEffect(() => {
@@ -126,6 +131,7 @@ const AdminDashboard = () => {
       });
       let data = await res.json();
       setAllTasks(data);
+      console.log(data);
 
       // let alltasks = [];
       let overdueTasks = [];
@@ -138,6 +144,9 @@ const AdminDashboard = () => {
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
+        if (task.priority === "high") {
+          setHighPriority(true);
+        }
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
@@ -204,7 +213,7 @@ const AdminDashboard = () => {
                     addSuffix: true,
                   })}
                 </Td>
-                <Td>{task.priority}</Td>
+                <Td props={highPriority}>{task.priority}</Td>
                 {users.map((worker) => {
                   if (task.user_id === worker._id) {
                     return (
@@ -216,7 +225,6 @@ const AdminDashboard = () => {
                 })}
                 <Td>{task.taskName}</Td>
                 <Td>{task.notes}</Td>
-
                 <Td>{task.isComplete}</Td>
                 <Td>
                   <EditWrapper>

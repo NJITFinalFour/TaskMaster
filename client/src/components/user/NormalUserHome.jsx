@@ -8,7 +8,7 @@ const Container = styled.div`
 `;
 
 const Top = styled.div`
-  margin-top: 1%;
+  margin-top: 2%;
   margin-bottom: 3%;
 `;
 
@@ -34,7 +34,7 @@ const NormalUserHome = () => {
         </Greeting>
       </Top>
       <Bottom>
-          <UserTasksTable/>
+        <UserTasksTable />
       </Bottom>
     </Container>
   );

@@ -1,48 +1,65 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-// import backgroundImg from "..images/background.jpg"
+// import backgroundImg from "../images/background.jpg"
+import backgroundImg from "../images/backgroundTwo.jpg"
+
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  margin-bottom: 5em;
+
+  ${mobile({
+    marginBottom: "0.5em"
+  })}
 `;
 
 const Wrapper = styled.div`
-  width: 80vw;
+  width: 75vw;
   height: 100vh;
-  background: url("https://images.unsplash.com/photo-1590402494587-44b71d7772f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3870&q=80")
-    center no-repeat;
+  background-image: url(${backgroundImg});
+  /* center no-repeat; */
   background-size: cover;
+  background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
+  margin: 10px auto 30em auto;
   border-radius: 30px;
 
-  ${mobile({ width: "100vw", height: "100vh" })};
+  ${mobile({
+    width: "100vw",
+    height: "100vh",
+    borderRadius: "0px"
+    // backgroundImage: { backgroundImgMobile },
+  })};
 `;
 
 const AboutWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 60%;
   font-size: 2rem;
   background-color: white;
   border-radius: 10px;
+  margin-top: 60vh;
+  ${mobile({width: "90%", marginTop: "40vh"})}
 `;
 
 const About = styled.div`
-  color: #88bb44;
-  padding: 40px 100px;
+  color: #7aa83d;
+  padding: 1em 2em;
   text-align: center;
+  font-size: 30px;
+  ${mobile({ fontSize: "20px", padding: "1em 0.5em" })}
 `;
 
 const Button = styled.a`
-  margin-top: 20px;
+  margin-top: 30px;
   border: 1px solid #88bb44;
-  padding: 20px;
+  padding: 10px 20px;
   background-color: #88bb44;
   color: white;
   cursor: pointer;
@@ -56,6 +73,8 @@ const Button = styled.a`
     border: 1px solid #88bb44;
     color: #88bb44;
   }
+
+  ${mobile({ width: "70%", textAlign: "center" })}
 `;
 
 const Main = () => {

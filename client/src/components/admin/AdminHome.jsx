@@ -62,13 +62,16 @@ const AdminHome = () => {
   const [adminModalShow, setAdminModalShow] = useState(false);
   const [taskModalShow, setTaskModalShow] = useState(false);
 
-  //Get All Tasks on Page Load 
+  //Get All Tasks on Page Load
   useEffect(() => {
     const fetchTasks = async () => {
-      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const res = await fetch(
+        `${taskFetchPath}/organization/${user.organization}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
       let data = await res.json();
       setAllTasks(data);
     };
@@ -76,13 +79,13 @@ const AdminHome = () => {
     fetchTasks();
   }, [user.organization]);
 
-  //export Excel All Tasks
-  const exportTasksExcel = () => {
-    const wb = XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(allTasks);
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
-  };
+  // export Excel All Tasks
+  // const exportTasksExcel = () => {
+  //   const wb = XLSX.utils.book_new(),
+  //     ws = XLSX.utils.json_to_sheet(allTasks);
+  //   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  //   XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
+  // };
 
   return (
     <Container>
@@ -94,25 +97,34 @@ const AdminHome = () => {
       </Top>
       <ButtonContainer>
         <Left>
-          <AdminAddNewTask show={taskModalShow} onHide={() => setTaskModalShow(false)} />
+          <AdminAddNewTask
+            show={taskModalShow}
+            onHide={() => setTaskModalShow(false)}
+          />
 
           <Button variant="primary" onClick={() => setUserModalShow(true)}>
             New User
           </Button>
-          <AddNewUser show={userModalShow} onHide={() => setUserModalShow(false)} />
+          <AddNewUser
+            show={userModalShow}
+            onHide={() => setUserModalShow(false)}
+          />
 
           <Button variant="primary" onClick={() => setAdminModalShow(true)}>
             New Admin
           </Button>
-          <AddNewAdmin show={adminModalShow} onHide={() => setAdminModalShow(false)} />
+          <AddNewAdmin
+            show={adminModalShow}
+            onHide={() => setAdminModalShow(false)}
+          />
         </Left>
         <Right>
           <Button variant="primary" onClick={() => setTaskModalShow(true)}>
             New Task
           </Button>
-          <Button variant="primary" onClick={exportTasksExcel}>
+          {/* <Button variant="primary" onClick={exportTasksExcel}>
             Export Task List Excel
-          </Button>
+          </Button> */}
         </Right>
       </ButtonContainer>
       <AdminDashboard />
