@@ -16,11 +16,6 @@ const Container = styled.div`
   border-radius: 10px;
 `;
 
-const Heading = styled.h3`
-  font-weight: 600;
-  margin: 15px 5%;
-  color: #88bb44;
-`;
 
 const Tbody = styled.tbody``;
 
@@ -31,31 +26,22 @@ const Td = styled.td`
   vertical-align: middle;
 
   &:first-child {
-    width: 10%;
+    width: 20%;
   }
   &:nth-child(2) {
-    width: 10%;
+    width: 25%;
   }
   &:nth-child(3) {
-    width: 10%;
+    width: 25%;
   }
   &:nth-child(4) {
     width: 10%;
   }
   &:nth-child(5) {
-    width: 20%;
-  }
-  &:nth-child(6) {
-    width: 40%;
-  }
-  &:nth-child(7) {
-    width: 4%;
-  }
-  &:nth-child(8) {
-    width: 3%;
+    width: 10%;
   }
   &:last-child {
-    width: 3%;
+    width: 10%;
   }
 `;
 
@@ -111,17 +97,18 @@ const AdminUsersTable = () => {
     if (response.ok) {
       setWorkers(workers.filter((task) => task._id !== id));
     }
+      console.log(response);
+
   };
 
   return (
     <Container>
-      <Heading>All Users</Heading>
       <Table striped responsive>
         <thead>
           <tr>
-            <th>Email</th>
             <th>Last Name</th>
             <th>First Name</th>
+            <th>Email</th>
             <th>Is Admin</th>
             <th>Edit User</th>
             <th>Delete User</th>
@@ -132,13 +119,13 @@ const AdminUsersTable = () => {
             return (
               <Tr key={worker._id}>
                 <Td>
-                  {worker.email}
-                </Td>
-                <Td>
                   {worker.last_name}
                 </Td>
                 <Td>
                   {worker.first_name}
+                </Td>
+                <Td>
+                  {worker.email}
                 </Td>
                 <Td>
                   {worker.isAdmin ? "True" : "False"}
@@ -153,6 +140,7 @@ const AdminUsersTable = () => {
                     />
                   </EditWrapper>
                   <EditUser
+                    setWorkers={setWorkers}
                     first_name={worker.first_name}
                     last_name={worker.last_name}
                     email={worker.email}
