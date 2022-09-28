@@ -7,8 +7,7 @@ import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
 import AdminDashboard from "./AdminDashboard";
 import { taskFetchPath } from "../../api/fetchpaths";
-import * as XLSX from 'xlsx';
-
+import * as XLSX from "xlsx";
 
 const Container = styled.div`
   height: 100vh;
@@ -65,13 +64,10 @@ const AdminHome = () => {
   //Get All Tasks on Page Load
   useEffect(() => {
     const fetchTasks = async () => {
-      const res = await fetch(
-        `${taskFetchPath}/organization/${user.organization}`,
-        {
-          method: "GET",
-          mode: "cors",
-        }
-      );
+      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
       let data = await res.json();
       setAllTasks(data);
     };
@@ -80,6 +76,7 @@ const AdminHome = () => {
   }, [user.organization]);
 
   //export Excel All Tasks
+
   const exportTasksExcel = () => {
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allTasks);
@@ -97,26 +94,17 @@ const AdminHome = () => {
       </Top>
       <ButtonContainer>
         <Left>
-          <AdminAddNewTask
-            show={taskModalShow}
-            onHide={() => setTaskModalShow(false)}
-          />
+          <AdminAddNewTask show={taskModalShow} onHide={() => setTaskModalShow(false)} />
 
           <Button variant="primary" onClick={() => setUserModalShow(true)}>
             New User
           </Button>
-          <AddNewUser
-            show={userModalShow}
-            onHide={() => setUserModalShow(false)}
-          />
+          <AddNewUser show={userModalShow} onHide={() => setUserModalShow(false)} />
 
           <Button variant="primary" onClick={() => setAdminModalShow(true)}>
             New Admin
           </Button>
-          <AddNewAdmin
-            show={adminModalShow}
-            onHide={() => setAdminModalShow(false)}
-          />
+          <AddNewAdmin show={adminModalShow} onHide={() => setAdminModalShow(false)} />
         </Left>
         <Right>
           <Button variant="primary" onClick={() => setTaskModalShow(true)}>
