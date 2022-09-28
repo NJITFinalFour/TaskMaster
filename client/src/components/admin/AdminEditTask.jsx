@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react"
 import Modal from "react-bootstrap/Modal";
-import { useRouteLoaderData } from "react-router-dom";
 import styled from "styled-components"
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
@@ -123,10 +122,11 @@ const EditTask = (props) => {
         },
       });
       const json = await response.json();
-      // console.log(json)
+      
       
   
       if (response.ok) {
+
         setNewTask({
           taskName: json.taskName,
           organization_id: user.organization,
@@ -137,6 +137,8 @@ const EditTask = (props) => {
           notes: json.notes
         });
         window.location.reload(false);
+      
+        
         
       }
     }; 
@@ -148,7 +150,7 @@ const EditTask = (props) => {
               mode: "cors"
           })
           let alldata = await res.json()
-          // console.log(alldata)
+
           setUsers(alldata)
       }
 

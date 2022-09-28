@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddNewUser from "./AddNewUser";
 import AddNewAdmin from "./AddNewAdmin";
 import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
 import AdminDashboard from "./AdminDashboard";
-
-
+import { taskFetchPath } from "../../api/fetchpaths";
+import * as XLSX from "xlsx/xlsx.mjs";
 
 const Container = styled.div`
   height: 100vh;
@@ -44,7 +44,7 @@ const Button = styled.button`
   font-size: 20px;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid rgba(0,0,0,0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   color: #7aa83d;
   margin: 15px;
@@ -56,10 +56,32 @@ const Button = styled.button`
 
 const AdminHome = () => {
   const { user } = useAuthContext();
-
+  const [allTasks, setAllTasks] = useState([]);
   const [userModalShow, setUserModalShow] = useState(false);
   const [adminModalShow, setAdminModalShow] = useState(false);
   const [taskModalShow, setTaskModalShow] = useState(false);
+
+  //Get All Tasks on Page Load
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
+      let data = await res.json();
+      setAllTasks(data);
+    };
+
+    fetchTasks();
+  }, [user.organization]);
+
+  //export Excel All Tasks
+  const exportTasksExcel = () => {
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(allTasks);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
+  };
 
   return (
     <Container>
@@ -71,30 +93,24 @@ const AdminHome = () => {
       </Top>
       <ButtonContainer>
         <Left>
-          <AdminAddNewTask
-            show={taskModalShow}
-            onHide={() => setTaskModalShow(false)}
-          />
+          <AdminAddNewTask show={taskModalShow} onHide={() => setTaskModalShow(false)} />
 
           <Button variant="primary" onClick={() => setUserModalShow(true)}>
             New User
           </Button>
-          <AddNewUser
-            show={userModalShow}
-            onHide={() => setUserModalShow(false)}
-          />
+          <AddNewUser show={userModalShow} onHide={() => setUserModalShow(false)} />
 
           <Button variant="primary" onClick={() => setAdminModalShow(true)}>
             New Admin
           </Button>
-          <AddNewAdmin
-            show={adminModalShow}
-            onHide={() => setAdminModalShow(false)}
-          />
+          <AddNewAdmin show={adminModalShow} onHide={() => setAdminModalShow(false)} />
         </Left>
         <Right>
           <Button variant="primary" onClick={() => setTaskModalShow(true)}>
             New Task
+          </Button>
+          <Button variant="primary" onClick={exportTasksExcel}>
+            Export Task List Excel
           </Button>
         </Right>
       </ButtonContainer>

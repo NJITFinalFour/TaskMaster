@@ -21,7 +21,8 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,7 +52,4 @@
     "node": "v16.15.0",
     "npm": "8.5.5"
   }
-  
-  
-
 }
