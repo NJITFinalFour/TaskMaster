@@ -7,7 +7,8 @@ import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
 import AdminDashboard from "./AdminDashboard";
 import { taskFetchPath } from "../../api/fetchpaths";
-import * as XLSX from "xlsx/xlsx.mjs";
+import * as XLSX from 'xlsx';
+
 
 const Container = styled.div`
   height: 100vh;
