@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-// import backgroundImg from "../images/background.jpg"
 import backgroundImg from "../images/backgroundTwo.jpg"
 
 
@@ -32,7 +31,6 @@ const Wrapper = styled.div`
     width: "100vw",
     height: "100vh",
     borderRadius: "0px"
-    // backgroundImage: { backgroundImgMobile },
   })};
 `;
 
