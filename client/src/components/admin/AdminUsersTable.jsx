@@ -101,6 +101,44 @@ const AdminUsersTable = () => {
 
   };
 
+  const displayEdit = (worker) => {
+    return (
+      <>
+        <EditWrapper>
+          <BiEdit
+            className="editButton"
+            onClick={() => {
+              setEditModalShow(worker._id);
+            }}
+          />
+        </EditWrapper>
+          <EditUser
+            setWorkers={setWorkers}
+            first_name={worker.first_name}
+            last_name={worker.last_name}
+            email={worker.email}
+            is_admin={worker.isAdmin ? "True" : "False"}
+            _id={worker._id}
+            show={(editModalShow === worker._id)}
+            onHide={() => setEditModalShow(null)}
+          />
+      </>
+    )
+  }
+
+  const displayDelete = (worker) => {
+    return (
+      <DeleteWrapper>
+        <RiDeleteBinLine
+          className="deleteButton"
+          onClick={() => {
+            handleDelete(worker._id);
+          }}
+        />
+      </DeleteWrapper>
+    )
+  }
+
   return (
     <Container>
       <Table striped responsive>
@@ -131,34 +169,10 @@ const AdminUsersTable = () => {
                   {worker.isAdmin ? "True" : "False"}
                 </Td>
                 <Td>
-                  <EditWrapper>
-                    <BiEdit
-                      className="editButton"
-                      onClick={() => {
-                        setEditModalShow(worker._id);
-                      }}
-                    />
-                  </EditWrapper>
-                  <EditUser
-                    setWorkers={setWorkers}
-                    first_name={worker.first_name}
-                    last_name={worker.last_name}
-                    email={worker.email}
-                    is_admin={worker.isAdmin ? "True" : "False"}
-                    _id={worker._id}
-                    show={(editModalShow === worker._id)}
-                    onHide={() => setEditModalShow(null)}
-                  />
+                  {user._id === worker._id ? "" : displayEdit(worker)}
                 </Td>
                 <Td>
-                  <DeleteWrapper>
-                    <RiDeleteBinLine
-                      className="deleteButton"
-                      onClick={() => {
-                        handleDelete(worker._id);
-                      }}
-                    />
-                  </DeleteWrapper>
+                  {user._id === worker._id ? "" : displayDelete(worker)}
                 </Td>
               </Tr>
             );
