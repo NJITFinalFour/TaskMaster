@@ -135,7 +135,7 @@ const AdminUsersTable = () => {
                     <BiEdit
                       className="editButton"
                       onClick={() => {
-                        setEditModalShow(true);
+                        setEditModalShow(worker._id);
                       }}
                     />
                   </EditWrapper>
@@ -146,8 +146,8 @@ const AdminUsersTable = () => {
                     email={worker.email}
                     is_admin={worker.isAdmin ? "True" : "False"}
                     _id={worker._id}
-                    show={editModalShow}
-                    onHide={() => setEditModalShow(false)}
+                    show={(editModalShow === worker._id)}
+                    onHide={() => setEditModalShow(null)}
                   />
                 </Td>
                 <Td>
