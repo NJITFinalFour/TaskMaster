@@ -48,6 +48,14 @@ const WrapperAllTasks = styled.div`
   justify-content: space-between;
   padding: 0em 6em 0em 0em;
 `;
+const WrapperAllUsers = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0em 6em 0em 0em;
+`;
+
 
 
 const Button = styled.button`
@@ -172,7 +180,7 @@ const AdminDashboard = () => {
       setAllTasks(data);
       console.log(data);
 
-      // let alltasks = [];
+      // get alltasks = [];
       let overdueTasks = [];
       let inProgressTasks = [];
       let completedTasks = [];
@@ -211,6 +219,8 @@ const AdminDashboard = () => {
     fetchTasks();
   }, [user.organization]);
 
+
+//delete task
   const handleDelete = async (id) => {
     const response = await fetch(`${taskFetchPath}${id}`, {
       method: "DELETE",
@@ -225,11 +235,19 @@ const AdminDashboard = () => {
     }
   };
 
+  //export tasks to excel
   const exportTasksExcel = () => {
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allTasks);
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
+  };
+  //export users to excel
+  const exportUsersExcel = () => {
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(users);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "TaskMasterUSA_Users.xlsx");
   };
 
   const displayTable = (rowData) => {
@@ -320,7 +338,13 @@ const AdminDashboard = () => {
       >
         <StyledTab eventKey="users" title="Users">
           <Wrapper>
+            <WrapperAllUsers>
+
             <Heading>All Users</Heading>
+            <Button variant="primary" onClick={exportUsersExcel}>
+                Export All Users to Excel
+              </Button>
+            </WrapperAllUsers>
             <AdminUsersTable />
           </Wrapper>
         </StyledTab>
