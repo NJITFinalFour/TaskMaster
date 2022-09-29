@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
+import { mobile } from "../../responsive";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
@@ -50,6 +51,8 @@ const TaskWrapper = styled.div`
   margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
+
+  ${mobile({ margin: "0px", padding: "0.7em "})};
 `;
 
 const TaskWrapperTwo = styled.div`
@@ -59,6 +62,8 @@ const TaskWrapperTwo = styled.div`
   margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
+
+  ${mobile({ margin: "0px", padding: "0.7em " })};
 `;
 
 const Heading = styled.h3`

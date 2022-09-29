@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Component = styled.div`
   color: #7aa83d;
-  font-size: 18px;
+  font-size: 1.2em;
+
+  ${mobile({ fontSize: "1em" })};
 `;
 
 const Timer = () => {
