@@ -43,6 +43,8 @@ const Form = styled.form``;
 const Top = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  ${mobile({ flexDirection: "column"})}
 `;
 
 const Input = styled.input`
@@ -55,9 +57,11 @@ const Input = styled.input`
 const PasswordInput = styled.input`
   flex: 1;
   min-width: 40%;
-  max-width: 50%;
+  /* max-width: 50%; */
   margin: 20px auto;
   padding: 10px;
+
+  ${mobile({width: "100%", margin: "20px 10px 0px 0px"})}
 `;
 
 const Bottom = styled.div`
@@ -85,7 +89,7 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 500;
 
-  ${mobile({ fontSize: ".5em" })}
+  ${mobile({ fontSize: "1em", width: "80%" })}
 
   &:hover {
     border: 1px solid white;

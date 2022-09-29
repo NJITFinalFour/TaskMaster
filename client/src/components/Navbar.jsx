@@ -74,9 +74,9 @@ const NavItem = styled.p`
 `;
 
 const LogOutButton = styled.a`
-  font-size: 20px;
+  font-size: 1em;
   cursor: pointer;
-  margin-left: 25px;
+  margin-left: 1.2em;
   text-decoration: none;
   color: white;
   /* border: 1px solid #7aa83d; */
@@ -87,6 +87,8 @@ const LogOutButton = styled.a`
   &:hover {
     color: #9edb4f;
   }
+
+  ${mobile({fontSize: "0.8em", padding: "6px 6px", marginLeft: ""})};
 `;
 
 const Navbar = () => {
