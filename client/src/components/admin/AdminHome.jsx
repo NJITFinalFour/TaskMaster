@@ -7,7 +7,6 @@ import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
 import AdminDashboard from "./AdminDashboard";
 import { taskFetchPath } from "../../api/fetchpaths";
-import * as XLSX from "xlsx";
 
 const Container = styled.div`
   height: 100vh;
@@ -76,14 +75,6 @@ const AdminHome = () => {
   }, [user.organization]);
 
 
-  //export Excel All Tasks
-  const exportTasksExcel = () => {
-    const wb = XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(allTasks);
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
-  };
-
   return (
     <Container>
       <Top>
@@ -109,9 +100,6 @@ const AdminHome = () => {
         <Right>
           <Button variant="primary" onClick={() => setTaskModalShow(true)}>
             New Task
-          </Button>
-          <Button variant="primary" onClick={exportTasksExcel}>
-            Export Task List Excel
           </Button>
         </Right>
       </ButtonContainer>

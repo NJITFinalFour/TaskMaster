@@ -1,6 +1,7 @@
 import { formatDistanceToNow, format } from "date-fns";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+// import { mobile } from "../responsive";
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -10,6 +11,7 @@ import EditTask from "./AdminEditTask";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import * as XLSX from "xlsx";
 
 const Container = styled.div`
   margin: auto;
@@ -28,7 +30,37 @@ const StyledTabs = styled(Tabs)`
 
 const StyledTab = styled(Tab)``;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 50vh;
+  overflow-y: auto;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: #9c9c9ca6;
+  border-radius: 10px;
+`;
+
+const WrapperAllTasks = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0em 6em 0em 0em;
+`;
+
+
+const Button = styled.button`
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  color: #7aa83d;
+  /* margin: 15px; */
+
+  &:hover {
+    color: #4e5c3d;
+  }
+`;
 
 const Tbody = styled.tbody``;
 
@@ -38,7 +70,7 @@ const Td = styled.td`
   height: 60px;
   vertical-align: middle;
   color: #${(props) => props.highPriority === true && "f32424"};
-  color: ${(props) => props.highPriority ? "red" : "black"};
+  color: ${(props) => (props.highPriority ? "red" : "black")};
 
   &:first-child {
     width: 10%;
@@ -72,7 +104,7 @@ const Td = styled.td`
 `;
 
 const EditWrapper = styled.div`
-  color: rgb(107, 108, 110);
+  color: #6b6c6e;
   font-size: 20px;
 
   &:hover {
@@ -93,7 +125,7 @@ const DeleteWrapper = styled.div`
 
 const Heading = styled.h3`
   font-weight: 600;
-  margin: 15px 5%;
+  padding: 1em 2em 0.5em 2em;
   color: #88bb44;
 `;
 
@@ -125,10 +157,13 @@ const AdminDashboard = () => {
   // Get Tasks
   useEffect(() => {
     const fetchTasks = async (id) => {
-      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const res = await fetch(
+        `${taskFetchPath}/organization/${user.organization}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
       let data = await res.json();
       setAllTasks(data);
       console.log(data);
@@ -150,7 +185,10 @@ const AdminDashboard = () => {
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
-        } else if (dueDateFormatted >= todayFormatted && task.isComplete === "NO") {
+        } else if (
+          dueDateFormatted >= todayFormatted &&
+          task.isComplete === "NO"
+        ) {
           inProgressTasks.push(task);
           setInProgressTasks(inProgressTasks);
         } else if (task.isComplete === "YES") {
@@ -181,6 +219,13 @@ const AdminDashboard = () => {
       setAllTasks(allTasks.filter((task) => task._id !== id));
       window.location.reload(false);
     }
+  };
+
+  const exportTasksExcel = () => {
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(allTasks);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
   };
 
   const displayTable = (rowData) => {
@@ -236,7 +281,12 @@ const AdminDashboard = () => {
                       }}
                     />
                   </EditWrapper>
-                  <EditTask taskid={taskID} task={task} show={editModalShow} onHide={() => setEditModalShow(false)} />
+                  <EditTask
+                    taskid={taskID}
+                    task={task}
+                    show={editModalShow}
+                    onHide={() => setEditModalShow(false)}
+                  />
                 </Td>
                 <Td>
                   <DeleteWrapper>
@@ -258,7 +308,12 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <StyledTabs defaultActiveKey="users" id="fill-tab-example" className="mb-3" fill>
+      <StyledTabs
+        defaultActiveKey="users"
+        id="fill-tab-example"
+        className="mb-3"
+        fill
+      >
         <StyledTab eventKey="users" title="Users">
           <Wrapper>
             <Heading>All Users</Heading>
@@ -267,7 +322,12 @@ const AdminDashboard = () => {
         </StyledTab>
         <StyledTab eventKey="allTasks" title="All Tasks">
           <Wrapper>
-            <Heading>All Tasks</Heading>
+            <WrapperAllTasks>
+              <Heading>All Tasks</Heading>
+              <Button variant="primary" onClick={exportTasksExcel}>
+                Export All Tasks to Excel
+              </Button>
+            </WrapperAllTasks>
             {displayTable(allTasks)}
           </Wrapper>
         </StyledTab>
