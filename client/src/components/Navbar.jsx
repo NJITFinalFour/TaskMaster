@@ -68,7 +68,7 @@ const NavItem = styled.p`
   color: black;
   margin-bottom: 0px;
 
-  ${mobile({ paddingLeft: "1em" })}
+  ${mobile({ display: "none" })}
 `;
 
 const LogOutButton = styled.a`
@@ -86,7 +86,7 @@ const LogOutButton = styled.a`
     color: #9edb4f;
   }
 
-  ${mobile({fontSize: "0.8em", padding: "6px 6px", marginLeft: ""})};
+  ${mobile({margin: "0em 1em 0em 0em"})};
 `;
 
 const Navbar = () => {
