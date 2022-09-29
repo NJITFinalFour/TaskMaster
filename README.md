@@ -18,9 +18,9 @@
 This web application that allows employers to track and assign tasks within various organizations.
 
 ## Deployment
-Frontend Deployed (Client): AWS Amplify https://www.taskmasterusa.com/
-Backend Deployed (Server Route): AWS Elastic Beanstalk  https://server.taskmasterusa.com
-Database: Mongo DB Atlas Hosted Database
+* Frontend Deployed (Client): AWS Amplify https://www.taskmasterusa.com/
+* Backend Deployed (Server Route): AWS Elastic Beanstalk  https://server.taskmasterusa.com
+* Database: Mongo DB Atlas Hosted Database
 
 ## Dependencies
 This project was created with the following:
