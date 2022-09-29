@@ -4,6 +4,8 @@ import Timer from "./Timer";
 import logo from "../images/Taskmaster.png";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
+import { useEffect } from "react";
+import { userFetchPath } from "../api/fetchpaths";
 
 const Container = styled.div`
   height: 90px;
@@ -96,6 +98,29 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
   };
+
+  useEffect(() => {
+    const authenticateUser = async () => {
+      if (user !== null) {
+        const res = await fetch(`${userFetchPath}${user.organization}`, {
+          method: "GET",
+          mode: "cors",
+        });
+        const json = await res.json();
+        let authenticated = false;
+        for (const entry of json) {
+          if (user._id === entry._id && user.isAdmin === entry.isAdmin) {
+            authenticated = true;
+          }
+        }
+        if (!authenticated) {
+          handleLogout();
+        }
+      }
+    }
+    authenticateUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   return (
     <Container>
