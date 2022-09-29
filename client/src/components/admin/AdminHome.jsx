@@ -7,6 +7,8 @@ import OrgName from "../../components/OrgName";
 import AdminAddNewTask from "./AdminAddNewTask";
 import AdminDashboard from "./AdminDashboard";
 import { taskFetchPath } from "../../api/fetchpaths";
+import { mobile } from "../../responsive";
+
 
 const Container = styled.div`
   height: 100vh;
@@ -19,12 +21,15 @@ const Top = styled.div`
 const Greeting = styled.h1`
   display: flex;
   justify-content: center;
+
+  ${mobile({ margin: "0.7em 0.7em 0em 0.7em" })};
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  /* justify-content: end; */
-  margin: 50px 20%;
+  margin: 4em 20%;
+
+  ${mobile({margin: "0.7em 1em"})};
 `;
 
 const Left = styled.div`
@@ -40,17 +45,19 @@ const Right = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 20px;
+  font-size: 1.3em;
   cursor: pointer;
   text-decoration: none;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   color: #7aa83d;
-  margin: 15px;
+  margin: 1em;
 
   &:hover {
     color: #4e5c3d;
   }
+
+  ${mobile({ fontSize: "0.9em" })};
 `;
 
 const AdminHome = () => {

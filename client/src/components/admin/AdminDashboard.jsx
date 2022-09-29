@@ -1,7 +1,7 @@
 import { formatDistanceToNow, format } from "date-fns";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-// import { mobile } from "../responsive";
+import { mobile } from "../../responsive";
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -16,6 +16,8 @@ import * as XLSX from "xlsx";
 const Container = styled.div`
   margin: auto;
   width: 80%;
+
+  ${mobile({ width: "100%" })};
 `;
 
 const StyledTabs = styled(Tabs)`
@@ -60,6 +62,8 @@ const Button = styled.button`
   &:hover {
     color: #4e5c3d;
   }
+
+  ${mobile({ display: "none" })};
 `;
 
 const Tbody = styled.tbody``;
