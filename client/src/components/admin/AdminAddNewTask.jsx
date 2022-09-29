@@ -1,14 +1,12 @@
-
-import { useState, useEffect } from "react"
+import { mobile } from "../../responsive";
+import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import styled from "styled-components"
-import { taskFetchPath } from "../../api/fetchpaths"
-import { userFetchPath } from "../../api/fetchpaths"
-import { useAuthContext } from "../../hooks/useAuthContext"
+import styled from "styled-components";
+import { taskFetchPath } from "../../api/fetchpaths";
+import { userFetchPath } from "../../api/fetchpaths";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-const Container = styled.div`
-  
-`
+const Container = styled.div``;
 
 const Form = styled.form`
   /* align-items: center;
@@ -33,7 +31,7 @@ const Input = styled.input`
 
 const Label = styled.label`
   margin: auto;
-`
+`;
 
 const Select = styled.select`
   flex: 1;
@@ -47,18 +45,18 @@ const Option = styled.option`
   flex: 1;
   min-width: 40%;
   max-width: fit-content;
-
   margin: 20px 10px;
   padding: 10px;
 `;
- const NotesInput = styled.textarea`
-   flex: 1;
-   min-width: 40%;
-   margin: 20px 10px;
-   padding: 10px;
-   height: 200px;
- `;
+const NotesInput = styled.textarea`
+  flex: 1;
+  min-width: 40%;
+  margin: 20px 10px;
+  padding: 10px;
+  height: 200px;
 
+  ${mobile({width: "90%"})};
+`;
 
 const Bottom = styled.div`
   display: flex;
@@ -69,12 +67,11 @@ const Bottom = styled.div`
 
 const Button = styled.button`
   flex: 1;
-  margin: auto;
   width: 30%;
   border: 1px solid black;
   border-radius: 15px;
   padding: 10px 15px;
-  margin-top: 20px;
+  margin: 1.3em 0em 1.3em 0em;
   background-color: #c0e195;
   color: black;
   cursor: pointer;
@@ -85,74 +82,66 @@ const Button = styled.button`
     background-color: #88bb44;
     color: white;
   }
-`;
 
+  ${mobile({ width: "70%" })};
+`;
 
 const AdminAddNewTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
   // const [userID, setUserID] = useState ("")
-  const [ users, setUsers ] = useState([])
+  const [users, setUsers] = useState([]);
 
-
-
-
-  const [newTask, setNewTask] = useState ({
+  const [newTask, setNewTask] = useState({
     taskName: "",
     organization_id: user.organization,
     user_id: "",
     due_date: "",
     priority: "",
     isComplete: "NO",
-    notes: ""
+    notes: "",
   });
 
- 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setUserID(user._id)
+    const response = await fetch(taskFetchPath, {
+      method: "POST",
+      body: JSON.stringify(newTask),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
 
-
-    const handleSubmit= async (e) => {
-      
-      e.preventDefault();
-      // setUserID(user._id)
-      const response = await fetch(taskFetchPath, {
-        method: "POST",
-        body: JSON.stringify(newTask),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
+    if (response.ok) {
+      setNewTask({
+        taskName: "",
+        organization_id: user.organization,
+        user_id: "",
+        due_date: "",
+        priority: "",
+        isComplete: "NO",
+        notes: "",
       });
-      const json = await response.json();
-      
-  
-      if (response.ok) {
-        setNewTask({
-          taskName: "",
-          organization_id: user.organization,
-          user_id: "",
-          due_date: "",
-          priority: "",
-          isComplete: "NO",
-          notes: ""
-        });
-        window.location.reload(false);
-      }
-    }; 
+      window.location.reload(false);
+    }
+  };
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const res = await fetch(`${userFetchPath}${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
+      let data = await res.json();
+      // console.log(data)
+      setUsers(data);
+    };
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const res = await fetch(`${userFetchPath}${user.organization}`, {
-                method: "GET",
-                mode: "cors"
-            })
-            let data = await res.json()
-            // console.log(data)
-            setUsers(data)
-        }
-
-        fetchTasks()
-    }, [user.organization])
+    fetchTasks();
+  }, [user.organization]);
 
   return (
     <Container>
@@ -256,6 +245,6 @@ const AdminAddNewTask = (props) => {
       </Modal>
     </Container>
   );
-}
+};
 
-export default AdminAddNewTask
+export default AdminAddNewTask;
