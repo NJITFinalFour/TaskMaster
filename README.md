@@ -8,13 +8,19 @@
 
 ## Table of Contents
 * [Description](#description)
+* [Deployment](#deployment)
 * [Dependencies](#dependencies)
 * [Features](#features)
 * [Setup](#setup)
 * [Contributors](#contributors)
 
 ## Description
-This browser application allows employers to track and assign tasks within various organizations.
+This web application that allows employers to track and assign tasks within various organizations.
+
+## Deployment
+Frontend Deployed (Client): AWS Amplify https://www.taskmasterusa.com/
+Backend Deployed (Server Route): AWS Elastic Beanstalk  https://server.taskmasterusa.com
+Database: Mongo DB Atlas Hosted Database
 
 ## Dependencies
 This project was created with the following:
@@ -30,6 +36,7 @@ This project was created with the following:
 * "mongoose": "^6.4.3",
 * "nodemon": "^2.0.19",
 * "validator": "^13.7.0"
+
 
 ### Frontend:
 * "@emotion/react": "^11.10.4",
