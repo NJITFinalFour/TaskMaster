@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { mobile } from "../../responsive";
 import Modal from "react-bootstrap/Modal";
 import styled from "styled-components";
 import { signupFetchPath } from "../../api/fetchpaths";
@@ -10,6 +11,8 @@ const Form = styled.form``;
 const Top = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  ${mobile({ flexDirection: "column" })};
 `;
 
 const Input = styled.input`
@@ -36,12 +39,11 @@ const Bottom = styled.div`
 
 const Button = styled.button`
   flex: 1;
-  margin: auto;
   width: 30%;
   border: 1px solid black;
   border-radius: 15px;
   padding: 10px 15px;
-  margin-top: 20px;
+  margin: 1.3em 0em 1.3em 0em;
   background-color: #c0e195;
   color: black;
   cursor: pointer;
@@ -52,6 +54,8 @@ const Button = styled.button`
     background-color: #88bb44;
     color: white;
   }
+
+  ${mobile({ width: "70%" })};
 `;
 
 const AddNewUser = (props) => {
