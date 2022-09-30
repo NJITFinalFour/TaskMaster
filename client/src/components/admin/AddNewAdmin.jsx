@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { mobile } from "../../responsive";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { signupFetchPath } from "../../api/fetchpaths";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -70,7 +69,6 @@ function AddNewAdmin(props) {
     isAdmin: true,
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -81,8 +79,7 @@ function AddNewAdmin(props) {
     try {
       const url = signupFetchPath;
       const { data: res } = await axios.post(url, data);
-      navigate("/user");
-      console.log(res.message);
+      window.location.reload(false);
     } catch (error) {
       if (
         error.response &&

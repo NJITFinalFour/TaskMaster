@@ -51,6 +51,8 @@ const Td = styled.td`
   &:last-child {
     width: 10%;
   }
+
+  ${mobile({ fontSize: "0.7em" })};
 `;
 
 const TaskWrapper = styled.div`
@@ -206,7 +208,7 @@ const UserTasksTable = () => {
   const displayTable = (rowData, complete) => {
 
     return (
-      <StyledTable striped responsive>
+      <StyledTable responsive>
         <thead>
           <tr>
             <th>Due Date</th>

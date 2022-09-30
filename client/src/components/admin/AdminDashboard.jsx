@@ -35,7 +35,7 @@ const StyledTabs = styled(Tabs)`
 const StyledTab = styled(Tab)``;
 
 const Wrapper = styled.div`
-  height: 50vh;
+  height: 80vh;
   overflow-y: auto;
   border-width: 0px 1px 1px 1px;
   border-style: solid;
@@ -79,6 +79,10 @@ const Button = styled.button`
 const Th = styled.th`
   ${mobile({ fontSize: "0.7em" })};
 `;
+
+const StyledTable = styled(Table)`
+  
+`
 
 const Tbody = styled.tbody``;
 
@@ -256,7 +260,7 @@ const AdminDashboard = () => {
 
   const displayTable = (rowData) => {
     return (
-      <Table striped responsive>
+      <StyledTable responsive>
         <thead>
           <tr>
             <Th>Due Date</Th>
@@ -274,6 +278,7 @@ const AdminDashboard = () => {
           {rowData.map((task) => {
             const date = new Date(task.due_date);
             const dueDateFormatted = format(date, "MM/dd/yyyy");
+            console.log(task)
             return (
               <Tr key={task._id}>
                 <Td data-label="Due Date">
@@ -284,7 +289,7 @@ const AdminDashboard = () => {
                     addSuffix: true,
                   })}
                 </Td>
-                <Td data-label="Priority" taskPriority={task.priority}>
+                 <Td data-label="Priority" taskPriority={task.priority}>
                   {task.priority}
                 </Td>
                 {users.map((worker) => {
@@ -334,7 +339,7 @@ const AdminDashboard = () => {
             );
           })}
         </Tbody>
-      </Table>
+      </StyledTable>
     );
   };
 
