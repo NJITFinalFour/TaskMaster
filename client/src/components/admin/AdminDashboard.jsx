@@ -50,7 +50,13 @@ const WrapperAllTasks = styled.div`
   justify-content: space-between;
   padding: 0em 6em 0em 0em;
 `;
-
+const WrapperAllUsers = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0em 6em 0em 0em;
+`;
 
 const Button = styled.button`
   font-size: 20px;
@@ -160,18 +166,15 @@ const AdminDashboard = () => {
   // Get Tasks
   useEffect(() => {
     const fetchTasks = async (id) => {
-      const res = await fetch(
-        `${taskFetchPath}/organization/${user.organization}`,
-        {
-          method: "GET",
-          mode: "cors",
-        }
-      );
+      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
+        method: "GET",
+        mode: "cors",
+      });
       let data = await res.json();
       setAllTasks(data);
       console.log(data);
 
-      // let alltasks = [];
+      // get alltasks = [];
       let overdueTasks = [];
       let inProgressTasks = [];
       let completedTasks = [];
@@ -185,10 +188,7 @@ const AdminDashboard = () => {
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
-        } else if (
-          dueDateFormatted >= todayFormatted &&
-          task.isComplete === "NO"
-        ) {
+        } else if (dueDateFormatted >= todayFormatted && task.isComplete === "NO") {
           inProgressTasks.push(task);
           setInProgressTasks(inProgressTasks);
         } else if (task.isComplete === "YES") {
@@ -207,6 +207,7 @@ const AdminDashboard = () => {
     fetchTasks();
   }, [user.organization]);
 
+  //delete task
   const handleDelete = async (id) => {
     const response = await fetch(`${taskFetchPath}${id}`, {
       method: "DELETE",
@@ -221,11 +222,19 @@ const AdminDashboard = () => {
     }
   };
 
+  //export tasks to excel
   const exportTasksExcel = () => {
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allTasks);
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
+  };
+  //export users to excel
+  const exportUsersExcel = () => {
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(users);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "TaskMasterUSA_Users.xlsx");
   };
 
   const displayTable = (rowData) => {
@@ -287,12 +296,7 @@ const AdminDashboard = () => {
                       }}
                     />
                   </EditWrapper>
-                  <EditTask
-                    taskid={taskID}
-                    task={task}
-                    show={editModalShow}
-                    onHide={() => setEditModalShow(false)}
-                  />
+                  <EditTask taskid={taskID} task={task} show={editModalShow} onHide={() => setEditModalShow(false)} />
                 </Td>
                 <Td data-label="Delete Task">
                   <DeleteWrapper>
@@ -314,22 +318,23 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <StyledTabs
-        defaultActiveKey="users"
-        id="fill-tab-example"
-        className="mb-3"
-        fill
-      >
-        <StyledTab eventKey="users" title="Users">
+      <StyledTabs defaultActiveKey="users" id="fill-tab-example" className="mb-3" fill>
+        <StyledTab eventKey="users" title={`Users: (${users.length})`}>
           <Wrapper>
-            <Heading>All Users</Heading>
+            <WrapperAllUsers>
+              <Heading>All Users</Heading>
+              <Button variant="primary" onClick={exportUsersExcel}>
+                Export All Users to Excel
+              </Button>
+            </WrapperAllUsers>
             <AdminUsersTable />
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="allTasks" title="All Tasks">
+        <StyledTab eventKey="allTasks" title={`All Tasks: (${allTasks.length})`}>
           <Wrapper>
             <WrapperAllTasks>
               <Heading>All Tasks</Heading>
+
               <Button variant="primary" onClick={exportTasksExcel}>
                 Export All Tasks to Excel
               </Button>
@@ -337,19 +342,19 @@ const AdminDashboard = () => {
             {displayTable(allTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="overdueTasks" title="Overdue">
+        <StyledTab eventKey="overdueTasks" title={`Overdue: (${overdueTasks.length})`}>
           <Wrapper>
             <Heading>Overdue Tasks</Heading>
             {displayTable(overdueTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="inProgressTasks" title="In Progress">
+        <StyledTab eventKey="inProgressTasks" title={`In Progress: (${inProgressTasks.length})`}>
           <Wrapper>
             <Heading>In Progress Tasks</Heading>
             {displayTable(inProgressTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="completedTasks" title="Completed">
+        <StyledTab eventKey="completedTasks" title={`Completed: (${completedTasks.length})`}>
           <Wrapper>
             <Heading>Completed Tasks</Heading>
             {displayTable(completedTasks)}

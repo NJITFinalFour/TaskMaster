@@ -239,11 +239,11 @@ const UserTasksTable = () => {
 
   return (
     <Container>
-      <Heading>Needs to be completed</Heading>
+      <Heading>Needs to be completed {`(${unCompletedTasks.length})`}</Heading>
       <TaskWrapper>
         {displayTable(unCompletedTasks, true)}
       </TaskWrapper>
-      <Heading>Completed</Heading>
+      <Heading>Completed {`(${completedTasks.length})`}</Heading>
       <TaskWrapperTwo>
         {displayTable(completedTasks, false)}
       </TaskWrapperTwo>
