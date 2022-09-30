@@ -9,7 +9,6 @@ const userSchema = new Schema(
     organization: {
       type: String,
       required: true,
-
     },
     email: {
       type: String,
