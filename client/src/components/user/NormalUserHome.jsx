@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { mobile } from "../../responsive";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import UserTasksTable from './UserTasksTable';
 
@@ -15,6 +16,8 @@ const Top = styled.div`
 const Greeting = styled.h1`
   display: flex;
   justify-content: center;
+
+  ${mobile({ fontSize: "1.5em" })};
 `;
 
 const Bottom = styled.div`

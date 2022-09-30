@@ -41,17 +41,21 @@ const Left = styled.div`
   flex-direction: column;
   padding: 2em;
 
-  ${mobile({padding: "1em 2em 0em 2em", margin: "auto"})}
+  ${mobile({padding: "1em 2em 0em 2em", margin: "auto", flexDirection: "row"})}
 `;
 
 const Logo = styled.h1`
-  /* ${mobile({fontSize: "80%"})} */
+  ${mobile({ display: "none" })}
 `;
 const Desc = styled.p`
   margin: 1em 0em 2em 0em;
+
+  ${mobile({ display: "none" })}
 `;
 const SocialContainer = styled.div`
   display: flex;
+
+  ${mobile({ justifyContent: "end" })}
 `;
 const SocialIcon = styled.h1`
   width: 40px;
@@ -63,7 +67,8 @@ const SocialIcon = styled.h1`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  ${mobile({  })}
+
+  ${mobile({ margin: "0em 0.8em" })}
 `;
 
 const Center = styled.div`
@@ -74,8 +79,6 @@ const Center = styled.div`
 
 const Title = styled.h3`
   margin-bottom: 30px;
-
-  ${mobile({marginBottom: ".8em"})}
 `;
 const List = styled.ul`
   margin: 0;
@@ -100,8 +103,6 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-
-  ${mobile({margin: "0px"})}
 `;
 
 const Footer = () => {

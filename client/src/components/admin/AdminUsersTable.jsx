@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
+import { mobile } from "../../responsive";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { userFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
@@ -14,16 +15,31 @@ const Container = styled.div`
   border-style: solid;
   border-color: #9c9c9ca6;
   border-radius: 10px;
+
+  ${mobile({ height: "100vh" })};
 `;
 
+const StyledTable = styled(Table)`
+`;
+const Thead = styled.thead`
 
-const Tbody = styled.tbody``;
+`;
 
-const Tr = styled.tr``;
+const Th = styled.th`
+  ${mobile({ fontSize: "0.7em" })};
+`;
+
+const Tbody = styled.tbody`
+
+`;
+
+const Tr = styled.tr`
+`;
 
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
+  color: ${(props) => (props.isAdmin === true ? "green" : "black")};
 
   &:first-child {
     width: 20%;
@@ -43,6 +59,7 @@ const Td = styled.td`
   &:last-child {
     width: 10%;
   }
+  ${mobile({ fontSize: "0.7em" })};
 `;
 
 const EditWrapper = styled.div`
@@ -69,7 +86,8 @@ const AdminUsersTable = () => {
   const { user } = useAuthContext();
   const [editModalShow, setEditModalShow] = useState(false);
 
-  const [ workers, setWorkers ] = useState([]);
+  const [workers, setWorkers] = useState([]);
+  const [greenAdmin, setGreenAdmin] = useState(false)
 
   // Get Users
   useEffect(() => {
@@ -78,13 +96,12 @@ const AdminUsersTable = () => {
         method: "GET",
         mode: "cors",
       });
-      const json = await res.json()
+      const json = await res.json();
       setWorkers(json);
     };
 
     fetchUsers();
   }, [user.organization]);
-
 
   // Delete a task
   const handleDelete = async (id) => {
@@ -97,9 +114,9 @@ const AdminUsersTable = () => {
     if (response.ok) {
       setWorkers(workers.filter((task) => task._id !== id));
     }
-      console.log(response);
-
+    console.log(response);
   };
+
 
   const displayEdit = (worker) => {
     return (
@@ -112,19 +129,19 @@ const AdminUsersTable = () => {
             }}
           />
         </EditWrapper>
-          <EditUser
-            setWorkers={setWorkers}
-            first_name={worker.first_name}
-            last_name={worker.last_name}
-            email={worker.email}
-            is_admin={worker.isAdmin ? "True" : "False"}
-            _id={worker._id}
-            show={(editModalShow === worker._id)}
-            onHide={() => setEditModalShow(null)}
-          />
+        <EditUser
+          setWorkers={setWorkers}
+          first_name={worker.first_name}
+          last_name={worker.last_name}
+          email={worker.email}
+          is_admin={worker.isAdmin ? "True" : "False"}
+          _id={worker._id}
+          show={editModalShow === worker._id}
+          onHide={() => setEditModalShow(null)}
+        />
       </>
-    )
-  }
+    );
+  };
 
   const displayDelete = (worker) => {
     return (
@@ -136,49 +153,43 @@ const AdminUsersTable = () => {
           }}
         />
       </DeleteWrapper>
-    )
-  }
+    );
+  };
 
   return (
     <Container>
-      <Table striped responsive>
-        <thead>
-          <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Is Admin</th>
-            <th>Edit User</th>
-            <th>Delete User</th>
-          </tr>
-        </thead>
+      <StyledTable className="table" striped responsive>
+        <Thead>
+          <Tr>
+            <Th>Last Name</Th>
+            <Th>First Name</Th>
+            <Th>Email</Th>
+            <Th>Is Admin</Th>
+            <Th>Edit User</Th>
+            <Th>Delete User</Th>
+          </Tr>
+        </Thead>
         <Tbody>
           {workers.map((worker) => {
             return (
               <Tr key={worker._id}>
-                <Td>
-                  {worker.last_name}
-                </Td>
-                <Td>
-                  {worker.first_name}
-                </Td>
-                <Td>
-                  {worker.email}
-                </Td>
-                <Td>
+                <Td data-label="Last Name">{worker.last_name}</Td>
+                <Td data-label="First name">{worker.first_name}</Td>
+                <Td data-label="Email">{worker.email}</Td>
+                <Td data-label="Is Admin" isAdmin={user.isAdmin}>
                   {worker.isAdmin ? "True" : "False"}
                 </Td>
-                <Td>
+                <Td data-label="Edit User">
                   {user._id === worker._id ? "" : displayEdit(worker)}
                 </Td>
-                <Td>
+                <Td data-label="Delete User">
                   {user._id === worker._id ? "" : displayDelete(worker)}
                 </Td>
               </Tr>
             );
           })}
         </Tbody>
-      </Table>
+      </StyledTable>
     </Container>
   );
 };

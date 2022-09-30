@@ -28,6 +28,8 @@ const StyledTabs = styled(Tabs)`
     color: #88bb44;
     font-weight: 600;
   }
+
+  ${mobile({ fontSize: "1em" })};
 `;
 
 const StyledTab = styled(Tab)``;
@@ -39,6 +41,8 @@ const Wrapper = styled.div`
   border-style: solid;
   border-color: #9c9c9ca6;
   border-radius: 10px;
+
+  ${mobile({ height: "100%" })};
 `;
 
 const WrapperAllTasks = styled.div`
@@ -72,6 +76,10 @@ const Button = styled.button`
   ${mobile({ display: "none" })};
 `;
 
+const Th = styled.th`
+  ${mobile({ fontSize: "0.7em" })};
+`;
+
 const Tbody = styled.tbody``;
 
 const Tr = styled.tr``;
@@ -79,8 +87,9 @@ const Tr = styled.tr``;
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
-  color: #${(props) => props.highPriority === true && "f32424"};
-  color: ${(props) => (props.highPriority ? "red" : "black")};
+  color: ${(props) =>
+    props.taskPriority === "high" ? "#ff0000" : "black"};
+  font-weight: ${(props) => (props.taskPriority === "high" ? 600 : 400)};
 
   &:first-child {
     width: 10%;
@@ -89,10 +98,10 @@ const Td = styled.td`
     width: 10%;
   }
   &:nth-child(3) {
-    width: 10%;
+    width: 7%;
   }
   &:nth-child(4) {
-    width: 10%;
+    width: 13%;
   }
   &:nth-child(5) {
     width: 20%;
@@ -110,7 +119,7 @@ const Td = styled.td`
     width: 3%;
   }
 
-  /* font-weight: ${(props) => (props.highPriority ? 600 : 400)}; */
+  ${mobile({ fontSize: "0.7em" })};
 `;
 
 const EditWrapper = styled.div`
@@ -137,6 +146,8 @@ const Heading = styled.h3`
   font-weight: 600;
   padding: 1em 2em 0.5em 2em;
   color: #88bb44;
+
+  ${mobile({ padding: "0.3em 2em" })};
 `;
 
 const AdminDashboard = () => {
@@ -148,7 +159,6 @@ const AdminDashboard = () => {
   const [overdueTasks, setOverdueTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [highPriority, setHighPriority] = useState(false);
 
   // Get Users
   useEffect(() => {
@@ -167,13 +177,16 @@ const AdminDashboard = () => {
   // Get Tasks
   useEffect(() => {
     const fetchTasks = async (id) => {
-      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const res = await fetch(
+        `${taskFetchPath}/organization/${user.organization}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
       let data = await res.json();
       setAllTasks(data);
-      console.log(data);
+      // console.log(data);
 
       // get alltasks = [];
       let overdueTasks = [];
@@ -186,13 +199,13 @@ const AdminDashboard = () => {
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
-        if (task.priority === "high") {
-          setHighPriority(true);
-        }
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
-        } else if (dueDateFormatted >= todayFormatted && task.isComplete === "NO") {
+        } else if (
+          dueDateFormatted >= todayFormatted &&
+          task.isComplete === "NO"
+        ) {
           inProgressTasks.push(task);
           setInProgressTasks(inProgressTasks);
         } else if (task.isComplete === "YES") {
@@ -246,15 +259,15 @@ const AdminDashboard = () => {
       <Table striped responsive>
         <thead>
           <tr>
-            <th>Due Date</th>
-            <th>Created</th>
-            <th>Priority</th>
-            <th>Assigned To</th>
-            <th>Task name</th>
-            <th>Notes</th>
-            <th>Completed?</th>
-            <th>Edit Task</th>
-            <th>Delete Task</th>
+            <Th>Due Date</Th>
+            <Th>Created</Th>
+            <Th>Priority</Th>
+            <Th>Assigned To</Th>
+            <Th>Task name</Th>
+            <Th>Notes</Th>
+            <Th>Completed?</Th>
+            <Th>Edit Task</Th>
+            <Th>Delete Task</Th>
           </tr>
         </thead>
         <Tbody>
@@ -263,28 +276,34 @@ const AdminDashboard = () => {
             const dueDateFormatted = format(date, "MM/dd/yyyy");
             return (
               <Tr key={task._id}>
-                <Td>
+                <Td data-label="Due Date">
                   <b>{dueDateFormatted}</b>
                 </Td>
-                <Td>
+                <Td data-label="Created">
                   {formatDistanceToNow(new Date(task.createdAt), {
                     addSuffix: true,
                   })}
                 </Td>
-                <Td props={highPriority}>{task.priority}</Td>
+                <Td data-label="Priority" taskPriority={task.priority}>
+                  {task.priority}
+                </Td>
                 {users.map((worker) => {
                   if (task.user_id === worker._id) {
                     return (
-                      <Td key={worker._id} value={worker._id}>
+                      <Td
+                        data-label="Assigned to"
+                        key={worker._id}
+                        value={worker._id}
+                      >
                         {worker.first_name + " " + worker.last_name}
                       </Td>
                     );
                   }
                 })}
-                <Td>{task.taskName}</Td>
-                <Td>{task.notes}</Td>
-                <Td>{task.isComplete}</Td>
-                <Td>
+                <Td data-label="Task Name">{task.taskName}</Td>
+                <Td data-label="Notes">{task.notes}</Td>
+                <Td data-label="Completed?">{task.isComplete}</Td>
+                <Td data-label="Edit Task">
                   <EditWrapper>
                     <BiEdit
                       className="editButton"
@@ -294,9 +313,14 @@ const AdminDashboard = () => {
                       }}
                     />
                   </EditWrapper>
-                  <EditTask taskid={taskID} task={task} show={editModalShow} onHide={() => setEditModalShow(false)} />
+                  <EditTask
+                    taskid={taskID}
+                    task={task}
+                    show={editModalShow}
+                    onHide={() => setEditModalShow(false)}
+                  />
                 </Td>
-                <Td>
+                <Td data-label="Delete Task">
                   <DeleteWrapper>
                     <RiDeleteBinLine
                       className="deleteButton"
@@ -316,8 +340,13 @@ const AdminDashboard = () => {
 
   return (
     <Container>
-      <StyledTabs defaultActiveKey="users" id="fill-tab-example" className="mb-3" fill>
-        <StyledTab eventKey="users" title={`Users: (${users.length})`}>
+      <StyledTabs
+        defaultActiveKey="users"
+        id="fill-tab-example"
+        className="mb-3"
+        fill
+      >
+        <StyledTab eventKey="users" title={`Users (${users.length})`}>
           <Wrapper>
             <WrapperAllUsers>
               <Heading>All Users</Heading>
@@ -328,7 +357,7 @@ const AdminDashboard = () => {
             <AdminUsersTable />
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="allTasks" title={`All Tasks: (${allTasks.length})`}>
+        <StyledTab eventKey="allTasks" title={`All Tasks (${allTasks.length})`}>
           <Wrapper>
             <WrapperAllTasks>
               <Heading>All Tasks</Heading>
@@ -340,19 +369,28 @@ const AdminDashboard = () => {
             {displayTable(allTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="overdueTasks" title={`Overdue: (${overdueTasks.length})`}>
+        <StyledTab
+          eventKey="overdueTasks"
+          title={`Overdue (${overdueTasks.length})`}
+        >
           <Wrapper>
             <Heading>Overdue Tasks</Heading>
             {displayTable(overdueTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="inProgressTasks" title={`In Progress: (${inProgressTasks.length})`}>
+        <StyledTab
+          eventKey="inProgressTasks"
+          title={`In Progress (${inProgressTasks.length})`}
+        >
           <Wrapper>
             <Heading>In Progress Tasks</Heading>
             {displayTable(inProgressTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab eventKey="completedTasks" title={`Completed: (${completedTasks.length})`}>
+        <StyledTab
+          eventKey="completedTasks"
+          title={`Completed (${completedTasks.length})`}
+        >
           <Wrapper>
             <Heading>Completed Tasks</Heading>
             {displayTable(completedTasks)}

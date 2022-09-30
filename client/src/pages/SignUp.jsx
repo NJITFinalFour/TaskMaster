@@ -77,6 +77,17 @@ const Agreement = styled.span`
   margin: 20px 0px;
 `;
 
+const Error = styled.div`
+  width: 370px;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #f34646;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+`;
+
 const Button = styled.button`
   flex: 1;
   margin: auto;
@@ -141,13 +152,12 @@ const SignUp = () => {
             <Input type="text" name="last_name" placeholder="Admin Last Name" onChange={handleChange} value={data.last_name} required />
             <Input type="email" name="email" placeholder="Admin Email" onChange={handleChange} value={data.email} required />
             <PasswordInput type="password" name="password" placeholder="Admin Password" onChange={handleChange} value={data.password} required />
-            {/* <Input placeholder="Confirm Admin Password" /> */}
           </Top>
           <Bottom>
             <Agreement>
-              By creating an account, I consent to the processing of my personal data in accordance with the <b> PRIVACY POLICY </b>
+              By creating an account, I consent to the processing of my personal data in accordance with our PRIVACY POLICY
             </Agreement>
-            {error && <div>{error}</div>}
+            {error && <Error>{error}</Error>}
             <Button type="submit">REGISTER ORGANIZATION</Button>
           </Bottom>
         </Form>

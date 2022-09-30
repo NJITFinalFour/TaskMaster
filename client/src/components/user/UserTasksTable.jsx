@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
+import { mobile } from "../../responsive";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
@@ -11,17 +12,26 @@ import { GrCheckboxSelected } from "react-icons/gr"
 
 const Container = styled.div`
   height: 80vh;
+
+  
+`;
+
+const StyledTable = styled(Table)`
+
+`;
+
+const Tbody = styled.tbody`
   overflow-y: auto;
 `;
 
-
-const Tbody = styled.tbody``;
-
-const Tr = styled.tr``;
+const Tr = styled.tr`
+`;
 
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
+  font-weight: ${(props) => (props.rowPriority === "high" ? 600 : 400)};
+  color: ${(props) => (props.rowPriority === "high" ? "red" : "black")};
 
   &:first-child {
     width: 10%;
@@ -50,6 +60,8 @@ const TaskWrapper = styled.div`
   margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
+
+  ${mobile({ margin: "0px", padding: "0.7em "})};
 `;
 
 const TaskWrapperTwo = styled.div`
@@ -59,12 +71,16 @@ const TaskWrapperTwo = styled.div`
   margin: 0px 10%;
   border: 1px solid black;
   border-radius: 10px;
+
+  ${mobile({ margin: "0px", padding: "0.7em " })};
 `;
 
 const Heading = styled.h3`
   font-weight: 600;
   margin: 15px 13%;
   color: #88bb44;
+
+  ${mobile({ fontSize: "1.2em", textAlign: "center" })};
 `;
 
 
@@ -190,7 +206,7 @@ const UserTasksTable = () => {
   const displayTable = (rowData, complete) => {
 
     return (
-      <Table striped responsive>
+      <StyledTable striped responsive>
         <thead>
           <tr>
             <th>Due Date</th>
@@ -198,8 +214,8 @@ const UserTasksTable = () => {
             <th>Created</th>
             <th>Task name</th>
             <th>Notes</th>
-            {complete === true && <th>Mark Complete</th>}
-            {complete === false && <th>Mark NOT COmplete</th>}
+            {complete === true && <th>Complete</th>}
+            {complete === false && <th>Undo Complete</th>}
 
           </tr>
         </thead>
@@ -210,25 +226,37 @@ const UserTasksTable = () => {
             return (
               <Tr key={row._id}>
                 <Td>{dueDateFormatted}</Td>
-                <Td>{row.priority}</Td>
-                <Td>{formatDistanceToNow(new Date(row.createdAt), { addSuffix: true })}</Td>
+                <Td rowPriority={row.priority}>{row.priority}</Td>
+                <Td>
+                  {formatDistanceToNow(new Date(row.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Td>
                 <Td>{row.taskName}</Td>
                 <Td>{row.notes}</Td>
-                {row.isComplete === "NO" &&
-                  <Td onClick={() => {
-                    setTaskID(row._id);
-                  }} ><GrCheckbox /></Td>
-                }
-                {row.isComplete === "YES" &&
-                  <Td onClick={() => {
-                    setTaskID(row._id);
-                  }} ><GrCheckboxSelected /></Td>
-                }
+                {row.isComplete === "NO" && (
+                  <Td
+                    onClick={() => {
+                      setTaskID(row._id);
+                    }}
+                  >
+                    <GrCheckbox />
+                  </Td>
+                )}
+                {row.isComplete === "YES" && (
+                  <Td
+                    onClick={() => {
+                      setTaskID(row._id);
+                    }}
+                  >
+                    <GrCheckboxSelected />
+                  </Td>
+                )}
               </Tr>
             );
           })}
         </Tbody>
-      </Table>
+      </StyledTable>
     )
   }
 
