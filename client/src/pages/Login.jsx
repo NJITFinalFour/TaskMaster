@@ -4,6 +4,7 @@ import { mobile } from "../responsive";
 import { useLogin } from "../hooks/useLogin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 const Container = styled.div`
   width: 100%;
@@ -80,13 +81,13 @@ const Link = styled.a`
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useLogin();
+  const { login, error } = useLogin();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
-    navigate("/user");
+    // navigate("/user");
   };
 
   return (
@@ -97,19 +98,10 @@ const Login = () => {
         </LogoWrapper>
         <Title>LOG IN</Title>
         <Form onSubmit={handleSubmit}>
-          <Input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            placeholder="Email"
-          />
-          <Input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            placeholder="Password"
-          />
+          <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
+          <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
           <Button>SIGN IN</Button>
+          {error && <div className="error">{error}</div>}
           <Link>Forgot Password?</Link>
         </Form>
       </Wrapper>

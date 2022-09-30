@@ -5,6 +5,7 @@ import styled from "styled-components";
 import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 import { signupAdminFetchPath } from "../api/fetchpaths";
+import "../index.css";
 
 const Container = styled.div`
   width: 100%;
@@ -159,6 +160,7 @@ const SignUp = () => {
             </Agreement>
             {error && <Error>{error}</Error>}
             <Button type="submit">REGISTER ORGANIZATION</Button>
+            {error && <div className="error">{error}</div>}
           </Bottom>
         </Form>
       </Wrapper>
