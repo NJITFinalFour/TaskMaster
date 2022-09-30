@@ -226,7 +226,7 @@ const AdminDashboard = () => {
     };
 
     fetchTasks();
-  }, [user.organization]);
+  }, [allTasks, user.organization]);
 
   //delete task
   const handleDelete = async (id) => {
@@ -239,7 +239,7 @@ const AdminDashboard = () => {
 
     if (response.ok) {
       setAllTasks(allTasks.filter((task) => task._id !== id));
-      window.location.reload(false);
+      // window.location.reload(false);
     }
   };
 
