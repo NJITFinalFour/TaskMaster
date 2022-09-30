@@ -1,13 +1,12 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
-// import { mobile } from "../../responsive";
+import { mobile } from "../../responsive";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { userFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import EditUser from "./AdminEditUser";
-// import "../../table.css"
 
 const Container = styled.div`
   height: 50vh;
@@ -16,26 +15,31 @@ const Container = styled.div`
   border-style: solid;
   border-color: #9c9c9ca6;
   border-radius: 10px;
+
+  ${mobile({ height: "100vh" })};
 `;
 
-const StyledTable = styled(Table)``;
+const StyledTable = styled(Table)`
+`;
 const Thead = styled.thead`
 
 `;
 
-const Th = styled.th``;
+const Th = styled.th`
+  ${mobile({ fontSize: "0.7em" })};
+`;
 
 const Tbody = styled.tbody`
 
 `;
 
 const Tr = styled.tr`
-
 `;
 
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
+  color: ${(props) => (props.isAdmin === true ? "green" : "black")};
 
   &:first-child {
     width: 20%;
@@ -55,6 +59,7 @@ const Td = styled.td`
   &:last-child {
     width: 10%;
   }
+  ${mobile({ fontSize: "0.7em" })};
 `;
 
 const EditWrapper = styled.div`
@@ -82,6 +87,7 @@ const AdminUsersTable = () => {
   const [editModalShow, setEditModalShow] = useState(false);
 
   const [workers, setWorkers] = useState([]);
+  const [greenAdmin, setGreenAdmin] = useState(false)
 
   // Get Users
   useEffect(() => {
@@ -110,6 +116,7 @@ const AdminUsersTable = () => {
     }
     console.log(response);
   };
+
 
   const displayEdit = (worker) => {
     return (
@@ -169,7 +176,7 @@ const AdminUsersTable = () => {
                 <Td data-label="Last Name">{worker.last_name}</Td>
                 <Td data-label="First name">{worker.first_name}</Td>
                 <Td data-label="Email">{worker.email}</Td>
-                <Td data-label="Is Admin">
+                <Td data-label="Is Admin" isAdmin={user.isAdmin}>
                   {worker.isAdmin ? "True" : "False"}
                 </Td>
                 <Td data-label="Edit User">

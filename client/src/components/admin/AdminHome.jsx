@@ -22,26 +22,30 @@ const Greeting = styled.h1`
   display: flex;
   justify-content: center;
 
-  ${mobile({ margin: "0.7em 0.7em 0em 0.7em" })};
+  ${mobile({ margin: "0.7em 0.7em 0em 0.7em", fontSize: "1.3em" })};
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   margin: 4em 20%;
 
-  ${mobile({margin: "0.7em 1em"})};
+  ${mobile({margin: "0.7em 0.8em"})};
 `;
 
 const Left = styled.div`
   display: flex;
   flex: 1;
   justify-content: start;
+
+  ${mobile({ flex: 2, justifyContent: "end"})};
 `;
 
 const Right = styled.div`
   display: flex;
   flex: 1;
   justify-content: flex-end;
+
+  ${mobile({ justifyContent: "start" })};
 `;
 
 const Button = styled.button`

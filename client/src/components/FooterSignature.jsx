@@ -11,16 +11,22 @@ const Signature = styled.span`
   ${mobile({ fontSize: "65%" })};
 `;
 
-const Link = styled.a``;
+const Link = styled.a`
+  ${mobile({ marginLeft: "0em" })};
+`;
 
 const GitHub = styled.img`
   height: 20px;
-  margin-left: 20px;
+  margin-left: 1em;
+
+  ${mobile({ margin: "auto" })};
 `;
 
 const Copyright = styled.span`
   font-weight: 400;
-  margin-left: 20px;
+  margin-left: 2.8em;
+
+  ${mobile({ display: "none" })};
 `;
 
 const FooterSignature = () => {
