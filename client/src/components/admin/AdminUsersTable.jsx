@@ -9,14 +9,14 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import EditUser from "./AdminEditUser";
 
 const Container = styled.div`
-  height: 50vh;
-  overflow-y: auto;
-  border-width: 0px 1px 1px 1px;
+  /* height: 50vh; */
+  /* overflow-y: auto; */
+  /* border-width: 0px 1px 1px 1px;
   border-style: solid;
   border-color: #9c9c9ca6;
-  border-radius: 10px;
+  border-radius: 10px; */
 
-  ${mobile({ height: "100vh" })};
+  /* ${mobile({ height: "100vh" })}; */
 `;
 
 const StyledTable = styled(Table)`
@@ -39,7 +39,8 @@ const Tr = styled.tr`
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
-  color: ${(props) => (props.isAdmin === true ? "green" : "black")};
+  color: ${(props) => (props.isAdmin ? "#88bb44" : "black")};
+  font-weight: ${(props) => (props.isAdmin ? 600 : 400)};
 
   &:first-child {
     width: 20%;
@@ -87,7 +88,6 @@ const AdminUsersTable = () => {
   const [editModalShow, setEditModalShow] = useState(false);
 
   const [workers, setWorkers] = useState([]);
-  const [greenAdmin, setGreenAdmin] = useState(false)
 
   // Get Users
   useEffect(() => {
@@ -158,13 +158,13 @@ const AdminUsersTable = () => {
 
   return (
     <Container>
-      <StyledTable className="table" striped responsive>
+      <StyledTable className="table" responsive>
         <Thead>
           <Tr>
             <Th>Last Name</Th>
             <Th>First Name</Th>
             <Th>Email</Th>
-            <Th>Is Admin</Th>
+            <Th>Role</Th>
             <Th>Edit User</Th>
             <Th>Delete User</Th>
           </Tr>
@@ -176,8 +176,8 @@ const AdminUsersTable = () => {
                 <Td data-label="Last Name">{worker.last_name}</Td>
                 <Td data-label="First name">{worker.first_name}</Td>
                 <Td data-label="Email">{worker.email}</Td>
-                <Td data-label="Is Admin" isAdmin={user.isAdmin}>
-                  {worker.isAdmin ? "True" : "False"}
+                <Td data-label="Is Admin" isAdmin={worker.isAdmin}>
+                  {worker.isAdmin ? "Admin" : "User"}
                 </Td>
                 <Td data-label="Edit User">
                   {user._id === worker._id ? "" : displayEdit(worker)}

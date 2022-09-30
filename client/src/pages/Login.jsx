@@ -79,14 +79,16 @@ const Link = styled.a`
 `;
 
 const Error = styled.div`
-  width: 300px;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 14px;
+  width: 60%;
+  padding: 0.5em;
+  margin: auto;
+  font-size: 1em;
   background-color: #f34646;
   color: white;
   border-radius: 5px;
   text-align: center;
+
+  ${mobile({ width: "75%" })}
 `;
 
 const Login = () => {
@@ -109,8 +111,8 @@ const Login = () => {
         <Form onSubmit={handleSubmit}>
           <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
           <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
-          <Button>SIGN IN</Button>
           {error && <Error >{error}</Error>}
+          <Button>SIGN IN</Button>
           <Link>Forgot Password?</Link>
         </Form>
       </Wrapper>

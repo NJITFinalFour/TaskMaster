@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { mobile } from "../responsive";
+
 
 const Container = styled.div`
   height: 60vh;
@@ -10,6 +12,8 @@ const Wrapper = styled.div`
   margin-top: 10%;
   margin-bottom: 10%;
   text-align: center;
+
+  ${mobile({ fontSize: "0.7em" })};
 `;
 
 const Title = styled.h1`
