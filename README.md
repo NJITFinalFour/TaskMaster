@@ -8,6 +8,7 @@
 
 ## Table of Contents
 * [Description](#description)
+* [DemoAccount](#DemoAccount)
 * [Deployment](#deployment)
 * [Dependencies](#dependencies)
 * [Features](#features)
@@ -16,6 +17,10 @@
 
 ## Description
 This web application that allows employers to track and assign tasks within various organizations.
+
+## DemoAccount 
+* ADMIN Login: user: demo@gmail.com password: Password123!
+* Regular User Login: mike@gmail.com password: Password123!
 
 ## Deployment
 * Frontend Deployed (Client): AWS Amplify https://www.taskmasterusa.com/
