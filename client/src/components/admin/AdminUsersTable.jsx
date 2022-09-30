@@ -1,11 +1,13 @@
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
+// import { mobile } from "../../responsive";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { userFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import EditUser from "./AdminEditUser";
+// import "../../table.css"
 
 const Container = styled.div`
   height: 50vh;
@@ -16,10 +18,20 @@ const Container = styled.div`
   border-radius: 10px;
 `;
 
+const StyledTable = styled(Table)``;
+const Thead = styled.thead`
 
-const Tbody = styled.tbody``;
+`;
 
-const Tr = styled.tr``;
+const Th = styled.th``;
+
+const Tbody = styled.tbody`
+
+`;
+
+const Tr = styled.tr`
+
+`;
 
 const Td = styled.td`
   height: 60px;
@@ -69,7 +81,7 @@ const AdminUsersTable = () => {
   const { user } = useAuthContext();
   const [editModalShow, setEditModalShow] = useState(false);
 
-  const [ workers, setWorkers ] = useState([]);
+  const [workers, setWorkers] = useState([]);
 
   // Get Users
   useEffect(() => {
@@ -78,13 +90,12 @@ const AdminUsersTable = () => {
         method: "GET",
         mode: "cors",
       });
-      const json = await res.json()
+      const json = await res.json();
       setWorkers(json);
     };
 
     fetchUsers();
   }, [user.organization]);
-
 
   // Delete a task
   const handleDelete = async (id) => {
@@ -97,8 +108,7 @@ const AdminUsersTable = () => {
     if (response.ok) {
       setWorkers(workers.filter((task) => task._id !== id));
     }
-      console.log(response);
-
+    console.log(response);
   };
 
   const displayEdit = (worker) => {
@@ -112,19 +122,19 @@ const AdminUsersTable = () => {
             }}
           />
         </EditWrapper>
-          <EditUser
-            setWorkers={setWorkers}
-            first_name={worker.first_name}
-            last_name={worker.last_name}
-            email={worker.email}
-            is_admin={worker.isAdmin ? "True" : "False"}
-            _id={worker._id}
-            show={(editModalShow === worker._id)}
-            onHide={() => setEditModalShow(null)}
-          />
+        <EditUser
+          setWorkers={setWorkers}
+          first_name={worker.first_name}
+          last_name={worker.last_name}
+          email={worker.email}
+          is_admin={worker.isAdmin ? "True" : "False"}
+          _id={worker._id}
+          show={editModalShow === worker._id}
+          onHide={() => setEditModalShow(null)}
+        />
       </>
-    )
-  }
+    );
+  };
 
   const displayDelete = (worker) => {
     return (
@@ -136,49 +146,43 @@ const AdminUsersTable = () => {
           }}
         />
       </DeleteWrapper>
-    )
-  }
+    );
+  };
 
   return (
     <Container>
-      <Table striped responsive>
-        <thead>
-          <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Is Admin</th>
-            <th>Edit User</th>
-            <th>Delete User</th>
-          </tr>
-        </thead>
+      <StyledTable className="table" striped responsive>
+        <Thead>
+          <Tr>
+            <Th>Last Name</Th>
+            <Th>First Name</Th>
+            <Th>Email</Th>
+            <Th>Is Admin</Th>
+            <Th>Edit User</Th>
+            <Th>Delete User</Th>
+          </Tr>
+        </Thead>
         <Tbody>
           {workers.map((worker) => {
             return (
               <Tr key={worker._id}>
-                <Td>
-                  {worker.last_name}
-                </Td>
-                <Td>
-                  {worker.first_name}
-                </Td>
-                <Td>
-                  {worker.email}
-                </Td>
-                <Td>
+                <Td data-label="Last Name">{worker.last_name}</Td>
+                <Td data-label="First name">{worker.first_name}</Td>
+                <Td data-label="Email">{worker.email}</Td>
+                <Td data-label="Is Admin">
                   {worker.isAdmin ? "True" : "False"}
                 </Td>
-                <Td>
+                <Td data-label="Edit User">
                   {user._id === worker._id ? "" : displayEdit(worker)}
                 </Td>
-                <Td>
+                <Td data-label="Delete User">
                   {user._id === worker._id ? "" : displayDelete(worker)}
                 </Td>
               </Tr>
             );
           })}
         </Tbody>
-      </Table>
+      </StyledTable>
     </Container>
   );
 };

@@ -12,6 +12,8 @@ import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import * as XLSX from "xlsx";
+import "../../table.css";
+
 
 const Container = styled.div`
   margin: auto;
@@ -73,8 +75,8 @@ const Tr = styled.tr``;
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
-  color: #${(props) => props.highPriority === true && "f32424"};
-  color: ${(props) => (props.highPriority ? "red" : "black")};
+  font-weight: ${(props) => (props.taskPriority === "high" ? 600 : 400)};
+  color: ${(props) => (props.taskPriority === "high" ? "red" : "black")};
 
   &:first-child {
     width: 10%;
@@ -103,8 +105,6 @@ const Td = styled.td`
   &:last-child {
     width: 3%;
   }
-
-  /* font-weight: ${(props) => (props.highPriority ? 600 : 400)}; */
 `;
 
 const EditWrapper = styled.div`
@@ -142,7 +142,6 @@ const AdminDashboard = () => {
   const [overdueTasks, setOverdueTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [highPriority, setHighPriority] = useState(false);
 
   // Get Users
   useEffect(() => {
@@ -183,9 +182,6 @@ const AdminDashboard = () => {
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
-        if (task.priority === "high") {
-          setHighPriority(true);
-        }
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdueTasks.push(task);
           setOverdueTasks(overdueTasks);
@@ -254,28 +250,34 @@ const AdminDashboard = () => {
             const dueDateFormatted = format(date, "MM/dd/yyyy");
             return (
               <Tr key={task._id}>
-                <Td>
+                <Td data-label="Due Date">
                   <b>{dueDateFormatted}</b>
                 </Td>
-                <Td>
+                <Td data-label="Created">
                   {formatDistanceToNow(new Date(task.createdAt), {
                     addSuffix: true,
                   })}
                 </Td>
-                <Td props={highPriority}>{task.priority}</Td>
+                <Td data-label="Priority" taskPriority={task.priority}>
+                  {task.priority}
+                </Td>
                 {users.map((worker) => {
                   if (task.user_id === worker._id) {
                     return (
-                      <Td key={worker._id} value={worker._id}>
+                      <Td
+                        data-label="Assigned to"
+                        key={worker._id}
+                        value={worker._id}
+                      >
                         {worker.first_name + " " + worker.last_name}
                       </Td>
                     );
                   }
                 })}
-                <Td>{task.taskName}</Td>
-                <Td>{task.notes}</Td>
-                <Td>{task.isComplete}</Td>
-                <Td>
+                <Td data-label="Task Name">{task.taskName}</Td>
+                <Td data-label="Notes">{task.notes}</Td>
+                <Td data-label="Completed?">{task.isComplete}</Td>
+                <Td data-label="Edit Task">
                   <EditWrapper>
                     <BiEdit
                       className="editButton"
@@ -292,7 +294,7 @@ const AdminDashboard = () => {
                     onHide={() => setEditModalShow(false)}
                   />
                 </Td>
-                <Td>
+                <Td data-label="Delete Task">
                   <DeleteWrapper>
                     <RiDeleteBinLine
                       className="deleteButton"
