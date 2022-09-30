@@ -33,11 +33,3 @@ code {
 .My-Color-Theme-4-hsla { color: hsla(87, 20, 30, 1); }
 .My-Color-Theme-5-hsla { color: hsla(85, 46, 44, 1); }
 
-div.error {
-  padding: 10px;
-  background: #ffefef;
-  border: 1px solid rgb(148, 7, 7);
-  color: rgb(148, 7, 7);
-  border-radius: 4px;
-  margin: 20px 0;
-}

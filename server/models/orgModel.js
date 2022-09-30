@@ -2,23 +2,22 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const orgSchema = new Schema(
-    {
-        name: {
-            type: String,
-            required: true
-        }
-    }
-);
+const orgSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+});
 
 orgSchema.statics.signup = async function (name) {
-    if (!name) {
-        throw Error("We need an organization name.");
-    };
+  if (!name) {
+    throw Error("We need an organization name.");
+  }
 
-    const org = await this.create({ name });
+  const org = await this.create({ name });
 
-    return org;
+  return org;
 };
 
 const Organization = mongoose.model("Organization", orgSchema);
