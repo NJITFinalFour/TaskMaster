@@ -78,16 +78,25 @@ const Link = styled.a`
   color: #4e5c3d;
 `;
 
+const Error = styled.div`
+  width: 300px;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #f34646;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+`;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error } = useLogin();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
-    // navigate("/user");
   };
 
   return (
@@ -101,7 +110,7 @@ const Login = () => {
           <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
           <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
           <Button>SIGN IN</Button>
-          {error && <div className="error">{error}</div>}
+          {error && <Error >{error}</Error>}
           <Link>Forgot Password?</Link>
         </Form>
       </Wrapper>

@@ -29,7 +29,6 @@ const PasswordInput = styled.input`
   padding: 10px;
 `;
 
-
 const Bottom = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,7 +66,7 @@ const AddNewUser = (props) => {
     last_name: "",
     email: "",
     password: "",
-    isAdmin: false
+    isAdmin: false,
   });
   const [error, setError] = useState("");
 
@@ -80,70 +79,26 @@ const AddNewUser = (props) => {
     try {
       const url = signupFetchPath;
       const { data: res } = await axios.post(url, data);
-      // navigate("/user");
-      console.log(res.message);
+      window.location.reload(false);
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }
   };
 
-
-
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          CREATE A NEW USER
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">CREATE A NEW USER</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form autocomplete="off" onSubmit={handleSubmit}>
           <Top>
-            <Input
-              type="text"
-              name="first_name"
-              placeholder="First Name"
-              onChange={handleChange}
-              value={data.first_name}
-              required
-            />
-            <Input
-              type="text"
-              name="last_name"
-              placeholder="Last Name"
-              onChange={handleChange}
-              value={data.last_name}
-              required
-            />
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              autocomplete="off"
-              onChange={handleChange}
-              value={data.email}
-              required
-            />
-            <PasswordInput
-              type="password"
-              name="password"
-              autocomplete="off"
-              placeholder="Password"
-              onChange={handleChange}
-              value={data.password}
-              required
-            />
+            <Input type="text" name="first_name" placeholder="First Name" onChange={handleChange} value={data.first_name} required />
+            <Input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} value={data.last_name} required />
+            <Input type="email" name="email" placeholder="Email" autocomplete="off" onChange={handleChange} value={data.email} required />
+            <PasswordInput type="password" name="password" autocomplete="off" placeholder="Password" onChange={handleChange} value={data.password} required />
             {/* <Input
               type="checkbox"
               name="isAdmin"
@@ -164,6 +119,6 @@ const AddNewUser = (props) => {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default AddNewUser;
