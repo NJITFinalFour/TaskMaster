@@ -1,34 +1,70 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import { taskFetchPath } from "../api/fetchpaths";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-export const TaskContext = createContext();
+export const TasksContext = createContext();
 
-export const taskReducer = (state, action) => {
+export const tasksReducer = (state, action) => {
   switch (action.type) {
-    case "SET_Task":
+    case "SET_Tasks":
       return {
-        task: action.payload,
+        tasks: action.payload,
       };
-    case "CREATE_Task":
+    case "CREATE_Tasks":
       return {
-        task: [action.payload, ...state.task],
+        tasks: [...state.tasks, action.payload],
       };
-    case "DELETE_Task":
+    case "DELETE_Tasks":
       return {
-        task: state.task.filter((w) => w._id !== action.payload._id),
+        tasks: state.tasks.filter((w) => w._id !== action.payload),
       };
+    case "EDIT_Tasks":
+      const editTasks = () => {
+        let taskList = state.tasks;
+        return taskList.map(task => {
+          if (task._id === action.payload._id) {
+            return action.payload
+          } else {
+            return task
+          }
+        })
+      };
+      return {
+        tasks: editTasks()
+      }
     default:
       return state;
   }
 };
 
 export const TaskContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(taskReducer, {
-    task: null,
+  const { user } = useAuthContext();
+  const [state, dispatch] = useReducer(tasksReducer, {
+    tasks: null,
   });
+  useEffect(() => {
+    const fetchTasks = async () => {
+      if (user) {
+        if (!state.tasks) {
+          const res = await fetch(
+            `${taskFetchPath}/organization/${user.organization}`,
+            {
+              method: "GET",
+              mode: "cors",
+            }
+          );
+          let data = await res.json();
+          console.log(data)
+          dispatch({ type: "SET_Tasks", payload: data });
+        }
+      }
+    }
+    fetchTasks();
+  }, [user]);
 
   return (
-    <TaskContext.Provider value={{ ...state, dispatch }}>
+    <TasksContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </TaskContext.Provider>
+    </TasksContext.Provider>
   );
 };
