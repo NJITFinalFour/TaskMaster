@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
-
 const Container = styled.div`
   height: 60vh;
   width: 100%;
@@ -42,11 +41,12 @@ const NotFound = () => {
     <>
       <Container>
         <Wrapper>
-        <Title>404</Title>
-        <Subtitle>Page Not Found</Subtitle>
-        <Par>
-          The page you are looking for doesn't exist or an other error occured.
-        </Par>
+          <Title>404</Title>
+          <Subtitle>Page Not Found</Subtitle>
+          <Par>
+            The page you are looking for doesn't exist or an other error
+            occured.
+          </Par>
           <Link href="/">Home Page</Link>
         </Wrapper>
       </Container>

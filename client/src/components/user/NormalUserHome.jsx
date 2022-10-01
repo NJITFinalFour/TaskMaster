@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import { mobile } from "../../responsive";
-import { useAuthContext } from '../../hooks/useAuthContext';
-import UserTasksTable from './UserTasksTable';
+import { useAuthContext } from "../../hooks/useAuthContext";
+import UserTasksTable from "./UserTasksTable";
 
 const Container = styled.div`
   height: 100vh;
@@ -20,11 +20,7 @@ const Greeting = styled.h1`
   ${mobile({ fontSize: "1.5em" })};
 `;
 
-const Bottom = styled.div`
-  
-`
-
-
+const Bottom = styled.div``;
 
 const NormalUserHome = () => {
   const { user } = useAuthContext();
@@ -41,6 +37,6 @@ const NormalUserHome = () => {
       </Bottom>
     </Container>
   );
-}
+};
 
-export default NormalUserHome
+export default NormalUserHome;

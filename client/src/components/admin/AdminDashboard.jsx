@@ -80,23 +80,24 @@ const Th = styled.th`
   ${mobile({ fontSize: "0.7em" })};
 `;
 
-const StyledTable = styled(Table)`
-  
-`
+const StyledTable = styled(Table)``;
 
 const Tbody = styled.tbody``;
 
-const Tr = styled.tr``;
+const Tr = styled.tr`
+  &:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
+`;
 
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
-  color: ${(props) =>
-    props.taskPriority === "high" ? "#ff0000" : "black"};
+  color: ${(props) => (props.taskPriority === "high" ? "#ff0000" : "black")};
   font-weight: ${(props) => (props.taskPriority === "high" ? 600 : 400)};
 
   &:first-child {
-    width: 10%;
+    width: 8%;
   }
   &:nth-child(2) {
     width: 10%;
@@ -117,10 +118,10 @@ const Td = styled.td`
     width: 4%;
   }
   &:nth-child(8) {
-    width: 3%;
+    width: 4%;
   }
   &:last-child {
-    width: 3%;
+    width: 4%;
   }
 
   ${mobile({ fontSize: "0.7em" })};
@@ -248,14 +249,14 @@ const AdminDashboard = () => {
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(allTasks);
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "TaskMasterUSA.xlsx");
+    XLSX.writeFile(wb, "TaskMasterUSA_All_Tasks.xlsx");
   };
   //export users to excel
   const exportUsersExcel = () => {
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(users);
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "TaskMasterUSA_Users.xlsx");
+    XLSX.writeFile(wb, "TaskMasterUSA_All_Users.xlsx");
   };
 
   const displayTable = (rowData) => {
@@ -278,7 +279,7 @@ const AdminDashboard = () => {
           {rowData.map((task) => {
             const date = new Date(task.due_date);
             const dueDateFormatted = format(date, "MM/dd/yyyy");
-            console.log(task)
+            console.log(task);
             return (
               <Tr key={task._id}>
                 <Td data-label="Due Date">
@@ -289,7 +290,7 @@ const AdminDashboard = () => {
                     addSuffix: true,
                   })}
                 </Td>
-                 <Td data-label="Priority" taskPriority={task.priority}>
+                <Td data-label="Priority" taskPriority={task.priority}>
                   {task.priority}
                 </Td>
                 {users.map((worker) => {

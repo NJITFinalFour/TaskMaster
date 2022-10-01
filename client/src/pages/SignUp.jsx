@@ -118,7 +118,6 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error } = useSignup();
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,14 +133,52 @@ const SignUp = () => {
         <Title>CREATE AN ORGANIZATION</Title>
         <Form onSubmit={handleSubmit}>
           <Top>
-            <Input type="text" name="organization" placeholder="Organization" onChange={(e) => setOrganization(e.target.value)} value={organization} required />
-            <Input type="text" name="first_name" placeholder="Admin First Name" onChange={(e) => setFirst_name(e.target.value)} value={first_name} required />
-            <Input type="text" name="last_name" placeholder="Admin Last Name" onChange={(e) => setLast_name(e.target.value)} value={last_name} required />
-            <Input type="email" name="email" placeholder="Admin Email" onChange={(e) => setEmail(e.target.value)} value={email} required />
-            <PasswordInput type="password" name="password" placeholder="Admin Password" onChange={(e) => setPassword(e.target.value)} value={password} required />
+            <Input
+              type="text"
+              name="organization"
+              placeholder="Organization"
+              onChange={(e) => setOrganization(e.target.value)}
+              value={organization}
+              required
+            />
+            <Input
+              type="text"
+              name="first_name"
+              placeholder="Admin First Name"
+              onChange={(e) => setFirst_name(e.target.value)}
+              value={first_name}
+              required
+            />
+            <Input
+              type="text"
+              name="last_name"
+              placeholder="Admin Last Name"
+              onChange={(e) => setLast_name(e.target.value)}
+              value={last_name}
+              required
+            />
+            <Input
+              type="email"
+              name="email"
+              placeholder="Admin Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+            <PasswordInput
+              type="password"
+              name="password"
+              placeholder="Admin Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
           </Top>
           <Bottom>
-            <Agreement>By creating an account, I consent to the processing of my personal data in accordance with our PRIVACY POLICY</Agreement>
+            <Agreement>
+              By creating an account, I consent to the processing of my personal
+              data in accordance with our PRIVACY POLICY
+            </Agreement>
             {error && <Error>{error}</Error>}
             <Button type="submit">REGISTER ORGANIZATION</Button>
           </Bottom>

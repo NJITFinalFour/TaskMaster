@@ -55,7 +55,7 @@ const NotesInput = styled.textarea`
   padding: 10px;
   height: 200px;
 
-  ${mobile({width: "90%"})};
+  ${mobile({ width: "90%" })};
 `;
 
 const Bottom = styled.div`

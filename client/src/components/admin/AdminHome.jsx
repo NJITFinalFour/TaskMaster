@@ -9,7 +9,6 @@ import AdminDashboard from "./AdminDashboard";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { mobile } from "../../responsive";
 
-
 const Container = styled.div`
   height: 100vh;
 `;
@@ -29,7 +28,7 @@ const ButtonContainer = styled.div`
   display: flex;
   margin: 4em 20%;
 
-  ${mobile({margin: "0.7em 0.8em"})};
+  ${mobile({ margin: "0.7em 0.8em" })};
 `;
 
 const Left = styled.div`
@@ -37,7 +36,7 @@ const Left = styled.div`
   flex: 1;
   justify-content: start;
 
-  ${mobile({ flex: 2, justifyContent: "end"})};
+  ${mobile({ flex: 2, justifyContent: "end" })};
 `;
 
 const Right = styled.div`
@@ -74,17 +73,19 @@ const AdminHome = () => {
   //Get All Tasks on Page Load
   useEffect(() => {
     const fetchTasks = async () => {
-      const res = await fetch(`${taskFetchPath}/organization/${user.organization}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const res = await fetch(
+        `${taskFetchPath}/organization/${user.organization}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
       let data = await res.json();
       setAllTasks(data);
     };
 
     fetchTasks();
   }, [user.organization]);
-
 
   return (
     <Container>
@@ -96,17 +97,26 @@ const AdminHome = () => {
       </Top>
       <ButtonContainer>
         <Left>
-          <AdminAddNewTask show={taskModalShow} onHide={() => setTaskModalShow(false)} />
+          <AdminAddNewTask
+            show={taskModalShow}
+            onHide={() => setTaskModalShow(false)}
+          />
 
           <Button variant="primary" onClick={() => setUserModalShow(true)}>
             New User
           </Button>
-          <AddNewUser show={userModalShow} onHide={() => setUserModalShow(false)} />
+          <AddNewUser
+            show={userModalShow}
+            onHide={() => setUserModalShow(false)}
+          />
 
           <Button variant="primary" onClick={() => setAdminModalShow(true)}>
             New Admin
           </Button>
-          <AddNewAdmin show={adminModalShow} onHide={() => setAdminModalShow(false)} />
+          <AddNewAdmin
+            show={adminModalShow}
+            onHide={() => setAdminModalShow(false)}
+          />
         </Left>
         <Right>
           <Button variant="primary" onClick={() => setTaskModalShow(true)}>

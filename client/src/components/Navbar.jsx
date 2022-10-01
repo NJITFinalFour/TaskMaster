@@ -38,7 +38,7 @@ const Center = styled.div`
 const Link = styled.a``;
 
 const Logo = styled.img`
-  ${mobile({textAlign: "center" })}
+  ${mobile({ textAlign: "center" })}
 `;
 
 const Right = styled.div`
@@ -88,7 +88,7 @@ const LogOutButton = styled.a`
     color: #9edb4f;
   }
 
-  ${mobile({margin: "0em 1em 0em 0em"})};
+  ${mobile({ margin: "0em 1em 0em 0em" })};
 `;
 
 const Navbar = () => {
@@ -117,10 +117,10 @@ const Navbar = () => {
           handleLogout();
         }
       }
-    }
-    authenticateUser()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+    };
+    authenticateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <Container>

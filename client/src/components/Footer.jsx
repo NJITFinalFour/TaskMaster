@@ -11,8 +11,8 @@ import { mobile } from "../responsive";
 import FooterSignature from "./FooterSignature";
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
   background-color: #88bb44;
   /* position: fixed; */
   bottom: 0px;
@@ -41,7 +41,11 @@ const Left = styled.div`
   flex-direction: column;
   padding: 2em;
 
-  ${mobile({padding: "1em 2em 0em 2em", margin: "auto", flexDirection: "row"})}
+  ${mobile({
+    padding: "1em 2em 0em 2em",
+    margin: "auto",
+    flexDirection: "row",
+  })}
 `;
 
 const Logo = styled.h1`

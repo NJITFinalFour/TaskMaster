@@ -16,16 +16,22 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={!user ? <Home /> : <Navigate to="/user"/>} />
-          <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />}/>
-          <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}  />
-          {user &&<Route
-            path="/user"
-            element={<UserHome />}
-          />}
+          <Route
+            path="/"
+            element={!user ? <Home /> : <Navigate to="/user" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <SignUp /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          {user && <Route path="/user" element={<UserHome />} />}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {!user &&<Footer />}
+        {!user && <Footer />}
       </BrowserRouter>
     </>
   );
