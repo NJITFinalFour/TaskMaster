@@ -226,7 +226,7 @@ const AdminDashboard = () => {
     };
 
     fetchTasks();
-  }, [allTasks, user.organization]);
+  }, [user.organization]);
 
   //delete task
   const handleDelete = async (id) => {
@@ -313,7 +313,7 @@ const AdminDashboard = () => {
                     <BiEdit
                       className="editButton"
                       onClick={() => {
-                        setEditModalShow(true);
+                        setEditModalShow(task._id);
                         setTaskID(task._id);
                       }}
                     />
@@ -321,7 +321,7 @@ const AdminDashboard = () => {
                   <EditTask
                     taskid={taskID}
                     task={task}
-                    show={editModalShow}
+                    show={editModalShow === task._id}
                     onHide={() => setEditModalShow(false)}
                   />
                 </Td>
