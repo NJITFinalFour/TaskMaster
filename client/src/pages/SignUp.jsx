@@ -78,19 +78,21 @@ const Agreement = styled.span`
 `;
 
 const Error = styled.div`
-  width: 370px;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 14px;
+  width: 60%;
+  padding: 0.5em;
+  margin: auto;
+  font-size: 1em;
   background-color: #f34646;
   color: white;
   border-radius: 5px;
   text-align: center;
+
+  ${mobile({ width: "75%" })}
 `;
 
 const Button = styled.button`
   flex: 1;
-  margin: auto;
+  margin: 10px auto;
   width: 40%;
   border: 1px solid black;
   border-radius: 15px;
@@ -140,8 +142,8 @@ const SignUp = () => {
           </Top>
           <Bottom>
             <Agreement>By creating an account, I consent to the processing of my personal data in accordance with our PRIVACY POLICY</Agreement>
-            <Button type="submit">REGISTER ORGANIZATION</Button>
             {error && <Error>{error}</Error>}
+            <Button type="submit">REGISTER ORGANIZATION</Button>
           </Bottom>
         </Form>
       </Wrapper>
