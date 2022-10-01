@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import styled from "styled-components";
-import { taskFetchPath, userFetchPath } from "../../api/fetchpaths";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import styled from "styled-components"
+import { taskFetchPath, userFetchPath } from "../../api/fetchpaths"
+import { useAuthContext } from "../../hooks/useAuthContext"
+import { useTasksContext } from "../../hooks/useTaskContext";
 
-const Container = styled.div``;
+const Container = styled.div`
+  
+`
 
 const Form = styled.form`
   /* align-items: center;
@@ -85,7 +88,8 @@ const Button = styled.button`
 const EditTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
-  const [users, setUsers] = useState([]);
+  const [ users, setUsers ] = useState([])
+  const { tasks, dispatch } = useTasksContext();
 
   // console.log(props.task)
 
@@ -99,32 +103,41 @@ const EditTask = (props) => {
     notes: props.task.notes,
   });
 
-  //Submit changes
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`${taskFetchPath}${props.taskid}`, {
-      method: "PUT",
-      body: JSON.stringify(newTask),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
+  
 
-    if (response.ok) {
-      setNewTask({});
-      window.location.reload(false);
-    }
-  };
-  // Get all usrs to populate drop down
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const res = await fetch(`${userFetchPath}${user.organization}`, {
-        method: "GET",
-        mode: "cors",
+//Submit changes
+    const handleSubmit= async (e) => {
+      
+      e.preventDefault();
+      const response = await fetch(`${taskFetchPath}${props.taskid}`, {
+        method: "PUT",
+        body: JSON.stringify(newTask),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
       });
-      let alldata = await res.json();
+      const json = await response.json();
+      
+      
+  
+      if (response.ok) {
+        dispatch({ type: "EDIT_Tasks", payload: {...json, ...newTask}});
+        // setNewTask({});
+        // window.location.reload(false);
+      
+        
+        
+      }
+    }; 
+// Get all usrs to populate drop down
+    useEffect(() => {
+      const fetchTasks = async () => {
+          const res = await fetch(`${userFetchPath}${user.organization}`, {
+              method: "GET",
+              mode: "cors"
+          })
+          let alldata = await res.json()
 
       setUsers(alldata);
     };

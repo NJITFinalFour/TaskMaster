@@ -12,6 +12,7 @@ import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import * as XLSX from "xlsx";
+import { useTasksContext } from "../../hooks/useTaskContext";
 
 const Container = styled.div`
   margin: auto;
@@ -157,6 +158,7 @@ const Heading = styled.h3`
 
 const AdminDashboard = () => {
   const { user } = useAuthContext();
+  const { tasks, dispatch } = useTasksContext();
   const [users, setUsers] = useState([]);
   const [taskID, setTaskID] = useState("");
   const [editModalShow, setEditModalShow] = useState(false);
@@ -182,7 +184,7 @@ const AdminDashboard = () => {
   // Get Tasks
   useEffect(() => {
     const fetchTasks = async (id) => {
-      const res = await fetch(
+      /*const res = await fetch(
         `${taskFetchPath}/organization/${user.organization}`,
         {
           method: "GET",
@@ -190,44 +192,44 @@ const AdminDashboard = () => {
         }
       );
       let data = await res.json();
-      setAllTasks(data);
+      dispatch({ type: "SET_Tasks", payload: data });*/
       // console.log(data);
 
-      // get alltasks = [];
-      let overdueTasks = [];
-      let inProgressTasks = [];
-      let completedTasks = [];
+      let all = [];
+      let overdue = [];
+      let inProgress = [];
+      let completed = [];
 
-      for (const task of data) {
+      for (const task of tasks) {
         const dueDate = new Date(task.due_date);
         const dueDateFormatted = format(dueDate, "MM/dd/yyyy");
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
 
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
-          overdueTasks.push(task);
-          setOverdueTasks(overdueTasks);
+          overdue.push(task);
         } else if (
           dueDateFormatted >= todayFormatted &&
           task.isComplete === "NO"
         ) {
-          inProgressTasks.push(task);
-          setInProgressTasks(inProgressTasks);
+          inProgress.push(task);
         } else if (task.isComplete === "YES") {
-          completedTasks.push(task);
-          setCompletedTasks(completedTasks);
-        } else {
-          allTasks.push(task);
-          setAllTasks(allTasks);
-        }
+          completed.push(task);
+        } 
+        all.push(task);
       }
+      setOverdueTasks(overdue);
+      setInProgressTasks(inProgress);
+      setCompletedTasks(completed);
+      setAllTasks(all);
       // if (res.ok) {
       //   setAllTasks(allTasks.filter((task) => task._id !== id));
       // }
     };
-
-    fetchTasks();
-  }, [user.organization]);
+    if (tasks) {
+      fetchTasks();
+    }
+  }, [tasks]);
 
   //delete task
   const handleDelete = async (id) => {
@@ -239,7 +241,8 @@ const AdminDashboard = () => {
     });
 
     if (response.ok) {
-      setAllTasks(allTasks.filter((task) => task._id !== id));
+      dispatch({ type: "DELETE_Tasks", payload: id})
+      //setAllTasks(allTasks.filter((task) => task._id !== id));
       // window.location.reload(false);
     }
   };
@@ -282,76 +285,78 @@ const AdminDashboard = () => {
   };
 
   const displayTable = (rowData) => {
-    return (
-      <StyledTable responsive>
-        <thead>
-          <tr>
-            <Th>Due Date</Th>
-            <Th>Created</Th>
-            <Th>Priority</Th>
-            <Th>Assigned To</Th>
-            <Th>Task name</Th>
-            <Th>Notes</Th>
-            <Th>Completed?</Th>
-            <Th>Edit Task</Th>
-            <Th>Delete Task</Th>
-          </tr>
-        </thead>
-        <Tbody>
-          {rowData.map((task) => {
-            const date = new Date(task.due_date);
-            const dueDateFormatted = format(date, "MM/dd/yyyy");
-            console.log(task);
-            return (
-              <Tr key={task._id}>
-                <Td data-label="Due Date">
-                  <b>{dueDateFormatted}</b>
-                </Td>
-                <Td data-label="Created">
-                  {formatDistanceToNow(new Date(task.createdAt), {
-                    addSuffix: true,
-                  })}
-                </Td>
-                <Td data-label="Priority" taskPriority={task.priority}>
-                  {task.priority}
-                </Td>
-                {findWorkerName(task)}
-                <Td data-label="Task Name">{task.taskName}</Td>
-                <Td data-label="Notes">{task.notes}</Td>
-                <Td data-label="Completed?">{task.isComplete}</Td>
-                <Td data-label="Edit Task">
-                  <EditWrapper>
-                    <BiEdit
-                      className="editButton"
-                      onClick={() => {
-                        setEditModalShow(task._id);
-                        setTaskID(task._id);
-                      }}
+    if (rowData) {
+      return (
+        <StyledTable responsive>
+          <thead>
+            <tr>
+              <Th>Due Date</Th>
+              <Th>Created</Th>
+              <Th>Priority</Th>
+              <Th>Assigned To</Th>
+              <Th>Task name</Th>
+              <Th>Notes</Th>
+              <Th>Completed?</Th>
+              <Th>Edit Task</Th>
+              <Th>Delete Task</Th>
+            </tr>
+          </thead>
+          <Tbody>
+            {rowData.map((task) => {
+              const date = new Date(task.due_date);
+              const dueDateFormatted = format(date, "MM/dd/yyyy");
+              console.log(task)
+              return (
+                <Tr key={task._id}>
+                  <Td data-label="Due Date">
+                    <b>{dueDateFormatted}</b>
+                  </Td>
+                  <Td data-label="Created">
+                    {formatDistanceToNow(new Date(task.createdAt), {
+                      addSuffix: true,
+                    })}
+                  </Td>
+                  <Td data-label="Priority" taskPriority={task.priority}>
+                    {task.priority}
+                  </Td>
+                  {findWorkerName(task)}
+                  <Td data-label="Task Name">{task.taskName}</Td>
+                  <Td data-label="Notes">{task.notes}</Td>
+                  <Td data-label="Completed?">{task.isComplete}</Td>
+                  <Td data-label="Edit Task">
+                    <EditWrapper>
+                      <BiEdit
+                        className="editButton"
+                        onClick={() => {
+                          setEditModalShow(task._id);
+                          setTaskID(task._id);
+                        }}
+                      />
+                    </EditWrapper>
+                    <EditTask
+                      taskid={taskID}
+                      task={task}
+                      show={editModalShow === task._id}
+                      onHide={() => setEditModalShow(false)}
                     />
-                  </EditWrapper>
-                  <EditTask
-                    taskid={taskID}
-                    task={task}
-                    show={editModalShow === task._id}
-                    onHide={() => setEditModalShow(false)}
-                  />
-                </Td>
-                <Td data-label="Delete Task">
-                  <DeleteWrapper>
-                    <RiDeleteBinLine
-                      className="deleteButton"
-                      onClick={() => {
-                        handleDelete(task._id);
-                      }}
-                    />
-                  </DeleteWrapper>
-                </Td>
-              </Tr>
-            );
-          })}
-        </Tbody>
-      </StyledTable>
-    );
+                  </Td>
+                  <Td data-label="Delete Task">
+                    <DeleteWrapper>
+                      <RiDeleteBinLine
+                        className="deleteButton"
+                        onClick={() => {
+                          handleDelete(task._id);
+                        }}
+                      />
+                    </DeleteWrapper>
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </StyledTable>
+      );
+    };
   };
 
   return (

@@ -5,8 +5,11 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
-import { GrCheckbox } from "react-icons/gr";
-import { GrCheckboxSelected } from "react-icons/gr";
+import { GrCheckbox } from "react-icons/gr"
+import { GrCheckboxSelected } from "react-icons/gr"
+import { useTasksContext } from "../../hooks/useTaskContext";
+
+
 
 const Container = styled.div`
   height: 80vh;
@@ -84,14 +87,36 @@ const Heading = styled.h3`
 
 const UserTasksTable = () => {
   const { user } = useAuthContext();
+  const { tasks, dispatch } = useTasksContext();
+  const [completedTasks, setCompletedTasks] = useState([])
+  const [unCompletedTasks, setUnCompletedTasks] = useState([])
+  // const [taskID, setTaskID] = useState("")
 
-  const [completedTasks, setCompletedTasks] = useState([]);
-  const [unCompletedTasks, setUnCompletedTasks] = useState([]);
-  const [taskID, setTaskID] = useState("");
+  // Mark task as complete/uncomplete
+  const handleClick = async (task) => {
+    if (task.isComplete === "YES") {
+      task.isComplete = "NO"
+    } else {
+      task.isComplete = "YES"
+    }
+    const response = await fetch(`${taskFetchPath}${task._id}`, {
+      method: "PUT",
+      body: JSON.stringify(task),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+    
+    if (response.ok) {
+      dispatch({ type: "EDIT_Tasks", payload: {json}});
+    }
+  }
 
   // START OF LOGIC FOR Mark as Complete or NOT complete //
 
-  useEffect(() => {
+  /*useEffect(() => {
     const handleChange = async () => {
       console.log(taskID);
       const response = await fetch(`${taskFetchPath}${taskID}`, {
@@ -162,27 +187,30 @@ const UserTasksTable = () => {
       }
     };
     handleChange();
-  }, [taskID]);
+  }, [taskID])*/
 
   // END of COMPLETE TOGGLE LOGIC ??
 
   // page load fetch all tasks to display
   useEffect(() => {
     const fetchTasks = async () => {
-      const res = await fetch(`${taskFetchPath}user/${user._id}`, {
-        method: "GET",
-        mode: "cors",
-      });
+      /*const res = await fetch(
+        `${taskFetchPath}user/${user._id}`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
 
       let data = await res.json();
+      */
+      setCompletedTasks([])
+      setUnCompletedTasks([])
+      
+      let completed = []
+      let unCompleted = []
 
-      setCompletedTasks([]);
-      setUnCompletedTasks([]);
-
-      let completed = [];
-      let unCompleted = [];
-
-      for (const task of data) {
+      for (const task of tasks) {
         if (task.isComplete === "YES") {
           completed.push(task);
           setCompletedTasks(completed);
@@ -228,7 +256,8 @@ const UserTasksTable = () => {
                 {row.isComplete === "NO" && (
                   <Td
                     onClick={() => {
-                      setTaskID(row._id);
+                      handleClick(row);
+                      //setTaskID(row._id);
                     }}
                   >
                     <GrCheckbox />
@@ -237,7 +266,8 @@ const UserTasksTable = () => {
                 {row.isComplete === "YES" && (
                   <Td
                     onClick={() => {
-                      setTaskID(row._id);
+                      handleClick(row);
+                      //setTaskID(row._id);
                     }}
                   >
                     <GrCheckboxSelected />
