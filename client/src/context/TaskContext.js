@@ -42,21 +42,31 @@ export const TaskContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tasksReducer, {
     tasks: null,
   });
+  
   useEffect(() => {
     const fetchTasks = async () => {
-      if (user) {
-        if (!state.tasks) {
-          const res = await fetch(
-            `${taskFetchPath}/organization/${user.organization}`,
-            {
-              method: "GET",
-              mode: "cors",
-            }
-          );
-          let data = await res.json();
-          console.log(data)
-          dispatch({ type: "SET_Tasks", payload: data });
-        }
+      if (user.isAdmin && user && !state.tasks) {
+        const res = await fetch(
+          `${taskFetchPath}/organization/${user.organization}`,
+          {
+            method: "GET",
+            mode: "cors",
+          }
+        );
+        let data = await res.json();
+        console.log(data)
+        dispatch({ type: "SET_Tasks", payload: data });
+      } else if (!user.isAdmin && user && !state.tasks){
+        const res = await fetch(
+          `${taskFetchPath}/user/${user._id}`,
+          {
+            method: "GET",
+            mode: "cors",
+          }
+        );
+        let data = await res.json();
+        console.log(data)
+        dispatch({ type: "SET_Tasks", payload: data });
       }
     }
     fetchTasks();
