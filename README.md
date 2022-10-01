@@ -1,5 +1,5 @@
 # TaskMaster
-> A Full- Stack application for task managment using React, Node.js, Express, and MongoDB.
+> A SAAS application for task managment using React, Node.js, Express, and MongoDB.
 
 ![Home Page](client/src/images/HomePage.jpg)
 ![Login Page](client/src/images/LoginPage.jpg)
