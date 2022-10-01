@@ -98,13 +98,13 @@ const EditTask = (props) => {
 
   const [newTask, setNewTask] = useState ({
     
-    taskName: props.taskName,
+    taskName: props.task.taskName,
     organization_id: user.organization,
-    user_id: props.user_id,
-    due_date: props.due_date,
-    priority: props.priority,
-    isComplete: props.isComplete,
-    notes: props.notes
+    user_id: props.task.user_id,
+    due_date: props.task.due_date,
+    priority: props.task.priority,
+    isComplete: props.task.isComplete,
+    notes: props.task.notes
   });
 
   
@@ -127,15 +127,7 @@ const EditTask = (props) => {
   
       if (response.ok) {
 
-        setNewTask({
-          taskName: json.taskName,
-          organization_id: user.organization,
-          user_id: json._id,
-          due_date: json.due_date,
-          priority: json.priority,
-          isComplete: json.isComplete,
-          notes: json.notes
-        });
+        setNewTask({});
         window.location.reload(false);
       
         
@@ -158,7 +150,7 @@ const EditTask = (props) => {
   }, [user.organization])
 
 // Get task being edited
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchTask = async () => {
             const res = await fetch(`${taskFetchPath}${props.taskid}`, {
               headers: { Authorization: `Bearer ${user.token}` },
@@ -179,7 +171,7 @@ const EditTask = (props) => {
         }
 
         fetchTask()
-    }, [props.taskid])
+    }, [props.taskid])*/
 
     return (
       <Container>
