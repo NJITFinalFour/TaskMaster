@@ -5,11 +5,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { useState, useEffect } from "react";
 import { formatDistanceToNow, format } from "date-fns";
-import { GrCheckbox } from "react-icons/gr"
-import { GrCheckboxSelected } from "react-icons/gr"
+import { GrCheckbox } from "react-icons/gr";
+import { GrCheckboxSelected } from "react-icons/gr";
 import { useTasksContext } from "../../hooks/useTaskContext";
-
-
 
 const Container = styled.div`
   height: 80vh;
@@ -88,16 +86,16 @@ const Heading = styled.h3`
 const UserTasksTable = () => {
   const { user } = useAuthContext();
   const { tasks, dispatch } = useTasksContext();
-  const [completedTasks, setCompletedTasks] = useState([])
-  const [unCompletedTasks, setUnCompletedTasks] = useState([])
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [unCompletedTasks, setUnCompletedTasks] = useState([]);
   // const [taskID, setTaskID] = useState("")
 
   // Mark task as complete/uncomplete
   const handleClick = async (task) => {
     if (task.isComplete === "YES") {
-      task.isComplete = "NO"
+      task.isComplete = "NO";
     } else {
-      task.isComplete = "YES"
+      task.isComplete = "YES";
     }
     const response = await fetch(`${taskFetchPath}${task._id}`, {
       method: "PUT",
@@ -108,11 +106,11 @@ const UserTasksTable = () => {
       },
     });
     const json = await response.json();
-    
+
     if (response.ok) {
-      dispatch({ type: "EDIT_Tasks", payload: {json}});
+      dispatch({ type: "EDIT_Tasks", payload: { json } });
     }
-  }
+  };
 
   // START OF LOGIC FOR Mark as Complete or NOT complete //
 
@@ -204,11 +202,11 @@ const UserTasksTable = () => {
 
       let data = await res.json();
       */
-      setCompletedTasks([])
-      setUnCompletedTasks([])
-      
-      let completed = []
-      let unCompleted = []
+      setCompletedTasks([]);
+      setUnCompletedTasks([]);
+
+      let completed = [];
+      let unCompleted = [];
 
       for (const task of tasks) {
         if (task.isComplete === "YES") {
@@ -240,8 +238,11 @@ const UserTasksTable = () => {
         </thead>
         <Tbody>
           {rowData.map((row) => {
-            const date = new Date(row.due_date);
+            let currentDate = row.due_date;
+            let goodDate = currentDate.replace("-", "/");
+            const date = new Date(goodDate);
             const dueDateFormatted = format(date, "MM/dd/yyyy");
+          
             return (
               <Tr key={row._id}>
                 <Td>{dueDateFormatted}</Td>
