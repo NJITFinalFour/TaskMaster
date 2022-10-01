@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { taskFetchPath } from "../../api/fetchpaths";
 import { userFetchPath } from "../../api/fetchpaths";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTasksContext } from "../../hooks/useTaskContext";
 
 const Container = styled.div``;
 
@@ -88,6 +89,7 @@ const Button = styled.button`
 
 const AdminAddNewTask = (props) => {
   const { user } = useAuthContext();
+  const { dispatch } = useTasksContext();
   const [error, setError] = useState("");
   // const [userID, setUserID] = useState ("")
   const [users, setUsers] = useState([]);
@@ -116,6 +118,7 @@ const AdminAddNewTask = (props) => {
     const json = await response.json();
 
     if (response.ok) {
+      dispatch({ type: "CREATE_Tasks", payload: json})
       setNewTask({
         taskName: "",
         organization_id: user.organization,
@@ -125,7 +128,7 @@ const AdminAddNewTask = (props) => {
         isComplete: "NO",
         notes: "",
       });
-      window.location.reload(false);
+      // window.location.reload(false);
     }
   };
 

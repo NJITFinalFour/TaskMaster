@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import styled from "styled-components"
 import { taskFetchPath, userFetchPath } from "../../api/fetchpaths"
 import { useAuthContext } from "../../hooks/useAuthContext"
-
+import { useTasksContext } from "../../hooks/useTaskContext";
 
 const Container = styled.div`
   
@@ -92,7 +92,7 @@ const EditTask = (props) => {
   const { user } = useAuthContext();
   const [error, setError] = useState("");
   const [ users, setUsers ] = useState([])
-
+  const { tasks, dispatch } = useTasksContext();
 
   // console.log(props.task)
 
@@ -126,9 +126,9 @@ const EditTask = (props) => {
       
   
       if (response.ok) {
-
-        setNewTask({});
-        window.location.reload(false);
+        dispatch({ type: "EDIT_Tasks", payload: {...json, ...newTask}});
+        // setNewTask({});
+        // window.location.reload(false);
       
         
         
