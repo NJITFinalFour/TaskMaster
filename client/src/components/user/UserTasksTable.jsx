@@ -222,7 +222,7 @@ const UserTasksTable = () => {
     };
 
     fetchTasks();
-  }, [user]);
+  }, [tasks]);
 
   const displayTable = (rowData, complete) => {
     return (
