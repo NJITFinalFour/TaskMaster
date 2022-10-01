@@ -201,21 +201,23 @@ const AdminDashboard = () => {
       let completed = [];
 
       for (const task of tasks) {
-        const dueDate = new Date(task.due_date);
+        let currentDate = task.due_date;
+        let goodDate = currentDate.replace("-", "/");
+        const dueDate = new Date(goodDate);
         const dueDateFormatted = format(dueDate, "MM/dd/yyyy");
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
+        console.log(`current date ${currentDate}`);
+        console.log(`good date ${goodDate}`);
+        console.log(`dueDateFormatted ${dueDateFormatted}`);
 
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdue.push(task);
-        } else if (
-          dueDateFormatted >= todayFormatted &&
-          task.isComplete === "NO"
-        ) {
+        } else if (dueDateFormatted >= todayFormatted && task.isComplete === "NO") {
           inProgress.push(task);
         } else if (task.isComplete === "YES") {
           completed.push(task);
-        } 
+        }
         all.push(task);
       }
       setOverdueTasks(overdue);
@@ -241,7 +243,7 @@ const AdminDashboard = () => {
     });
 
     if (response.ok) {
-      dispatch({ type: "DELETE_Tasks", payload: id})
+      dispatch({ type: "DELETE_Tasks", payload: id });
       //setAllTasks(allTasks.filter((task) => task._id !== id));
       // window.location.reload(false);
     }
@@ -274,11 +276,7 @@ const AdminDashboard = () => {
     }
 
     return (
-      <Td
-        data-label="Assigned to"
-        key={foundWorker._id}
-        value={foundWorker._id}
-      >
+      <Td data-label="Assigned to" key={foundWorker._id} value={foundWorker._id}>
         {workerName}
       </Td>
     );
@@ -303,9 +301,11 @@ const AdminDashboard = () => {
           </thead>
           <Tbody>
             {rowData.map((task) => {
-              const date = new Date(task.due_date);
-              const dueDateFormatted = format(date, "MM/dd/yyyy");
-              console.log(task)
+              let currentDate = task.due_date;
+              let goodDate = currentDate.replace("-", "/");
+              const dueDate = new Date(goodDate);
+              const dueDateFormatted = format(dueDate, "MM/dd/yyyy");
+
               return (
                 <Tr key={task._id}>
                   <Td data-label="Due Date">
@@ -333,12 +333,7 @@ const AdminDashboard = () => {
                         }}
                       />
                     </EditWrapper>
-                    <EditTask
-                      taskid={taskID}
-                      task={task}
-                      show={editModalShow === task._id}
-                      onHide={() => setEditModalShow(false)}
-                    />
+                    <EditTask taskid={taskID} task={task} show={editModalShow === task._id} onHide={() => setEditModalShow(false)} />
                   </Td>
                   <Td data-label="Delete Task">
                     <DeleteWrapper>
@@ -356,17 +351,12 @@ const AdminDashboard = () => {
           </Tbody>
         </StyledTable>
       );
-    };
+    }
   };
 
   return (
     <Container>
-      <StyledTabs
-        defaultActiveKey="users"
-        id="fill-tab-example"
-        className="mb-3"
-        fill
-      >
+      <StyledTabs defaultActiveKey="users" id="fill-tab-example" className="mb-3" fill>
         <StyledTab eventKey="users" title={`Users (${users.length})`}>
           <Wrapper>
             <WrapperAllUsers>
@@ -390,28 +380,19 @@ const AdminDashboard = () => {
             {displayTable(allTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab
-          eventKey="overdueTasks"
-          title={`Overdue (${overdueTasks.length})`}
-        >
+        <StyledTab eventKey="overdueTasks" title={`Overdue (${overdueTasks.length})`}>
           <Wrapper>
             <Heading>Overdue Tasks</Heading>
             {displayTable(overdueTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab
-          eventKey="inProgressTasks"
-          title={`In Progress (${inProgressTasks.length})`}
-        >
+        <StyledTab eventKey="inProgressTasks" title={`In Progress (${inProgressTasks.length})`}>
           <Wrapper>
             <Heading>In Progress Tasks</Heading>
             {displayTable(inProgressTasks)}
           </Wrapper>
         </StyledTab>
-        <StyledTab
-          eventKey="completedTasks"
-          title={`Completed (${completedTasks.length})`}
-        >
+        <StyledTab eventKey="completedTasks" title={`Completed (${completedTasks.length})`}>
           <Wrapper>
             <Heading>Completed Tasks</Heading>
             {displayTable(completedTasks)}
