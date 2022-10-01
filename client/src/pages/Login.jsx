@@ -3,7 +3,7 @@ import logo from "../images/TaskmasterWhite.png";
 import { mobile } from "../responsive";
 import { useLogin } from "../hooks/useLogin";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 const Container = styled.div`
@@ -109,9 +109,19 @@ const Login = () => {
         </LogoWrapper>
         <Title>LOG IN</Title>
         <Form onSubmit={handleSubmit}>
-          <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Email" />
-          <Input type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
-          {error && <Error >{error}</Error>}
+          <Input
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            placeholder="Email"
+          />
+          <Input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="Password"
+          />
+          {error && <Error>{error}</Error>}
           <Button>SIGN IN</Button>
           <Link>Forgot Password?</Link>
         </Form>

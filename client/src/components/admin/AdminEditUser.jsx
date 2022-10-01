@@ -1,14 +1,10 @@
-
-import { useState } from "react"
+import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import styled from "styled-components"
-import { userFetchPath } from "../../api/fetchpaths"
-import { useAuthContext } from "../../hooks/useAuthContext"
+import styled from "styled-components";
+import { userFetchPath } from "../../api/fetchpaths";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-
-const Container = styled.div`
-  
-`
+const Container = styled.div``;
 
 const Form = styled.form`
   /* align-items: center;
@@ -33,7 +29,7 @@ const Input = styled.input`
 
 const Label = styled.label`
   margin: auto;
-`
+`;
 
 const Select = styled.select`
   flex: 1;
@@ -51,14 +47,13 @@ const Option = styled.option`
   margin: 20px 10px;
   padding: 10px;
 `;
- /*const NotesInput = styled.textarea`
+/*const NotesInput = styled.textarea`
    flex: 1;
    min-width: 40%;
    margin: 20px 10px;
    padding: 10px;
    height: 200px;
  `;*/
-
 
 const Bottom = styled.div`
   display: flex;
@@ -87,133 +82,126 @@ const Button = styled.button`
   }
 `;
 
-
 const EditUser = (props) => {
   const { user } = useAuthContext();
 
-  const setWorkers = props.setWorkers
+  const setWorkers = props.setWorkers;
 
   // console.log(props.task)
 
-  const [newUser, setNewUser] = useState ({
-    
+  const [newUser, setNewUser] = useState({
     first_name: props.first_name,
     last_name: props.last_name,
     email: props.email,
-    isAdmin: (props.is_admin === "True") ? true : false,
+    isAdmin: props.is_admin === "True" ? true : false,
     _id: props._id,
   });
 
-  
+  //Submit changes
+  const handleSubmit = async (e) => {
+    console.log(newUser);
 
-//Submit changes
-    const handleSubmit= async (e) => {
-        console.log(newUser)
-      
-      e.preventDefault();
+    e.preventDefault();
 
-      const toSend = newUser
+    const toSend = newUser;
 
-      if (newUser.isAdmin === "true"){
-        toSend.isAdmin = true
-      } else {
-        toSend.isAdmin = false
-      }
+    if (newUser.isAdmin === "true") {
+      toSend.isAdmin = true;
+    } else {
+      toSend.isAdmin = false;
+    }
 
-      const response = await fetch(`${userFetchPath}update`, {
-        method: "PUT",
-        body: JSON.stringify(newUser),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      const json = await response.json();
-      console.log(json)
-      
-      
-        const res = await fetch(`${userFetchPath}${user.organization}`, {
-            method: "GET",
-            mode: "cors"
-        })
-        let alldata = await res.json()
-        setWorkers(alldata)
-      
-  
-    };
+    const response = await fetch(`${userFetchPath}update`, {
+      method: "PUT",
+      body: JSON.stringify(newUser),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+    console.log(json);
 
-    return (
-      <Container>
-        <Modal
-          {...props}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Modify User
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form autocomplete="off" onSubmit={handleSubmit}>
-              <Top>
-                <Label>Firstname</Label>
-                <Input
-                  type="text"
-                  name="first_name"
-                  // placeholder="Task Name"
-                  onChange={(event) => {
-                    setNewUser({ ...newUser, first_name: event.target.value });
-                  }}
-                  defaultValue={newUser.first_name}
-                  required
-                />
-                <Label>Lastname</Label>
-                <Input
-                  type="text"
-                  name="last_name"
-                  onChange={(event) => {
-                    setNewUser({ ...newUser, last_name: event.target.value });
-                  }}
-                  defaultValue={newUser.last_name}
-                  required
-                />
-                <Label>Email</Label>
-                <Input
-                  type="text"
-                  name="email"
-                  onChange={(event) => {
-                    setNewUser({ ...newUser, email: event.target.value });
-                  }}
-                  defaultValue={newUser.email}
-                  required
-                />
-                <Label>Is Admin</Label>
-                <Select
-                  name="isAdmin"
-                  placeholder="IsAdmin"
-                  label="isAdmin"
-                  onChange={(event) => {
-                    setNewUser({ ...newUser, isAdmin: event.target.value });
-                  }}
-                  value={newUser.isAdmin}
-                  required
-                >
-                  <Option value={true}>True</Option>
-                  <Option value={false}>False</Option>
-                </Select>
-              </Top>
-              <Bottom>
-                <Button type="submit" onClick={props.onHide}>
-                  Submit Change
-                </Button>
-              </Bottom>
-            </Form>
-          </Modal.Body>
-        </Modal>
-      </Container>
-    );
-}
+    const res = await fetch(`${userFetchPath}${user.organization}`, {
+      method: "GET",
+      mode: "cors",
+    });
+    let alldata = await res.json();
+    setWorkers(alldata);
+  };
 
-export default EditUser
+  return (
+    <Container>
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modify User
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form autocomplete="off" onSubmit={handleSubmit}>
+            <Top>
+              <Label>Firstname</Label>
+              <Input
+                type="text"
+                name="first_name"
+                // placeholder="Task Name"
+                onChange={(event) => {
+                  setNewUser({ ...newUser, first_name: event.target.value });
+                }}
+                defaultValue={newUser.first_name}
+                required
+              />
+              <Label>Lastname</Label>
+              <Input
+                type="text"
+                name="last_name"
+                onChange={(event) => {
+                  setNewUser({ ...newUser, last_name: event.target.value });
+                }}
+                defaultValue={newUser.last_name}
+                required
+              />
+              <Label>Email</Label>
+              <Input
+                type="text"
+                name="email"
+                onChange={(event) => {
+                  setNewUser({ ...newUser, email: event.target.value });
+                }}
+                defaultValue={newUser.email}
+                required
+              />
+              <Label>Is Admin</Label>
+              <Select
+                name="isAdmin"
+                placeholder="IsAdmin"
+                label="isAdmin"
+                onChange={(event) => {
+                  setNewUser({ ...newUser, isAdmin: event.target.value });
+                }}
+                value={newUser.isAdmin}
+                required
+              >
+                <Option value={true}>True</Option>
+                <Option value={false}>False</Option>
+              </Select>
+            </Top>
+            <Bottom>
+              <Button type="submit" onClick={props.onHide}>
+                Submit Change
+              </Button>
+            </Bottom>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </Container>
+  );
+};
+
+export default EditUser;

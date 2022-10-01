@@ -9,7 +9,8 @@
 
 //+++++++++++++++++++AWS PROD BACKEND PATHS ++++++++++++++++++++
 
-export const signupAdminFetchPath = "https://server.taskmasterusa.com/organizations/signup";
+export const signupAdminFetchPath =
+  "https://server.taskmasterusa.com/organizations/signup";
 export const signupFetchPath = "https://server.taskmasterusa.com/user/signup/";
 export const taskFetchPath = "https://server.taskmasterusa.com/tasks/";
 export const loginFetchPath = "https://server.taskmasterusa.com/user/login";

@@ -13,19 +13,18 @@ import { useTasksContext } from "../../hooks/useTaskContext";
 
 const Container = styled.div`
   height: 80vh;
-
-  
 `;
 
-const StyledTable = styled(Table)`
-
-`;
+const StyledTable = styled(Table)``;
 
 const Tbody = styled.tbody`
   overflow-y: auto;
 `;
 
 const Tr = styled.tr`
+  &:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
 `;
 
 const Td = styled.td`
@@ -64,7 +63,7 @@ const TaskWrapper = styled.div`
   border: 1px solid black;
   border-radius: 10px;
 
-  ${mobile({ margin: "0px", padding: "0.7em "})};
+  ${mobile({ margin: "0px", padding: "0.7em " })};
 `;
 
 const TaskWrapperTwo = styled.div`
@@ -85,7 +84,6 @@ const Heading = styled.h3`
 
   ${mobile({ fontSize: "1.2em", textAlign: "center" })};
 `;
-
 
 const UserTasksTable = () => {
   const { user } = useAuthContext();
@@ -120,7 +118,7 @@ const UserTasksTable = () => {
 
   /*useEffect(() => {
     const handleChange = async () => {
-      console.log(taskID)
+      console.log(taskID);
       const response = await fetch(`${taskFetchPath}${taskID}`, {
         method: "Get",
         headers: {
@@ -214,21 +212,19 @@ const UserTasksTable = () => {
 
       for (const task of tasks) {
         if (task.isComplete === "YES") {
-          completed.push(task)
-          setCompletedTasks(completed)
+          completed.push(task);
+          setCompletedTasks(completed);
         } else {
-          unCompleted.push(task)
-          setUnCompletedTasks(unCompleted)
+          unCompleted.push(task);
+          setUnCompletedTasks(unCompleted);
         }
       }
     };
 
     fetchTasks();
-  }, [tasks]);
-
+  }, [user]);
 
   const displayTable = (rowData, complete) => {
-
     return (
       <StyledTable responsive>
         <thead>
@@ -240,13 +236,12 @@ const UserTasksTable = () => {
             <th>Notes</th>
             {complete === true && <th>Complete</th>}
             {complete === false && <th>Undo Complete</th>}
-
           </tr>
         </thead>
         <Tbody>
           {rowData.map((row) => {
             const date = new Date(row.due_date);
-            const dueDateFormatted = format(date, "MM/dd/yyyy")
+            const dueDateFormatted = format(date, "MM/dd/yyyy");
             return (
               <Tr key={row._id}>
                 <Td>{dueDateFormatted}</Td>
@@ -283,19 +278,15 @@ const UserTasksTable = () => {
           })}
         </Tbody>
       </StyledTable>
-    )
-  }
+    );
+  };
 
   return (
     <Container>
       <Heading>Needs to be completed {`(${unCompletedTasks.length})`}</Heading>
-      <TaskWrapper>
-        {displayTable(unCompletedTasks, true)}
-      </TaskWrapper>
+      <TaskWrapper>{displayTable(unCompletedTasks, true)}</TaskWrapper>
       <Heading>Completed {`(${completedTasks.length})`}</Heading>
-      <TaskWrapperTwo>
-        {displayTable(completedTasks, false)}
-      </TaskWrapperTwo>
+      <TaskWrapperTwo>{displayTable(completedTasks, false)}</TaskWrapperTwo>
     </Container>
   );
 };

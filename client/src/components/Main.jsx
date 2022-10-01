@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import backgroundImg from "../images/backgroundTwo.jpg"
-
+import backgroundImg from "../images/backgroundTwo.jpg";
 
 const Container = styled.div`
   width: 100%;
@@ -9,7 +8,7 @@ const Container = styled.div`
   margin-bottom: 5em;
 
   ${mobile({
-    marginBottom: "0.5em"
+    marginBottom: "0.5em",
   })}
 `;
 
@@ -30,7 +29,7 @@ const Wrapper = styled.div`
   ${mobile({
     width: "100vw",
     height: "100vh",
-    borderRadius: "0px"
+    borderRadius: "0px",
   })};
 `;
 
@@ -43,7 +42,7 @@ const AboutWrapper = styled.div`
   background-color: white;
   border-radius: 10px;
   margin-top: 60vh;
-  ${mobile({width: "90%", marginTop: "40vh"})}
+  ${mobile({ width: "90%", marginTop: "40vh" })}
 `;
 
 const About = styled.div`

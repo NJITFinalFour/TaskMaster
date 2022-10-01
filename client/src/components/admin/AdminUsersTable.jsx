@@ -19,21 +19,19 @@ const Container = styled.div`
   /* ${mobile({ height: "100vh" })}; */
 `;
 
-const StyledTable = styled(Table)`
-`;
-const Thead = styled.thead`
-
-`;
+const StyledTable = styled(Table)``;
+const Thead = styled.thead``;
 
 const Th = styled.th`
   ${mobile({ fontSize: "0.7em" })};
 `;
 
-const Tbody = styled.tbody`
-
-`;
+const Tbody = styled.tbody``;
 
 const Tr = styled.tr`
+  &:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
 `;
 
 const Td = styled.td`
@@ -117,7 +115,6 @@ const AdminUsersTable = () => {
     console.log(response);
   };
 
-
   const displayEdit = (worker) => {
     return (
       <>
@@ -160,14 +157,14 @@ const AdminUsersTable = () => {
     <Container>
       <StyledTable className="table" responsive>
         <Thead>
-          <Tr>
+          <tr>
             <Th>Last Name</Th>
             <Th>First Name</Th>
             <Th>Email</Th>
             <Th>Role</Th>
             <Th>Edit User</Th>
             <Th>Delete User</Th>
-          </Tr>
+          </tr>
         </Thead>
         <Tbody>
           {workers.map((worker) => {
