@@ -263,13 +263,13 @@ const AdminDashboard = () => {
   };
 
   const findWorkerName = (task) => {
-    let workerName = "Nobody"
-    let foundWorker = {_id: task.user_id}
+    let workerName = "Nobody";
+    let foundWorker = { _id: task.user_id };
 
     for (const worker of users) {
       if (worker._id === task.user_id) {
-        workerName = worker.first_name + " " + worker.last_name
-        foundWorker = worker
+        workerName = worker.first_name + " " + worker.last_name;
+        foundWorker = worker;
       }
     }
 
@@ -281,7 +281,7 @@ const AdminDashboard = () => {
       >
         {workerName}
       </Td>
-    )
+    );
   };
 
   const displayTable = (rowData) => {
