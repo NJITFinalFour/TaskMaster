@@ -258,6 +258,28 @@ const AdminDashboard = () => {
     XLSX.writeFile(wb, "TaskMasterUSA_Users.xlsx");
   };
 
+  const findWorkerName = (task) => {
+    let workerName = "Nobody"
+    let foundWorker = {_id: task.user_id}
+
+    for (const worker of users) {
+      if (worker._id === task.user_id) {
+        workerName = worker.first_name + " " + worker.last_name
+        foundWorker = worker
+      }
+    }
+
+    return (
+      <Td
+        data-label="Assigned to"
+        key={foundWorker._id}
+        value={foundWorker._id}
+      >
+        {workerName}
+      </Td>
+    )
+  };
+
   const displayTable = (rowData) => {
     return (
       <StyledTable responsive>
@@ -292,19 +314,7 @@ const AdminDashboard = () => {
                  <Td data-label="Priority" taskPriority={task.priority}>
                   {task.priority}
                 </Td>
-                {users.map((worker) => {
-                  if (task.user_id === worker._id) {
-                    return (
-                      <Td
-                        data-label="Assigned to"
-                        key={worker._id}
-                        value={worker._id}
-                      >
-                        {worker.first_name + " " + worker.last_name}
-                      </Td>
-                    );
-                  }
-                })}
+                {findWorkerName(task)}
                 <Td data-label="Task Name">{task.taskName}</Td>
                 <Td data-label="Notes">{task.notes}</Td>
                 <Td data-label="Completed?">{task.isComplete}</Td>
