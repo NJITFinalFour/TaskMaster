@@ -9,9 +9,9 @@
 
 //+++++++++++++++++++AWS PROD BACKEND PATHS ++++++++++++++++++++
 
-export const signupAdminFetchPath = "https://server.taskmasterusa.com/organizations/signup";
-export const signupFetchPath = "https://server.taskmasterusa.com/user/signup/";
-export const taskFetchPath = "https://server.taskmasterusa.com/tasks/";
-export const loginFetchPath = "https://server.taskmasterusa.com/user/login";
-export const orgFetchPath = "https://server.taskmasterusa.com/organizations";
-export const userFetchPath = "https://server.taskmasterusa.com/user/";
+export const signupAdminFetchPath = "https://taskmasterusa.herokuapp.com/organizations/signup";
+export const signupFetchPath = "https://taskmasterusa.herokuapp.com/user/signup/";
+export const taskFetchPath = "https://taskmasterusa.herokuapp.com/tasks/";
+export const loginFetchPath = "https://taskmasterusa.herokuapp.com/user/login";
+export const orgFetchPath = "https://taskmasterusa.herokuapp.com/organizations";
+export const userFetchPath = "https://taskmasterusa.herokuapp.com/user/";
