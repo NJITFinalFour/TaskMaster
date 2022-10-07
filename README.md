@@ -1,10 +1,10 @@
 # TaskMaster
 > A SAAS application for task managment using React, Node.js, Express, and MongoDB.
 
-![Home Page](client/src/images/HomePage.jpg)
-![Login Page](client/src/images/LoginPage.jpg)
-![Admin Page](client/src/images/AdminPage.jpg)
-![User Page](client/src/images/UserPage.jpg)
+![Home Page](client/src/images/HomePage.png)
+![Signup Page](client/src/images/SignUpPage.png)
+![Admin Page](client/src/images/AdminPage.png)
+![User Page](client/src/images/UserPage.png)
 
 ## Table of Contents
 * [Description](#description)
@@ -16,16 +16,16 @@
 * [Contributors](#contributors)
 
 ## Description
-This web application that allows employers to track and assign tasks within various organizations.
+This web application allows employers to track and assign tasks to their users within their individual organization. Normal users can log in to track what tasks have been assigned, and check them off upon completion. 
 
 ## DemoAccount 
 * ADMIN Login: user: demo@gmail.com password: Password123!
 * Regular User Login: mike@gmail.com password: Password123!
 
 ## Deployment
-* Frontend Deployed (Client): AWS Amplify https://www.taskmasterusa.com/
-* Backend Deployed (Server Route): AWS Elastic Beanstalk  https://server.taskmasterusa.com
-* Database: Mongo DB Atlas Hosted Database
+* Frontend Deployed: AWS Amplify https://www.taskmasterusa.com/
+* Backend Deployed: AWS Elastic Beanstalk  https://server.taskmasterusa.com
+* Database: MongoDB Atlas
 
 ## Dependencies
 This project was created with the following:
@@ -67,7 +67,7 @@ This project was created with the following:
 ## Features
 * Login as a normal user, sign an organization up, or log in as an admin level user to control functionality across the application. Logins are protected with Bcrypt, JWT tokens, and validator.
 * Styled components used for design in order to have custom React components and cut down on the Javascript build file.
-* A button that has the functionality to export user data as an Excel file. 
+* Ability to export user and/or task data as an Excel file. 
 * Deployed onto the web using AWS.
 
 ## Setup
@@ -90,7 +90,7 @@ $ npm install
 # Run command in both folders to run app (start with server first)
 $ npm start
 
-Once the dependencies are installed, you will be ale to access it at localhost:3000.
+Once the dependencies are installed, you will be able to access the frontend at localhost:3000 and the backend at localhost:5000.
 ```
 
 ## Contributors
