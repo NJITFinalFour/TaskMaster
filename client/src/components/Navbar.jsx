@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 15%;
+  padding: 10px 20%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,7 +49,7 @@ const Right = styled.div`
 `;
 
 const NavLink = styled.a`
-  font-size: 1.5em;
+  font-size: 1.2em;
   cursor: pointer;
   margin: 0em 0.7em;
   padding: 0.2em 0.6em;
