@@ -4,6 +4,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   text-align: center;
   margin: 10px 0px;
+  color: #48b9ea;
 `;
 
 const Signature = styled.span`

@@ -54,7 +54,7 @@ export const TaskContextProvider = ({ children }) => {
           }
         );
         let data = await res.json();
-        console.log(data)
+        // console.log(data)
         dispatch({ type: "SET_Tasks", payload: data });
       } else if (!user.isAdmin && user && !state.tasks){
         const res = await fetch(
