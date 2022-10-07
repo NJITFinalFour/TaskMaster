@@ -51,13 +51,15 @@ const Button = styled.button`
   font-size: 1.3em;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
-  color: #7aa83d;
+  color: white;
+  background-color: #014866;
+  border-width: 0px;
+  border-radius: 14px;
+  padding: 6px 14px;
   margin: 1em;
 
   &:hover {
-    color: #4e5c3d;
+    color: #dddddd;
   }
 
   ${mobile({ fontSize: "0.9em" })};

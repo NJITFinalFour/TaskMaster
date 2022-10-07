@@ -78,7 +78,7 @@ const TaskWrapperTwo = styled.div`
 const Heading = styled.h3`
   font-weight: 600;
   margin: 15px 13%;
-  color: #88bb44;
+  color: #027db3;
 
   ${mobile({ fontSize: "1.2em", textAlign: "center" })};
 `;

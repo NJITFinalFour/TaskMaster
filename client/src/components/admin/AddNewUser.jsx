@@ -43,14 +43,14 @@ const Button = styled.button`
   border-radius: 15px;
   padding: 10px 15px;
   margin: 1.3em 0em 1.3em 0em;
-  background-color: #c0e195;
-  color: black;
+  background-color: #014866;
+  color: white;
   cursor: pointer;
   font-weight: 500;
 
   &:hover {
     border: 1px solid white;
-    background-color: #88bb44;
+    background-color: #027db3;
     color: white;
   }
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Timer from "./Timer";
-import logo from "../images/Taskmaster.png";
+import logo from "../images/TaskmasterBlueNav.png";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import { useEffect } from "react";
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: #f7f7f7;
-  color: #88bb44;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   ${mobile({ padding: "10px 0px" })};
 `;
@@ -55,10 +54,10 @@ const NavLink = styled.a`
   margin: 0em 0.7em;
   padding: 0.2em 0.6em;
   text-decoration: none;
-  color: #7aa83d;
+  color: #205166;
 
   &:hover {
-    background-color: #88bb44;
+    background-color: #205166;
     color: white;
     border-radius: 5px;
   }
@@ -74,21 +73,21 @@ const NavItem = styled.p`
 `;
 
 const LogOutButton = styled.a`
-  font-size: 1em;
+  font-size: 1.1em;
   cursor: pointer;
   margin-left: 1.2em;
   text-decoration: none;
   color: white;
-  /* border: 1px solid #7aa83d; */
   background-color: #707070;
   border-radius: 14px;
   padding: 6px 14px;
 
   &:hover {
-    color: #9edb4f;
+    background-color: #014866;
+    color: white;
   }
 
-  ${mobile({ margin: "0em 1em 0em 0em" })};
+  ${mobile({ margin: "0em 1em 0em 0em", fontSize: "0.8em" })};
 `;
 
 const Navbar = () => {

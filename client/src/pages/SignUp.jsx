@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import logo from "../images/TaskmasterWhite.png";
+import logo from "../images/TaskmasterBlue.png";
 import { mobile } from "../responsive";
 
 import { useSignup } from "../hooks/useSignup";
@@ -9,7 +9,7 @@ import "../index.css";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #4e5c3d;
+  background-color: #205166;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,8 +97,8 @@ const Button = styled.button`
   border: 1px solid black;
   border-radius: 15px;
   padding: 15px 20px;
-  background-color: #c0e195;
-  color: black;
+  background-color: #014866;
+  color: white;
   cursor: pointer;
   font-weight: 500;
 
@@ -106,7 +106,7 @@ const Button = styled.button`
 
   &:hover {
     border: 1px solid white;
-    background-color: #88bb44;
+    background-color: #027db3;
     color: white;
   }
 `;

@@ -46,7 +46,7 @@ const AboutWrapper = styled.div`
 `;
 
 const About = styled.div`
-  color: #7aa83d;
+  color: #205166;
   padding: 1em 2em;
   text-align: center;
   font-size: 30px;
@@ -55,9 +55,9 @@ const About = styled.div`
 
 const Button = styled.a`
   margin-top: 30px;
-  border: 1px solid #88bb44;
+  border: 1px solid #02a1e6;
   padding: 10px 20px;
-  background-color: #88bb44;
+  background-color: #02a1e6;
   color: white;
   cursor: pointer;
   font-weight: 600;
@@ -67,8 +67,8 @@ const Button = styled.a`
 
   &:hover {
     background-color: white;
-    border: 1px solid #88bb44;
-    color: #88bb44;
+    border: 1px solid #02a1e6;
+    color: #02a1e6;
   }
 
   ${mobile({ width: "70%", textAlign: "center" })}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Component = styled.div`
-  color: #7aa83d;
+  color: #027db3;
   font-size: 1.2em;
 
   ${mobile({ fontSize: "1em" })};

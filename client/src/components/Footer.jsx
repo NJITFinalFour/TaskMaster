@@ -13,7 +13,8 @@ import FooterSignature from "./FooterSignature";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #88bb44;
+  background-color: #212121;
+  color: white;
   /* position: fixed; */
   bottom: 0px;
   right: 0px;

@@ -37,7 +37,7 @@ const Tr = styled.tr`
 const Td = styled.td`
   height: 60px;
   vertical-align: middle;
-  color: ${(props) => (props.isAdmin ? "#88bb44" : "black")};
+  color: ${(props) => (props.isAdmin ? "#027DB3" : "black")};
   font-weight: ${(props) => (props.isAdmin ? 600 : 400)};
 
   &:first-child {
@@ -66,7 +66,7 @@ const EditWrapper = styled.div`
   font-size: 20px;
 
   &:hover {
-    color: #9edb4f;
+    color: #027db3;
     font-size: 22px;
   }
 `;

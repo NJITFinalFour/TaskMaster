@@ -26,14 +26,20 @@ const StyledTabs = styled(Tabs)`
   font-size: 1.5em;
 
   & .nav-link {
-    color: #88bb44;
+    color: #014866;
     font-weight: 600;
+
+    &:hover {
+      color: #027db3;
+    }
   }
 
   ${mobile({ fontSize: "1em" })};
 `;
 
-const StyledTab = styled(Tab)``;
+const StyledTab = styled(Tab)`
+  color: #027db3;
+`;
 
 const Wrapper = styled.div`
   height: 80vh;
@@ -62,16 +68,19 @@ const WrapperAllUsers = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 20px;
+  font-size: 1.2em;
+  padding: 0.2em 0.4em;
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  color: #7aa83d;
+  border-width: 0px;
+  color: white;
+  background-color: #707070;
   /* margin: 15px; */
 
   &:hover {
-    color: #4e5c3d;
+    background-color: #014866;
+    color: white;
   }
 
   ${mobile({ display: "none" })};
@@ -133,7 +142,7 @@ const EditWrapper = styled.div`
   font-size: 20px;
 
   &:hover {
-    color: #9edb4f;
+    color: #027db3;
     font-size: 22px;
   }
 `;
@@ -151,7 +160,7 @@ const DeleteWrapper = styled.div`
 const Heading = styled.h3`
   font-weight: 600;
   padding: 1em 2em 0.5em 2em;
-  color: #88bb44;
+  color: #027db3;
 
   ${mobile({ padding: "0.3em 2em" })};
 `;
@@ -207,9 +216,9 @@ const AdminDashboard = () => {
         const dueDateFormatted = format(dueDate, "MM/dd/yyyy");
         const today = Date.now();
         const todayFormatted = format(today, "MM/dd/yyyy");
-        console.log(`current date ${currentDate}`);
-        console.log(`good date ${goodDate}`);
-        console.log(`dueDateFormatted ${dueDateFormatted}`);
+        // console.log(`current date ${currentDate}`);
+        // console.log(`good date ${goodDate}`);
+        // console.log(`dueDateFormatted ${dueDateFormatted}`);
 
         if (dueDateFormatted < todayFormatted && task.isComplete === "NO") {
           overdue.push(task);
