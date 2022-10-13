@@ -146,7 +146,7 @@ const AdminUsersTable = () => {
         <RiDeleteBinLine
           className="deleteButton"
           onClick={() => {
-            handleDelete(worker._id);
+            if (window.confirm("Are youu sure you wnat to delete this user")) handleDelete(worker._id);
           }}
         />
       </DeleteWrapper>
@@ -176,12 +176,8 @@ const AdminUsersTable = () => {
                 <Td data-label="Is Admin" isAdmin={worker.isAdmin}>
                   {worker.isAdmin ? "Admin" : "User"}
                 </Td>
-                <Td data-label="Edit User">
-                  {user._id === worker._id ? "" : displayEdit(worker)}
-                </Td>
-                <Td data-label="Delete User">
-                  {user._id === worker._id ? "" : displayDelete(worker)}
-                </Td>
+                <Td data-label="Edit User">{user._id === worker._id ? "" : displayEdit(worker)}</Td>
+                <Td data-label="Delete User">{user._id === worker._id ? "" : displayDelete(worker)}</Td>
               </Tr>
             );
           })}
