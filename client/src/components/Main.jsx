@@ -16,9 +16,9 @@ const Wrapper = styled.div`
   width: 75vw;
   height: 100vh;
   background-image: url(${backgroundImg});
-  /* center no-repeat; */
   background-size: cover;
   background-position: center center;
+  opacity: 0.8;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,17 +39,17 @@ const AboutWrapper = styled.div`
   justify-content: center;
   width: 60%;
   font-size: 2rem;
-  background-color: white;
   border-radius: 10px;
-  margin-top: 60vh;
+  margin-top: 40vh;
   ${mobile({ width: "90%", marginTop: "40vh" })}
 `;
 
 const About = styled.div`
-  color: #205166;
+  color: white;
   padding: 1em 2em;
   text-align: center;
-  font-size: 30px;
+  font-size: 1.2em;
+  font-weight: 900;
   ${mobile({ fontSize: "20px", padding: "1em 0.5em" })}
 `;
 
