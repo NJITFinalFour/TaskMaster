@@ -15,10 +15,11 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 75vw;
   height: 100vh;
-  background-image: url(${backgroundImg});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url(${backgroundImg});
   background-size: cover;
   background-position: center center;
-  opacity: 0.8;
+  image-rendering: smooth;
   display: flex;
   flex-direction: column;
   align-items: center;
