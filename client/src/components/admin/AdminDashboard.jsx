@@ -349,7 +349,7 @@ const AdminDashboard = () => {
                       <RiDeleteBinLine
                         className="deleteButton"
                         onClick={() => {
-                          if (window.confirm("Are youu sure you wnat to delete this task?")) handleDelete(task._id);
+                          if (window.confirm("Are you sure you want to delete this task?")) handleDelete(task._id);
                         }}
                       />
                     </DeleteWrapper>
