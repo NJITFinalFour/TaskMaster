@@ -25,4 +25,4 @@ export const loginFetchPath = "https://sore-gray-moth-ring.cyclic.app/user/login
 export const orgFetchPath = "https://sore-gray-moth-ring.cyclic.app/organizations";
 export const userFetchPath = "https://sore-gray-moth-ring.cyclic.app/user/";
 
-//move to CYCLIC
+//move to CYCLIC for backend
